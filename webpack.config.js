@@ -11,14 +11,18 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Project To Do List',
+            template: './src/index.html',
             filename: 'index.html',
-            inject: 'body'
         })
     ],
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
+        assetModuleFilename: '[name][ext]',
         clean: true,
+    },
+    optimization: {
+        runtimeChunk: 'single',
     },
     module: {
         rules: [
@@ -26,9 +30,12 @@ module.exports = {
                 test: /\.css$/i,
                 use: ['style-loader', 'css-loader'],
             },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: 'asset/resource',
+              },
+        
         ],
     },
-    optimization: {
-        runtimeChunk: 'single',
-    },
+
 };
