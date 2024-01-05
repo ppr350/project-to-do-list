@@ -1,5 +1,5 @@
 import './style.css';
-import menuIcon from './MenuIcon.png'
+import hamburgerMenu from './hamburgerMenu.png'
 import { sayHello } from './hello';
 
 function announcement() {
@@ -11,3 +11,37 @@ function announcement() {
 }
 
 document.body.appendChild(announcement());
+
+// to do array //
+let todoArray = [];
+
+// On page load //
+function startupAndSyncWithLocalStorage() {
+    if (!localStorage.toDoList) {
+        localStorage.toDoList = todoArray;
+    }
+}
+startupAndSyncWithLocalStorage();
+
+// listen to new user entry //
+const userSubmitEntry = document.querySelector('.add-new-to-do').addEventListener('click', function(e) {
+    e.preventDefault();
+    addToTodoArray(e)
+    addToLocalStorage(e)
+})
+
+// add new user entry to todoArray //
+function addToTodoArray() {
+    let userEntry = document.querySelector('.new-to-do')
+    todoArray.unshift(userEntry.value)
+    userEntry.value = '';
+    console.log(todoArray)
+}
+
+
+// add to do list to local storage //
+function addToLocalStorage() {
+
+    localStorage.setItem('toDoList', JSON.stringify(todoArray));
+
+}

@@ -9,38 +9,55 @@
 <body>
     <h1 class="title">TO DO LIST</h1>
 
-    <div class="navbar">
-        <ul class="navbar-nav">
-            <li class="menu-icon-container">
-                <a href="#">
-                    <img src="./MenuIcon.png"
-                        class="menu-icon"
-                        alt="hamburger-menu"
-                        focusable="false">
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span class="link-text">+ New Reminder</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span class="link-text">All To Dos</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span class="link-text">All Projects</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span class="link-text">Completed</span>
-                </a>
-            </li>
-        </ul>
-        
+    <div class="content-container">
+
+        <!-- side navigation for options -->
+        <div id="sidebar">
+            <ul class="sidebar-options-container">
+
+                <!-- add new to do with an inoput field and a button -->
+                <div class="sidebar-options new-entry">
+                    <form class="new-entry-form">
+                        <input type="text"
+                                id="new-to-do"
+                                class="new-to-do"
+                                placeholder="add to do"
+                                maxlength="40">
+                            <button type="submit"
+                                    class="button add-new-to-do"
+                                    id="add-new-to-do">ADD
+                            </button>
+                    </form>
+
+                </div>
+
+                <!-- sidebar functionality -->
+                <li class="sidebar-options view-all-to-dos">
+                    <a href="#" class="options-link">
+                        <span class="link-text">All To Dos</span>
+                    </a>
+                </li>
+                <li class="sidebar-options view-all-projects">
+                    <a href="#" class="options-link">
+                        <span class="link-text">All Projects</span>
+                    </a>
+                </li>
+                <li class="sidebar-options completed-to-dos">
+                    <a href="#" class="options-link">
+                        <span class="link-text">Completed</span>
+                    </a>
+                </li>
+            </ul>           
+        </div>
+
+        <!-- main section for added to dos -->
+        <div class="to-do-section">
+            <ul class="list-items">
+                <li class="to-do-items"></li>
+            </ul>
+
+        </div>
+
     </div>
 </body>
 </html>
