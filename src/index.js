@@ -20,14 +20,15 @@ function startupAndSyncWithLocalStorage() {
     if (!localStorage.toDoList) {
         localStorage.toDoList = todoArray;
     }
+    getLocalStorageItems();
 }
 startupAndSyncWithLocalStorage();
 
 // listen to new user entry //
 const userSubmitEntry = document.querySelector('.add-new-to-do').addEventListener('click', function(e) {
     e.preventDefault();
-    addToTodoArray(e)
-    addToLocalStorage(e)
+
+    addToLocalStorage()
 })
 
 // add new user entry to todoArray //
@@ -41,7 +42,24 @@ function addToTodoArray() {
 
 // add to do list to local storage //
 function addToLocalStorage() {
+    getLocalStorageItems();
 
     localStorage.setItem('toDoList', JSON.stringify(todoArray));
+    addToTodoArray();
 
 }
+
+// pull saved items from local storage //
+function getLocalStorageItems() {
+    let items = localStorage.getItem('toDoList');
+    console.log(items);
+    return items;
+}
+
+// syncronise local storage with todoArray when page load or when it is called //
+function syncItemsToTodoArray() {
+    todoArray = getLocalStorageItems();
+    console.log(todoArray);
+}
+
+syncItemsToTodoArray()
