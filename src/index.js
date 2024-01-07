@@ -1,6 +1,7 @@
 import './style.css';
 import hamburgerMenu from './hamburgerMenu.png'
 import { sayHello } from './hello';
+import { closestIndexTo } from 'date-fns';
 
 function announcement() {
     const element = document.createElement('div');
@@ -13,39 +14,33 @@ function announcement() {
 document.body.appendChild(announcement());
 
 // to do array //
-let todoArray = [];
+let todoArray = getLocalStorageItems;
+
 
 // On page load //
 function startupAndSyncWithLocalStorage() {
-    if (!localStorage.toDoList) {
-        localStorage.toDoList = todoArray;
-    }
-    getLocalStorageItems();
+    if (!localStorage.todo) {
+        setLocalStorageItems;
+        
+    } getLocalStorageItems;
+    // getLocalStorageItems();
+    console.log('start up')
 }
 startupAndSyncWithLocalStorage();
 
 // listen to new user entry //
 const userSubmitEntry = document.querySelector('.add-new-to-do').addEventListener('click', function(e) {
     e.preventDefault();
-
-    addToLocalStorage()
+    console.log('click add')
+    addToLocalStorage();
 })
 
-// add new user entry to todoArray //
-function addToTodoArray() {
-    let userEntry = document.querySelector('.new-to-do')
-    todoArray.unshift(userEntry.value)
-    userEntry.value = '';
-    console.log(todoArray)
-}
+// sync new user entry to local todoArray //
+
 
 
 // add to do list to local storage //
 function addToLocalStorage() {
-    getLocalStorageItems();
-
-    localStorage.setItem('toDoList', JSON.stringify(todoArray));
-    addToTodoArray();
 
 }
 
@@ -56,10 +51,7 @@ function getLocalStorageItems() {
     return items;
 }
 
-// syncronise local storage with todoArray when page load or when it is called //
-function syncItemsToTodoArray() {
-    todoArray = getLocalStorageItems();
-    console.log(todoArray);
+function setLocalStorageItems() {
+    let items = 'item here'
+    localStorage.setItem('todo', JSON.stringify(items));
 }
-
-syncItemsToTodoArray()
