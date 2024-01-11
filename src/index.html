@@ -22,7 +22,8 @@
                                 id="new-to-do"
                                 class="new-to-do"
                                 placeholder="add to do"
-                                maxlength="40">
+                                maxlength="40"
+                                autocomplete="off">
                             <button type="submit"
                                     class="button add-new-to-do"
                                     id="add-new-to-do">ADD
@@ -59,8 +60,20 @@
         </div>
 
     </div>
+
+    <div class="todo-container">
+        <input type="checkbox" class="todo-checkbox">
+        <textarea class="todo-textarea"
+                  cols="30"
+                  rows="1"
+                  placeholder="be awesome"
+                  maxlength="40"
+                  minlength="1"
+                  readonly></textarea>
+    </div>
+
     <template class="template-to-do">
-        <div></div>
+
     </template>
 </body>
 </html>

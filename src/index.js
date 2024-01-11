@@ -17,14 +17,27 @@ document.body.appendChild(announcement());
 let todoArray = getLocalStorageItems;
 
 
+
 // On page load //
 function startupAndSyncWithLocalStorage() {
-    if (!localStorage.todo) {
-        setLocalStorageItems;
-        
-    } getLocalStorageItems;
-    // getLocalStorageItems();
     console.log('start up')
+
+    // let tasks = Array.from(JSON.parse(localStorage.getItem('tasks')));
+    // tasks.forEach(task => {
+    //     const todoContainer = document.querySelector('todo-container');
+
+    //     const todoCheckbox = document.createElement('input');
+    //     todoCheckbox.setAttribute('type', 'checkbox');
+    //     todoCheckbox.setAttribute('class', 'todo-checkbox')
+    //     todoContainer.appendChild(todoCheckbox);
+
+    //     const todoText = document.createElement('textarea');
+    //     todoText = setAttribute('class', 'todo-textarea');
+    //     todoContainer.appendChild(todoText);
+
+
+    // })
+
 }
 startupAndSyncWithLocalStorage();
 
