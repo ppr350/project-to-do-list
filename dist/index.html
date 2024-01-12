@@ -7,73 +7,30 @@
     <link rel="stylesheet" href="style.css">
 <script defer src="runtime.bundle.js"></script><script defer src="main.bundle.js"></script></head>
 <body>
-    <h1 class="title">TO DO LIST</h1>
+    <h1 class="title">LIOSTA A DHÉANAMH</h1>
 
-    <div class="content-container">
-
-        <!-- side navigation for options -->
+    <div id="container">
         <div id="sidebar">
-            <ul class="sidebar-options-container">
 
-                <!-- add new to do with an inoput field and a button -->
-                <div class="sidebar-options new-entry">
-                    <form class="new-entry-form">
-                        <input type="text"
-                                id="new-to-do"
-                                class="new-to-do"
-                                placeholder="add to do"
-                                maxlength="40"
-                                autocomplete="off">
-                            <button type="submit"
-                                    class="button add-new-to-do"
-                                    id="add-new-to-do">ADD
-                            </button>
-                    </form>
+            <div id="user-input-section">
+                <input type="text" id="user-input-project">
+                <button type="submit">Déan é</button>
+            </div>
+
+            <div id="project-section">
+                <h2>MY PROJECTS</h2>
+                <div id="projects">
 
                 </div>
-
-                <!-- sidebar functionality -->
-                <li class="sidebar-options view-all-to-dos">
-                    <a href="#" class="options-link">
-                        <span class="link-text">All To Dos</span>
-                    </a>
-                </li>
-                <li class="sidebar-options view-all-projects">
-                    <a href="#" class="options-link">
-                        <span class="link-text">All Projects</span>
-                    </a>
-                </li>
-                <li class="sidebar-options completed-to-dos">
-                    <a href="#" class="options-link">
-                        <span class="link-text">Completed</span>
-                    </a>
-                </li>
-            </ul>           
+            </div>
         </div>
 
-        <!-- main section for added to dos -->
-        <div id="to-do-section">
-            <ul class="list-items">
-                <li class="to-do-items">listed to do here</li>
-            </ul>
-
+        <div id="task-section">
+            <h2>PROJECT TASKS</h2>
         </div>
 
     </div>
 
-    <div class="todo-container">
-        <input type="checkbox" class="todo-checkbox">
-        <textarea class="todo-textarea"
-                  cols="30"
-                  rows="1"
-                  placeholder="be awesome"
-                  maxlength="40"
-                  minlength="1"
-                  readonly></textarea>
-    </div>
 
-    <template class="template-to-do">
-
-    </template>
 </body>
 </html>

@@ -1,66 +1,44 @@
-:root {
-    --fontsize-1: 1rem;
-    --fontsize-2: 1.618rem;
-    --fontsize-3: 2.618rem;
-    --fontsize-4: 4.236rem;
-    --fontsize-5: 6.854rem;
-    --fontsize-small: 0.618rem;
-}
-
 *,
 *::before,
-*::after {
+::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: system-ui, sans-serif;
-    color: white;
-    min-height: 100vh;
-    background-color: rgb(37, 37, 37);
+html {
+    height: 100%;
 }
 
-/* Delete the following when not needed */
-.content-container {
+body {
+    font-family: system-ui, sans-serif;
+    font-size: 1rem;
+}
+
+.title {
+    border: 1px solid red;
+}
+
+#container {
+    border: 1px solid purple;
     display: flex;
-    background-color: red;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 #sidebar {
-    background-color: lightblue;
+    border: 1px solid blue;
 }
 
-#to-do-section {
-    background-color: yellowgreen;
+#user-input-section {
+    border: 1px solid pink;
 }
 
-.new-to-do {
-    
+#project-section {
+    border: 1px solid teal;
 }
 
-.new-to-do,
-.todo-textarea {
-    width: 300px;
-    height: 22px;
-    font-size: var(--fontsize-1);
+#task-section {
+    border: 1px solid green;
 }
 
-.todo-textarea {
-    resize: none;
-}
-
-.todo-checkbox {
-    width: 0.8em;
-    height: 0.8em;
-    cursor: pointer;
-    border-radius: 50%;
-    background-color: white;
-    border: 1px solid rgb(255, 255, 255);
-    -webkit-appearance: none;
-}
-
-.todo-checkbox:checked {
-    background-color: #1dd2af;
-}
