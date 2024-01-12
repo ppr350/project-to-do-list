@@ -10,11 +10,11 @@
     <h1 class="title">LIOSTA A DHÉANAMH</h1>
 
     <div id="container">
-        <div id="sidebar">
+        <div id="sidebar-section">
 
             <div id="user-input-section">
                 <input type="text" id="user-input-project">
-                <button type="submit">Déan é</button>
+                <button type="submit" id="submit-project-btn">Déan é</button>
             </div>
 
             <div id="project-section">
@@ -30,6 +30,16 @@
         </div>
 
     </div>
+
+
+    <template id="project-template">
+        <div class="project-item">
+            <input type="checkbox" class="checkbox">
+            <label>
+                <span class="project-name"></span>
+            </label>
+        </div>
+    </template>
 
 
 </body>
