@@ -1,6 +1,6 @@
 import './style.css';
 import { fromLocalStorage, toLocalStorage } from './localStorage';
-import { save } from './save'
+import { save } from './save';
 import { closestIndexTo } from 'date-fns';
 
 const userInput = document.querySelector('#user-input-project');
@@ -14,11 +14,14 @@ let items = JSON.parse(localStorage.getItem('todolist')) || [];
 fromLocalStorage();
 
 function startUp() {
-    fromLocalStorage();
+    // fromLocalStorage();
     submitProjectButton.addEventListener('click', function(e) {
         e.preventDefault();
         console.log('click detected')
         save(userInput.value);
+        userInput.value = '';
     })
 }
 startUp();
+
+export { userInput, submitProjectButton, displayProjects, projectTemplate, checkBox, sidebarContainer, items }

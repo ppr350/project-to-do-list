@@ -1,7 +1,6 @@
 import { toLocalStorage } from "./localStorage";
+import { items } from ".";
 
-let items = JSON.parse(localStorage.getItem('todolist')) || [];
-const userInput = document.querySelector('#user-input-project');
 
 function save(newItemFromUser) {
     let item = {};
