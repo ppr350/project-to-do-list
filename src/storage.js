@@ -1,31 +1,26 @@
 import { projectTemplate, displayProjects } from "./index";
-// import { save, clear, items } from "./save";
+
+let items = JSON.parse(localStorage.getItem('todolist')) || [];
 
 function fromLocalStorage(itemsInLocalStorage) {
     if(localStorage.getItem('todolist')) {
-        clear()
+        reloadPage()
         itemsInLocalStorage = JSON.parse(localStorage.getItem('todolist'))
         for (let i = 0; i < itemsInLocalStorage.length; i++) {
-            console.log(itemsInLocalStorage)
             const projectElement = document.importNode(projectTemplate.content, true);
             const label = projectElement.querySelector('label');
             label.htmlFor = itemsInLocalStorage[i].id;
             label.append(itemsInLocalStorage[i].name);
             displayProjects.appendChild(projectElement);
-            // console.log(items)
-            items = itemsInLocalStorage;
-            
+            items = itemsInLocalStorage;          
         }
     }
-    console.log(items)
 }
 
 function toLocalStorage() {
     console.log(items)
     localStorage.setItem('todolist', JSON.stringify(items));
 }
-
-let items = JSON.parse(localStorage.getItem('todolist')) || [];
 
 function save(newItemFromUser) {
     let newItem = {};
@@ -40,9 +35,11 @@ function save(newItemFromUser) {
     }
 }
 
-function clear() {
+function reloadPage() {
     items = [];
     displayProjects.innerHTML = '';
 }
+
+
 
 export { fromLocalStorage, toLocalStorage, save }
