@@ -25,10 +25,9 @@ function toLocalStorage() {
 function save(newItemFromUser) {
     let newItem = {};
     if (newItemFromUser != '') {
-        console.log(newItemFromUser)
         newItem.name = newItemFromUser;
         newItem.id = new Date().valueOf();
-        newItem.complete = false;
+        newItem.isComplete = false;
         newItem.subItem = [];
         items.push(newItem);
         toLocalStorage();
