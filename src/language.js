@@ -12,7 +12,7 @@ function changeLanguage(choice) {
         title.innerText = 'TO DO LIST';
         submitProjectButton.innerText = 'NEW PROJECT';
         myProjects.innerText = 'MY PROJECTS';
-        myProjectTasks.innerText = 'TASCANNA TIONSCADAIL';
+        myProjectTasks.innerText = 'MY PROJECT TASKS';
     }
 }
 

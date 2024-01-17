@@ -1,4 +1,4 @@
-import { projectTemplate, displayProjects } from "./index";
+import { projectTemplate, displayProjects, checkBox } from "./index";
 
 let items = JSON.parse(localStorage.getItem('todolist')) || [];
 
@@ -18,9 +18,32 @@ function fromLocalStorage(itemsInLocalStorage) {
 }
 
 function toLocalStorage() {
-    console.log(items)
     localStorage.setItem('todolist', JSON.stringify(items));
 }
+
+function clickedOnProjectSection(item) {
+    if (item.matches('[type="checkbox"]')) {
+        toggleProjectIsComplete(item);
+    } else {
+        console.log('not a checkbox')
+    }
+    
+}
+
+function toggleProjectIsComplete(checkBoxItem) {
+    const parent = checkBoxItem.parentElement;
+    const completedItem = parent.querySelector(':nth-child(2)')
+    items.forEach(item => {
+        if (item.id == completedItem.htmlFor) {
+            item.isComplete = !item.isComplete;
+        }
+    })
+    toLocalStorage();
+}
+
+// function selectProject() {
+//     if (item.matches('[type='))
+// }
 
 function save(newItemFromUser) {
     let newItem = {};
@@ -41,4 +64,4 @@ function reloadPage() {
 
 
 
-export { fromLocalStorage, toLocalStorage, save }
+export { fromLocalStorage, toLocalStorage,clickedOnProjectSection, save }

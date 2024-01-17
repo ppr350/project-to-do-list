@@ -1,5 +1,5 @@
 import './style.css';
-import { save, clear, fromLocalStorage, toLocalStorage } from './storage';
+import { save, fromLocalStorage, clickedOnProjectSection } from './storage';
 import { changeLanguage } from './language';
 import { closestIndexTo } from 'date-fns';
 
@@ -7,6 +7,7 @@ const userInput = document.querySelector('#user-input-project');
 const submitProjectButton = document.querySelector('#submit-project-btn');
 const displayProjects = document.querySelector('#projects');
 const projectTemplate = document.querySelector('#project-template');
+const taskTemplate = document.querySelector('#task-template');
 const checkBox = document.querySelectorAll('.checkbox');
 const sidebarContainer = document.querySelector('.sidebar-section');
 
@@ -26,7 +27,7 @@ function startUp() {
         userInput.value = '';
     })
     displayProjects.addEventListener('click', function(e) {
-        console.log('clicked on display container')
+        clickedOnProjectSection(e.target);
     })
     chooseGaeilge.addEventListener('click', function(e) {
         changeLanguage('gaeilge');
@@ -37,4 +38,4 @@ function startUp() {
 }
 startUp();
 
-export { userInput, submitProjectButton, displayProjects, projectTemplate, checkBox, sidebarContainer, chooseGaeilge, chooseEnglish, startUp, title, myProjects, myProjectTasks }
+export { userInput, submitProjectButton, displayProjects, projectTemplate, taskTemplate, checkBox, sidebarContainer, chooseGaeilge, chooseEnglish, startUp, title, myProjects, myProjectTasks }
