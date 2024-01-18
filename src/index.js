@@ -1,5 +1,5 @@
 import './style.css';
-import { save, fromLocalStorage, clickedOnProjectSection } from './storage';
+import { saveProject, fromLocalStorage, clickedOnProjectSection, activeProject } from './storage';
 import { changeLanguage } from './language';
 import { closestIndexTo } from 'date-fns';
 

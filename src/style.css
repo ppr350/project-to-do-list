@@ -34,7 +34,11 @@ body {
     border: 1px solid blue;
 }
 
-#user-input-section {
+.project-item.active {
+    border: 1px solid brown;    
+}
+
+#user-projects-section {
     border: 1px solid pink;
 }
 
@@ -46,3 +50,12 @@ body {
     border: 1px solid green;
 }
 
+textarea {
+    font-family: system-ui, sans-serif;
+    font-size: 1rem;
+    height: 1.4em;
+    resize: none;
+    border: 1px solid blue;
+    outline: none;
+    overflow: auto;
+}
