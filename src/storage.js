@@ -18,7 +18,11 @@ function fromLocalStorage(itemsInLocalStorage) {
             const taskLabel = taskElement.querySelector('label');
             const textArea = taskLabel.querySelectorAll('.task-textarea')
             // add taskLabel id here //
+            
             for (let j = 0; j < itemsInLocalStorage[j].subItem.length; j++) {
+                const tasks = document.importNode(taskTemplate.content, true);
+                const textArea = tasks.querySelector('textarea');
+
                 textArea.value = itemsInLocalStorage[j].subItem;
                 console.log(taskLabel)
             }
@@ -79,12 +83,22 @@ function saveProject(newItemFromUser) {
 }
 
 function showTasks(fromTargetedProject) {
+
     if (document.querySelector('.task-item')) {
-        console.log('task(s) exist')
+        const taskItem = document.querySelectorAll('.task-item')
+        console.log(taskItem)
+        const textArea = taskItem.querySelector('textarea')
+        if (textArea.value != '') {
+            console.log('task(s) exist')
+
+            taskItem.forEach(task => console.log(task))
+        } else {
+            console.log('no task')
+        }
 
     } else {
         console.log('task(s) does not exist')
-        generateTasks(fromTargetedProject);
+
     }
 }
 
@@ -95,7 +109,7 @@ function generateTasks(projectName) {
     textArea.addEventListener('keydown', function(e) {
         if (e.keyCode == 13) {
             e.preventDefault();
-            // console.log(textArea.value);
+            console.log(textArea.value);
             saveTask(projectName, textArea.value);
             textArea.setAttribute('readonly', 'true');
             // console.log(projectName)
@@ -104,17 +118,6 @@ function generateTasks(projectName) {
 }
 
 function saveTask(project, newTask) {
-    // console.log(project)
-    // for (let i = 0; i < items.length; i++) {
-
-    //     if (items[i].id = project.htmlFor) {
-    //         console.log(items[i].id)
-    //         console.log(parseInt(project.htmlFor));
-    //         console.log(items[i].subItem);
-    //     }
-        
-    // }
-    // console.log(newTask)
     items.forEach(item => {
         if (item.id == parseInt(project.htmlFor)) {
             console.log(item.id, project.htmlFor)

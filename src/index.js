@@ -22,12 +22,15 @@ function startUp() {
     fromLocalStorage();
     submitProjectButton.addEventListener('click', function(e) {
         e.preventDefault();
-        save(userInput.value);
+        saveProject(userInput.value);
         fromLocalStorage();
         userInput.value = '';
     })
     displayProjects.addEventListener('click', function(e) {
         clickedOnProjectSection(e.target);
+    })
+    myProjectTasks.addEventListener('click', function(e) {
+        console.log(e.target)
     })
     chooseGaeilge.addEventListener('click', function(e) {
         changeLanguage('gaeilge');
