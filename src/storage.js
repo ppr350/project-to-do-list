@@ -12,7 +12,7 @@ function fromLocalStorage(itemsInLocalStorage) {
             projectLabel.htmlFor = itemsInLocalStorage[i].id;
             projectLabel.append(itemsInLocalStorage[i].name);
             displayProjects.appendChild(projectElement);
-            items = itemsInLocalStorage;     
+            
             
             const taskElement = document.importNode(taskTemplate.content, true);
             const taskLabel = taskElement.querySelector('label');
@@ -24,10 +24,12 @@ function fromLocalStorage(itemsInLocalStorage) {
                 const textArea = tasks.querySelector('textarea');
 
                 textArea.value = itemsInLocalStorage[j].subItem;
-                console.log(taskLabel)
+                // console.log(taskLabel)
             }
             
             myProjectTasks.appendChild(taskElement)
+
+            items = itemsInLocalStorage;     
         }
     }
 }
@@ -44,6 +46,15 @@ function clickedOnProjectSection(item) {
         activeProject(item);
     } else {
         console.log(item)
+    }
+}
+
+function clickedOnTaskSection(subItem) {
+    if (subItem.matches('textarea')) {
+        console.log('clicked on a textarea');
+        const projectItem = document.querySelector('.active');
+        console.log(projectItem)
+        generateTasks(subItem)
     }
 }
 
@@ -66,7 +77,7 @@ function activeProject(targetProject) {
     }
     targetProject.parentElement.classList.add('active');
     // code here to display project's task when adding 'active' class //
-    console.log(targetProject)
+    // console.log(targetProject)
     showTasks(targetProject);
 }
 
@@ -83,23 +94,28 @@ function saveProject(newItemFromUser) {
 }
 
 function showTasks(fromTargetedProject) {
+    console.log(fromTargetedProject)
+    // const taskItem = document.querySelectorAll('.task-item')
+    // const textArea = taskItem.getElementByTagName('textarea')
 
-    if (document.querySelector('.task-item')) {
-        const taskItem = document.querySelectorAll('.task-item')
-        console.log(taskItem)
-        const textArea = taskItem.querySelector('textarea')
-        if (textArea.value != '') {
-            console.log('task(s) exist')
+    // console.log(textArea)
 
-            taskItem.forEach(task => console.log(task))
-        } else {
-            console.log('no task')
-        }
+    // if (document.querySelector('.task-item')) {
+    //     const taskItem = document.querySelectorAll('.task-item')
+    //     console.log(taskItem)
+    //     const textArea = taskItem.querySelector('textarea')
+    //     if (textArea.value != '') {
+    //         console.log('task(s) exist')
 
-    } else {
-        console.log('task(s) does not exist')
+    //         taskItem.forEach(task => console.log(task))
+    //     } else {
+    //         console.log('no task')
+    //     }
 
-    }
+    // } else {
+    //     console.log('task(s) does not exist')
+
+    // }
 }
 
 function generateTasks(projectName) {
@@ -109,7 +125,7 @@ function generateTasks(projectName) {
     textArea.addEventListener('keydown', function(e) {
         if (e.keyCode == 13) {
             e.preventDefault();
-            console.log(textArea.value);
+            console.log(`sub task is ${textArea.value}`);
             saveTask(projectName, textArea.value);
             textArea.setAttribute('readonly', 'true');
             // console.log(projectName)
@@ -118,10 +134,13 @@ function generateTasks(projectName) {
 }
 
 function saveTask(project, newTask) {
+    let newSubTask = {};
     items.forEach(item => {
         if (item.id == parseInt(project.htmlFor)) {
             console.log(item.id, project.htmlFor)
-            item.subItem.push(newTask);
+            newSubTask.name = newTask;
+            newSubTask.setAttribute('class', item.id)
+            item.subItem.push(newSubTask);
             toLocalStorage();
         }
     } )
@@ -134,4 +153,4 @@ function reloadPage() {
 
 
 
-export { fromLocalStorage, toLocalStorage,clickedOnProjectSection, activeProject, saveProject }
+export { fromLocalStorage, toLocalStorage,clickedOnProjectSection, clickedOnTaskSection, activeProject, generateTasks, saveProject }

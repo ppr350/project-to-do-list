@@ -1,5 +1,5 @@
 import './style.css';
-import { saveProject, fromLocalStorage, clickedOnProjectSection, activeProject } from './storage';
+import { saveProject, fromLocalStorage, clickedOnProjectSection, clickedOnTaskSection, activeProject, generateTasks } from './storage';
 import { changeLanguage } from './language';
 import { closestIndexTo } from 'date-fns';
 
@@ -31,6 +31,8 @@ function startUp() {
     })
     myProjectTasks.addEventListener('click', function(e) {
         console.log(e.target)
+        clickedOnTaskSection(e.target)
+    
     })
     chooseGaeilge.addEventListener('click', function(e) {
         changeLanguage('gaeilge');
