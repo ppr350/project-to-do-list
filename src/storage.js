@@ -18,13 +18,14 @@ function fromLocalStorage(itemsInLocalStorage) {
             const taskLabel = taskElement.querySelector('label');
             const textArea = taskLabel.querySelectorAll('.task-textarea')
             // add taskLabel id here //
-            
-            for (let j = 0; j < itemsInLocalStorage[j].subItem.length; j++) {
-                const tasks = document.importNode(taskTemplate.content, true);
-                const textArea = tasks.querySelector('textarea');
+            if (itemsInLocalStorage[i].subItem != null) {
+                for (let j = 0; j < itemsInLocalStorage[j].subItem.length; j++) {
+                    const tasks = document.importNode(taskTemplate.content, true);
+                    const textArea = tasks.querySelector('textarea');
 
-                textArea.value = itemsInLocalStorage[j].subItem;
-                // console.log(taskLabel)
+                    textArea.value = itemsInLocalStorage[j].subItem;
+                    // console.log(taskLabel)
+                }
             }
             
             myProjectTasks.appendChild(taskElement)
@@ -39,23 +40,28 @@ function toLocalStorage() {
 }
 
 function clickedOnProjectSection(item) {
+    console.log(`the clicked item is a project element inside the 'projects' div.`)
     if (item.matches('[type="checkbox"]')) {
         toggleProjectIsComplete(item);
+        console.log(`and it is a checkbox.`)
+
         // show delete option //
+        return;
     } if (item.parentElement.classList.contains('project-item')) {
         activeProject(item);
+        console.log(`and it is a project, it has an '${item.childNodes[1].classList}' class as well as an 'active' class.`)
     } else {
-        console.log(item)
+        console.log(`it is other items in this container.`)
     }
 }
 
 function clickedOnTaskSection(subItem) {
-    if (subItem.matches('textarea')) {
-        console.log('clicked on a textarea');
-        const projectItem = document.querySelector('.active');
-        console.log(projectItem)
-        generateTasks(subItem)
-    }
+    // if (subItem.matches('textarea')) {
+    //     console.log('clicked on a textarea');
+    //     const projectItem = document.querySelector('.active');
+    //     console.log(projectItem)
+    //     generateTasks(subItem)
+    // }
 }
 
 function toggleProjectIsComplete(checkBoxItem) {
@@ -64,6 +70,7 @@ function toggleProjectIsComplete(checkBoxItem) {
     items.forEach(item => {
         if (item.id == completedItem.htmlFor) {
             item.isComplete = !item.isComplete;
+            console.log(`'isComplete' is now '${item.isComplete}'`)
         }
     })
     toLocalStorage();
@@ -73,6 +80,7 @@ function activeProject(targetProject) {
     const projects = document.querySelectorAll('.project-item')
     for (let i = 0; i < projects.length; i++) {
         projects[i].classList.remove('active');
+
         // code here to remove project's tasks content when removing 'active' class //
     }
     targetProject.parentElement.classList.add('active');
@@ -87,14 +95,16 @@ function saveProject(newItemFromUser) {
         newItem.name = newItemFromUser;
         newItem.id = new Date().valueOf();
         newItem.isComplete = false;
-        newItem.subItem = [];
+        if (newItem.subItem != null) { 
+            newItem.subItem = [];
+        };
         items.push(newItem);
         toLocalStorage();
     }
 }
 
 function showTasks(fromTargetedProject) {
-    console.log(fromTargetedProject)
+    console.log(`'${fromTargetedProject.innerText}' is now passed on to 'showTasks' function`)
     // const taskItem = document.querySelectorAll('.task-item')
     // const textArea = taskItem.getElementByTagName('textarea')
 
