@@ -19,16 +19,27 @@ function fromLocalStorage(itemsInLocalStorage) {
             const textArea = taskLabel.querySelectorAll('.task-textarea')
             // add taskLabel id here //
             if (itemsInLocalStorage[i].subItem != null) {
+                console.log('subtask(s) exists in localStorage and being loaded to the tasks section')
                 for (let j = 0; j < itemsInLocalStorage[j].subItem.length; j++) {
                     const tasks = document.importNode(taskTemplate.content, true);
                     const textArea = tasks.querySelector('textarea');
 
                     textArea.value = itemsInLocalStorage[j].subItem;
+                    console.log(textArea.value)
+
+                    // add other elements such as due date and priority
+
                     // console.log(taskLabel)
+                    myProjectTasks.appendChild(taskElement)
+
+                    // add a new empty textarea under existing task(s)
                 }
+            } else {
+                console.log(`no task in project '${itemsInLocalStorage[i].name}' yet`)
+
             }
             
-            myProjectTasks.appendChild(taskElement)
+
 
             items = itemsInLocalStorage;     
         }
@@ -56,6 +67,7 @@ function clickedOnProjectSection(item) {
 }
 
 function clickedOnTaskSection(subItem) {
+    console.log('user clicked on task\'s textarea.')
     // if (subItem.matches('textarea')) {
     //     console.log('clicked on a textarea');
     //     const projectItem = document.querySelector('.active');
@@ -96,7 +108,8 @@ function saveProject(newItemFromUser) {
         newItem.id = new Date().valueOf();
         newItem.isComplete = false;
         if (newItem.subItem != null) { 
-            newItem.subItem = [];
+            console.log('sub tasks detected');
+            // newItem.subItem = [];
         };
         items.push(newItem);
         toLocalStorage();
@@ -105,10 +118,12 @@ function saveProject(newItemFromUser) {
 
 function showTasks(fromTargetedProject) {
     console.log(`'${fromTargetedProject.innerText}' is now passed on to 'showTasks' function`)
-    // const taskItem = document.querySelectorAll('.task-item')
+    const taskItem = document.querySelectorAll('.task-item')
     // const textArea = taskItem.getElementByTagName('textarea')
 
-    // console.log(textArea)
+    console.log(taskItem)
+    generateTasks(fromTargetedProject.innerText)
+
 
     // if (document.querySelector('.task-item')) {
     //     const taskItem = document.querySelectorAll('.task-item')
@@ -129,11 +144,19 @@ function showTasks(fromTargetedProject) {
 }
 
 function generateTasks(projectName) {
-    const tasks = document.importNode(taskTemplate.content, true);
-    const textArea = tasks.querySelector('textarea');
-    myProjectTasks.appendChild(tasks);
+    // remove other project's task(s) before populating the task area with active project's task
+
+
+    console.log(document.getElementsByClassName('.my-project-tasks'))
+    
+
+    const taskSection = document.importNode(taskTemplate.content, true);
+    const textArea = taskSection.querySelector('textarea');
+
+
+    myProjectTasks.appendChild(taskSection);
     textArea.addEventListener('keydown', function(e) {
-        if (e.keyCode == 13) {
+        if (e.keyCode == 13 && textArea.value != '') {
             e.preventDefault();
             console.log(`sub task is ${textArea.value}`);
             saveTask(projectName, textArea.value);
@@ -145,6 +168,7 @@ function generateTasks(projectName) {
 
 function saveTask(project, newTask) {
     let newSubTask = {};
+    console.log(project)
     items.forEach(item => {
         if (item.id == parseInt(project.htmlFor)) {
             console.log(item.id, project.htmlFor)
