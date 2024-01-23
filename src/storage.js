@@ -1,3 +1,4 @@
+import { forEach, nth } from "lodash";
 import { projectTemplate, displayProjects, checkBox, taskTemplate, myProjectTasks } from "./index";
 
 let items = JSON.parse(localStorage.getItem('todolist')) || [];
@@ -5,6 +6,7 @@ let items = JSON.parse(localStorage.getItem('todolist')) || [];
 function fromLocalStorage(itemsInLocalStorage) {
     if(localStorage.getItem('todolist')) {
         reloadPage()
+        console.log('pull data from localStorage')
         itemsInLocalStorage = JSON.parse(localStorage.getItem('todolist'))
         for (let i = 0; i < itemsInLocalStorage.length; i++) {
             const projectElement = document.importNode(projectTemplate.content, true);
@@ -18,7 +20,7 @@ function fromLocalStorage(itemsInLocalStorage) {
             const taskLabel = taskElement.querySelector('label');
             const textArea = taskLabel.querySelectorAll('.task-textarea')
             // add taskLabel id here //
-            if (itemsInLocalStorage[i].subItem != null) {
+            if (itemsInLocalStorage[i].subItem != '') {
                 console.log('subtask(s) exists in localStorage and being loaded to the tasks section')
                 for (let j = 0; j < itemsInLocalStorage[j].subItem.length; j++) {
                     const tasks = document.importNode(taskTemplate.content, true);
@@ -47,22 +49,23 @@ function fromLocalStorage(itemsInLocalStorage) {
 }
 
 function toLocalStorage() {
+    console.log('save new data to localStorage')
     localStorage.setItem('todolist', JSON.stringify(items));
 }
 
 function clickedOnProjectSection(item) {
-    console.log(`the clicked item is a project element inside the 'projects' div.`)
+    console.log(`the clicked item is a project element inside the 'projects' div`)
     if (item.matches('[type="checkbox"]')) {
         toggleProjectIsComplete(item);
-        console.log(`and it is a checkbox.`)
+        console.log(`and it is a checkbox`)
 
         // show delete option //
         return;
     } if (item.parentElement.classList.contains('project-item')) {
         activeProject(item);
-        console.log(`and it is a project, it has an '${item.childNodes[1].classList}' class as well as an 'active' class.`)
+        console.log(`and it is a project, it has an '${item.childNodes[1].classList}' class as well as an 'active' class`)
     } else {
-        console.log(`it is other items in this container.`)
+        console.log(`it is other items in this container`)
     }
 }
 
@@ -109,7 +112,12 @@ function saveProject(newItemFromUser) {
         newItem.isComplete = false;
         if (newItem.subItem != null) { 
             console.log('sub tasks detected');
-            // newItem.subItem = [];
+            newItem.subItem.forEach(item => {
+                // add codes here to put subItems to tasks section complete with checkbox, due date etc. //
+            })
+        } else {
+            newItem.subItem = [{""}];
+            
         };
         items.push(newItem);
         toLocalStorage();
@@ -122,7 +130,9 @@ function showTasks(fromTargetedProject) {
     // const textArea = taskItem.getElementByTagName('textarea')
 
     console.log(taskItem)
-    generateTasks(fromTargetedProject.innerText)
+    console.log(fromTargetedProject)
+    console.log(`this project's label is '${fromTargetedProject.innerText}' and its id is ${fromTargetedProject.htmlFor}`)
+    generateTasks(fromTargetedProject)
 
 
     // if (document.querySelector('.task-item')) {
@@ -147,7 +157,7 @@ function generateTasks(projectName) {
     // remove other project's task(s) before populating the task area with active project's task
 
 
-    console.log(document.getElementsByClassName('.my-project-tasks'))
+    console.log(document.getElementsByClassName('.my-project-tasks').childNodes)
     
 
     const taskSection = document.importNode(taskTemplate.content, true);
@@ -166,21 +176,28 @@ function generateTasks(projectName) {
     })
 }
 
-function saveTask(project, newTask) {
+function saveTask(projectName, newTaskName) {
     let newSubTask = {};
-    console.log(project)
+    // console.log(projectName.innerText)
+    console.log(newTaskName)
     items.forEach(item => {
-        if (item.id == parseInt(project.htmlFor)) {
-            console.log(item.id, project.htmlFor)
-            newSubTask.name = newTask;
-            newSubTask.setAttribute('class', item.id)
-            item.subItem.push(newSubTask);
-            toLocalStorage();
-        }
+        
+        console.log(item.id)
+        console.log(projectName)
+        // if (item.id = parseInt(project.htmlFor)) {
+        //     console.log(item.id, project.htmlFor)
+        //     newSubTask.name = newTask;
+        //     newSubTask.setAttribute('class', item.id)
+        //     item.subItem.push(newSubTask);
+        //     toLocalStorage();
+        // }
+        let projectEl = document.querySelector('.active');
+        console.log(`'${projectEl.children[1].innerText}' has 'active' class`)
     } )
 }
 
 function reloadPage() {
+    console.log('reload page')
     items = [];
     displayProjects.innerHTML = '';
 }
