@@ -16,6 +16,7 @@ const chooseGaeilge = document.querySelector('#gaeilge');
 const chooseEnglish = document.querySelector('#english');
 const title = document.querySelector('.title');
 const myProjects = document.querySelector('.my-projects');
+const myTasksTitle = document.querySelector('.my-tasks-title');
 const myProjectTasks = document.querySelector('.my-project-tasks');
 
 function startUp() {
@@ -43,4 +44,4 @@ function startUp() {
 }
 startUp();
 
-export { userInput, submitProjectButton, displayProjects, projectTemplate, taskTemplate, checkBox, sidebarContainer, chooseGaeilge, chooseEnglish, startUp, title, myProjects, myProjectTasks }
+export { userInput, submitProjectButton, displayProjects, projectTemplate, taskTemplate, checkBox, sidebarContainer, chooseGaeilge, chooseEnglish, startUp, title, myProjects, myProjectTasks, myTasksTitle }

@@ -20,9 +20,9 @@ function fromLocalStorage(itemsInLocalStorage) {
             const taskLabel = taskElement.querySelector('label');
             const textArea = taskLabel.querySelectorAll('.task-textarea')
             // add taskLabel id here //
-            if (itemsInLocalStorage[i].subItem != '') {
+            if (itemsInLocalStorage[i].subItem.length !== 0) {
                 console.log('subtask(s) exists in localStorage and being loaded to the tasks section')
-                for (let j = 0; j < itemsInLocalStorage[j].subItem.length; j++) {
+                for (let j = 0; j < itemsInLocalStorage[i].subItem.length; j++) {
                     const tasks = document.importNode(taskTemplate.content, true);
                     const textArea = tasks.querySelector('textarea');
 
@@ -116,7 +116,7 @@ function saveProject(newItemFromUser) {
                 // add codes here to put subItems to tasks section complete with checkbox, due date etc. //
             })
         } else {
-            newItem.subItem = [{""}];
+            newItem.subItem = [];
             
         };
         items.push(newItem);
@@ -157,7 +157,7 @@ function generateTasks(projectName) {
     // remove other project's task(s) before populating the task area with active project's task
 
 
-    console.log(document.getElementsByClassName('.my-project-tasks').childNodes)
+    console.log(document.querySelectorAll('.my-project-tasks')[0])
     
 
     const taskSection = document.importNode(taskTemplate.content, true);
