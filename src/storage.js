@@ -205,17 +205,21 @@ function generateTasks(projectName) {
 }
 
 function loadTask(activeProject) {
+    
     console.log(activeProject.htmlFor);
-    const taskContainer = document.querySelector('#task-section')
+    const myProjectTasks = document.querySelector('.my-project-tasks')
+    console.log(myProjectTasks)
+    // taskContainer.innerHTML = '';
     items.forEach(item => {
         if (item.id === parseInt(activeProject.htmlFor)) {
             item.subItem.forEach(task => {
                 console.log(task);
                 const taskItem = document.importNode(taskTemplate.content, true);
                 const textArea = taskItem.querySelector('textarea');
-                textArea.value = task;
+                textArea.value = task.name;
+                console.log(textArea)
                 textArea.setAttribute('readonly', 'true');
-                taskContainer.appendChild(taskItem);
+                myProjectTasks.appendChild(taskItem);
             })
         }
     })
