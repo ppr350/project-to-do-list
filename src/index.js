@@ -18,6 +18,7 @@ const title = document.querySelector('.title');
 const myProjects = document.querySelector('.my-projects');
 const myTasksTitle = document.querySelector('.my-tasks-title');
 const myProjectTasks = document.querySelector('.my-project-tasks');
+const taskSection = document.querySelector('#task-section');
 
 function startUp() {
     fromLocalStorage();
@@ -30,11 +31,13 @@ function startUp() {
     displayProjects.addEventListener('click', function(e) {
         clickedOnProjectSection(e.target);
     })
-    myProjectTasks.addEventListener('click', function(e) {
-        console.log(e.target)
-        clickedOnTaskSection(e.target)
-    
+    taskSection.addEventListener('click', function(e) {
+        clickedOnTaskSection(e.target);
     })
+    // myProjectTasks.addEventListener('click', function(e) {
+    //     console.log(e.target)
+    //     clickedOnTaskSection(e.target)
+    // })
     chooseGaeilge.addEventListener('click', function(e) {
         changeLanguage('gaeilge');
     })

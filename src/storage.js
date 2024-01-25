@@ -16,30 +16,33 @@ function fromLocalStorage(itemsInLocalStorage) {
             displayProjects.appendChild(projectElement);
             
             
-            const taskElement = document.importNode(taskTemplate.content, true);
-            const taskLabel = taskElement.querySelector('label');
-            const textArea = taskLabel.querySelectorAll('.task-textarea')
+            // const taskElement = document.importNode(taskTemplate.content, true);
+            // const taskLabel = taskElement.querySelector('label');
+            
             // add taskLabel id here //
-            if (itemsInLocalStorage[i].subItem.length !== 0) {
-                console.log('subtask(s) exists in localStorage and being loaded to the tasks section')
-                for (let j = 0; j < itemsInLocalStorage[i].subItem.length; j++) {
-                    const tasks = document.importNode(taskTemplate.content, true);
-                    const textArea = tasks.querySelector('textarea');
+            // if (itemsInLocalStorage[i].subItem.length !== 0) {
+            //     console.log('subtask(s) exists in localStorage and being loaded to the tasks section')
+            //     for (let j = 0; j < itemsInLocalStorage[i].subItem.length; j++) {
+            //         const tasks = document.importNode(taskTemplate.content, true);
+            //         const textArea = taskLabel.querySelector('.task-textarea');
+                    
+            //         // const textArea = tasks.querySelector('.textarea');
 
-                    textArea.value = itemsInLocalStorage[j].subItem;
-                    console.log(textArea.value)
+            //         textArea.value = itemsInLocalStorage[i].subItem[j].name;
+            //         console.log(itemsInLocalStorage[i].subItem[j]);
+            //         console.log(textArea.value)
 
-                    // add other elements such as due date and priority
+            //         // add other elements such as due date and priority
 
-                    // console.log(taskLabel)
-                    myProjectTasks.appendChild(taskElement)
+            //         // console.log(taskLabel)
+            //         myProjectTasks.appendChild(taskElement)
 
-                    // add a new empty textarea under existing task(s)
-                }
-            } else {
-                console.log(`no task in project '${itemsInLocalStorage[i].name}' yet`)
+            //         // add a new empty textarea under existing task(s)
+            //     }
+            // } else {
+            //     console.log(`no task in project '${itemsInLocalStorage[i].name}' yet`)
 
-            }
+            // }
             
 
 
@@ -62,15 +65,37 @@ function clickedOnProjectSection(item) {
         // show delete option //
         return;
     } if (item.parentElement.classList.contains('project-item')) {
-        activeProject(item);
-        console.log(`and it is a project, it has an '${item.childNodes[1].classList}' class as well as an 'active' class`)
+        if (item.parentElement.classList.contains('active')) {
+            console.log('this project is already active')
+        } else {
+            myProjectTasks.innerHTML = '';
+            activeProject(item);
+            console.log(`and it is a project, it has an '${item.childNodes[1].classList}' class as well as an 'active' class`)
+        }
+
     } else {
         console.log(`it is other items in this container`)
     }
 }
 
 function clickedOnTaskSection(subItem) {
-    console.log('user clicked on task\'s textarea.')
+    // console.log('user clicked on task\'s textarea.')
+    console.log(subItem)
+    // if (subItem.classList.contains('my-task-title')) {
+    //     return;
+    // } if (subItem.matches('[type="checkbox"]')) {
+    //     // toggle complete or incomplete;
+    //     console.log(`it's a checkbox`);
+    // } if (subItem.classList.contains('task-textarea')) {
+    //     console.log(`it's a textarea`)
+    //     return;
+    // } if (subItem.classList.contains('task-textarea')) {
+    //     const textAreaValue = subItem.querySelectorAll('.task-textarea')
+    //     console.log('empty textarea exists here')
+    //     console.log(textAreaValue.value)
+    // } else {
+    //     console.log('need new textarea')
+    // }
     // if (subItem.matches('textarea')) {
     //     console.log('clicked on a textarea');
     //     const projectItem = document.querySelector('.active');
@@ -101,7 +126,8 @@ function activeProject(targetProject) {
     targetProject.parentElement.classList.add('active');
     // code here to display project's task when adding 'active' class //
     // console.log(targetProject)
-    showTasks(targetProject);
+    generateTasks(targetProject);
+    loadTask(targetProject);
 }
 
 function saveProject(newItemFromUser) {
@@ -110,48 +136,50 @@ function saveProject(newItemFromUser) {
         newItem.name = newItemFromUser;
         newItem.id = new Date().valueOf();
         newItem.isComplete = false;
-        if (newItem.subItem != null) { 
-            console.log('sub tasks detected');
-            newItem.subItem.forEach(item => {
-                // add codes here to put subItems to tasks section complete with checkbox, due date etc. //
-            })
-        } else {
+        // if (newItem.subItem.length !== 0) { 
+        //     console.log('sub tasks detected');
+        //     newItem.subItem.forEach(item => {
+        //         console.log(item);
+        //     })
+        // } else {
             newItem.subItem = [];
             
-        };
+        // };
         items.push(newItem);
+        console.log(newItem)
         toLocalStorage();
     }
 }
 
-function showTasks(fromTargetedProject) {
-    console.log(`'${fromTargetedProject.innerText}' is now passed on to 'showTasks' function`)
-    const taskItem = document.querySelectorAll('.task-item')
-    // const textArea = taskItem.getElementByTagName('textarea')
+// function showTasks(fromTargetedProject) {
+//     console.log(`'${fromTargetedProject.innerText}' is now passed on to 'showTasks' function`)
+//     const taskItem = document.querySelectorAll('.task-item');
+    
+//     // const textArea = taskItem.getElementByTagName('textarea')
 
-    console.log(taskItem)
-    console.log(fromTargetedProject)
-    console.log(`this project's label is '${fromTargetedProject.innerText}' and its id is ${fromTargetedProject.htmlFor}`)
-    generateTasks(fromTargetedProject)
+//     console.log(taskItem)
+//     console.log(fromTargetedProject)
+//     console.log(`this project's label is '${fromTargetedProject.innerText}' and its id is ${fromTargetedProject.htmlFor}`)
+//     generateTasks(fromTargetedProject)
 
 
-    // if (document.querySelector('.task-item')) {
-    //     const taskItem = document.querySelectorAll('.task-item')
-    //     console.log(taskItem)
-    //     const textArea = taskItem.querySelector('textarea')
-    //     if (textArea.value != '') {
-    //         console.log('task(s) exist')
+//     // if (document.querySelector('.task-item')) {
+//     //     const taskItem = document.querySelectorAll('.task-item')
+//     //     console.log(taskItem)
+//     //     const textArea = taskItem.querySelector('textarea')
+//     //     if (textArea.value != '') {
+//     //         console.log('task(s) exist')
 
-    //         taskItem.forEach(task => console.log(task))
-    //     } else {
-    //         console.log('no task')
-    //     }
+//     //         taskItem.forEach(task => console.log(task))
+//     //     } else {
+//     //         console.log('no task')
+//     //     }
 
-    // } else {
-    //     console.log('task(s) does not exist')
+//     // } else {
+//     //     console.log('task(s) does not exist')
 
-    // }
-}
+//     // }
+// }
 
 function generateTasks(projectName) {
     // remove other project's task(s) before populating the task area with active project's task
@@ -176,21 +204,37 @@ function generateTasks(projectName) {
     })
 }
 
+function loadTask(activeProject) {
+    console.log(activeProject.htmlFor);
+    const taskContainer = document.querySelector('#task-section')
+    items.forEach(item => {
+        if (item.id === parseInt(activeProject.htmlFor)) {
+            item.subItem.forEach(task => {
+                console.log(task);
+                const taskItem = document.importNode(taskTemplate.content, true);
+                const textArea = taskItem.querySelector('textarea');
+                textArea.value = task;
+                textArea.setAttribute('readonly', 'true');
+                taskContainer.appendChild(taskItem);
+            })
+        }
+    })
+}
+
 function saveTask(projectName, newTaskName) {
     let newSubTask = {};
-    // console.log(projectName.innerText)
-    console.log(newTaskName)
+    // console.log(newTaskName.parentElement)
+
+    newSubTask.name = newTaskName;
+    newSubTask.className = projectName.htmlFor;
+
     items.forEach(item => {
-        
-        console.log(item.id)
-        console.log(projectName)
-        // if (item.id = parseInt(project.htmlFor)) {
-        //     console.log(item.id, project.htmlFor)
-        //     newSubTask.name = newTask;
-        //     newSubTask.setAttribute('class', item.id)
-        //     item.subItem.push(newSubTask);
-        //     toLocalStorage();
-        // }
+        if (item.id === parseInt(projectName.htmlFor)) {
+            console.log(projectName)
+            console.log(item.id, projectName.htmlFor)
+            item.subItem.push(newSubTask);
+            toLocalStorage();
+        }
         let projectEl = document.querySelector('.active');
         console.log(`'${projectEl.children[1].innerText}' has 'active' class`)
     } )
@@ -200,6 +244,7 @@ function reloadPage() {
     console.log('reload page')
     items = [];
     displayProjects.innerHTML = '';
+    myProjectTasks.innerHTML = '';
 }
 
 
