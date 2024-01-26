@@ -81,6 +81,16 @@ function clickedOnProjectSection(item) {
 function clickedOnTaskSection(subItem) {
     // console.log('user clicked on task\'s textarea.')
     console.log(subItem)
+    if (document.getElementsByClassName('active').length !== 0) {
+        console.log('active project available');
+        console.log(activeProject)
+        
+
+
+        // code here to add new textarea
+    } else {
+        console.log('no active project')
+    }
     // if (subItem.classList.contains('my-task-title')) {
     //     return;
     // } if (subItem.matches('[type="checkbox"]')) {
@@ -111,6 +121,8 @@ function toggleProjectIsComplete(checkBoxItem) {
         if (item.id == completedItem.htmlFor) {
             item.isComplete = !item.isComplete;
             console.log(`'isComplete' is now '${item.isComplete}'`)
+
+            // code here to line through all tasks in textarea and check all checbox inside that project //
         }
     })
     toLocalStorage();
@@ -126,8 +138,11 @@ function activeProject(targetProject) {
     targetProject.parentElement.classList.add('active');
     // code here to display project's task when adding 'active' class //
     // console.log(targetProject)
-    generateTasks(targetProject);
+    console.log(targetProject)
+    console.log(targetProject.parentElement)
     loadTask(targetProject);
+    generateTasks(targetProject);
+
 }
 
 function saveProject(newItemFromUser) {
@@ -136,15 +151,8 @@ function saveProject(newItemFromUser) {
         newItem.name = newItemFromUser;
         newItem.id = new Date().valueOf();
         newItem.isComplete = false;
-        // if (newItem.subItem.length !== 0) { 
-        //     console.log('sub tasks detected');
-        //     newItem.subItem.forEach(item => {
-        //         console.log(item);
-        //     })
-        // } else {
-            newItem.subItem = [];
+        newItem.subItem = [];
             
-        // };
         items.push(newItem);
         console.log(newItem)
         toLocalStorage();

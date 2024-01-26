@@ -28,6 +28,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    max-height: 100vh;
 }
 
 #sidebar {
@@ -48,6 +49,11 @@ body {
 
 #task-section {
     border: 1px solid green;
+}
+
+.my-project-tasks {
+    /* padding: 2em; */
+    margin: 2em;
 }
 
 textarea {
