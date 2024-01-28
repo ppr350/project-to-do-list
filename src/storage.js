@@ -52,9 +52,27 @@ function clickedOnTaskSection(subItem) {
     if (document.getElementsByClassName('active').length !== 0) {
         console.log('active project available');
         const projectName = document.querySelectorAll('.active')[0].children[1]
+        console.log(projectName);
+        
+        const projectTask = document.querySelectorAll('.my-project-tasks')
+        const textArea = document.querySelectorAll('.task-textarea')
+        console.log(myProjectTasks.lastElementChild.children[1].children[0])
+        console.log(textArea)
+        // for (let i = 0;  i < textArea.length; i++) {
+        //     console.log(textArea[0].readOnly)
+        //     if (textArea[0].value[i] == '') {
+        //         return
+        //     } else {
+                
+        //     }
         generateTasks(projectName)
+            
+        // } 
 
-
+        
+        
+        
+    
         // code here to add new textarea
     } else {
         console.log('no active project')
@@ -110,7 +128,7 @@ function activeProject(targetProject) {
     console.log(targetProject)
     console.log(targetProject.parentElement)
     loadTask(targetProject);
-    generateTasks(targetProject);
+    // generateTasks(targetProject);
 
 }
 
