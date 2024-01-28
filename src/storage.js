@@ -14,38 +14,6 @@ function fromLocalStorage(itemsInLocalStorage) {
             projectLabel.htmlFor = itemsInLocalStorage[i].id;
             projectLabel.append(itemsInLocalStorage[i].name);
             displayProjects.appendChild(projectElement);
-            
-            
-            // const taskElement = document.importNode(taskTemplate.content, true);
-            // const taskLabel = taskElement.querySelector('label');
-            
-            // add taskLabel id here //
-            // if (itemsInLocalStorage[i].subItem.length !== 0) {
-            //     console.log('subtask(s) exists in localStorage and being loaded to the tasks section')
-            //     for (let j = 0; j < itemsInLocalStorage[i].subItem.length; j++) {
-            //         const tasks = document.importNode(taskTemplate.content, true);
-            //         const textArea = taskLabel.querySelector('.task-textarea');
-                    
-            //         // const textArea = tasks.querySelector('.textarea');
-
-            //         textArea.value = itemsInLocalStorage[i].subItem[j].name;
-            //         console.log(itemsInLocalStorage[i].subItem[j]);
-            //         console.log(textArea.value)
-
-            //         // add other elements such as due date and priority
-
-            //         // console.log(taskLabel)
-            //         myProjectTasks.appendChild(taskElement)
-
-            //         // add a new empty textarea under existing task(s)
-            //     }
-            // } else {
-            //     console.log(`no task in project '${itemsInLocalStorage[i].name}' yet`)
-
-            // }
-            
-
-
             items = itemsInLocalStorage;     
         }
     }
@@ -83,8 +51,8 @@ function clickedOnTaskSection(subItem) {
     console.log(subItem)
     if (document.getElementsByClassName('active').length !== 0) {
         console.log('active project available');
-        console.log(activeProject)
-        
+        const projectName = document.querySelectorAll('.active')[0].children[1]
+        generateTasks(projectName)
 
 
         // code here to add new textarea
@@ -129,6 +97,7 @@ function toggleProjectIsComplete(checkBoxItem) {
 }
 
 function activeProject(targetProject) {
+    console.log(targetProject)
     const projects = document.querySelectorAll('.project-item')
     for (let i = 0; i < projects.length; i++) {
         projects[i].classList.remove('active');
@@ -137,7 +106,7 @@ function activeProject(targetProject) {
     }
     targetProject.parentElement.classList.add('active');
     // code here to display project's task when adding 'active' class //
-    // console.log(targetProject)
+
     console.log(targetProject)
     console.log(targetProject.parentElement)
     loadTask(targetProject);
@@ -191,6 +160,7 @@ function saveProject(newItemFromUser) {
 
 function generateTasks(projectName) {
     // remove other project's task(s) before populating the task area with active project's task
+    console.log(projectName)
 
 
     console.log(document.querySelectorAll('.my-project-tasks')[0])
@@ -217,7 +187,6 @@ function loadTask(activeProject) {
     console.log(activeProject.htmlFor);
     const myProjectTasks = document.querySelector('.my-project-tasks')
     console.log(myProjectTasks)
-    // taskContainer.innerHTML = '';
     items.forEach(item => {
         if (item.id === parseInt(activeProject.htmlFor)) {
             item.subItem.forEach(task => {
@@ -235,15 +204,14 @@ function loadTask(activeProject) {
 
 function saveTask(projectName, newTaskName) {
     let newSubTask = {};
-    // console.log(newTaskName.parentElement)
 
     newSubTask.name = newTaskName;
     newSubTask.className = projectName.htmlFor;
 
     items.forEach(item => {
         if (item.id === parseInt(projectName.htmlFor)) {
-            console.log(projectName)
-            console.log(item.id, projectName.htmlFor)
+            // console.log(projectName)
+            // console.log(item.id, projectName.htmlFor)
             item.subItem.push(newSubTask);
             toLocalStorage();
         }
