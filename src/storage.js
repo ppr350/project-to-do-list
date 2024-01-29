@@ -48,56 +48,27 @@ function clickedOnProjectSection(item) {
 
 function clickedOnTaskSection(subItem) {
     // console.log('user clicked on task\'s textarea.')
-    console.log(subItem)
+    // console.log(subItem)
     if (document.getElementsByClassName('active').length !== 0) {
         console.log('active project available');
         const projectName = document.querySelectorAll('.active')[0].children[1]
         console.log(projectName);
         
-        const projectTask = document.querySelectorAll('.my-project-tasks')
+        // const projectTask = document.querySelectorAll('.my-project-tasks')
         const textArea = document.querySelectorAll('.task-textarea')
-        console.log(myProjectTasks.lastElementChild.children[1].children[0])
+        const isReadOnly = myProjectTasks.lastElementChild.children[1].children[0]
+        console.log(isReadOnly.readOnly)
+        if (isReadOnly.readOnly = 'true') {
+            generateTasks(projectName)
+        } else {
+            return;
+        }
         console.log(textArea)
-        // for (let i = 0;  i < textArea.length; i++) {
-        //     console.log(textArea[0].readOnly)
-        //     if (textArea[0].value[i] == '') {
-        //         return
-        //     } else {
-                
-        //     }
-        generateTasks(projectName)
-            
-        // } 
-
-        
-        
-        
-    
         // code here to add new textarea
     } else {
         console.log('no active project')
+        return;
     }
-    // if (subItem.classList.contains('my-task-title')) {
-    //     return;
-    // } if (subItem.matches('[type="checkbox"]')) {
-    //     // toggle complete or incomplete;
-    //     console.log(`it's a checkbox`);
-    // } if (subItem.classList.contains('task-textarea')) {
-    //     console.log(`it's a textarea`)
-    //     return;
-    // } if (subItem.classList.contains('task-textarea')) {
-    //     const textAreaValue = subItem.querySelectorAll('.task-textarea')
-    //     console.log('empty textarea exists here')
-    //     console.log(textAreaValue.value)
-    // } else {
-    //     console.log('need new textarea')
-    // }
-    // if (subItem.matches('textarea')) {
-    //     console.log('clicked on a textarea');
-    //     const projectItem = document.querySelector('.active');
-    //     console.log(projectItem)
-    //     generateTasks(subItem)
-    // }
 }
 
 function toggleProjectIsComplete(checkBoxItem) {
