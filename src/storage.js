@@ -46,10 +46,14 @@ function clickedOnProjectSection(item) {
     }
 }
 
-function clickedOnTaskSection(subItem) {
-    // console.log('user clicked on task\'s textarea.')
-    // console.log(subItem)
-    if (document.getElementsByClassName('active').length !== 0) {
+function clickedOnTaskSection(item) {
+    if (item.matches('[type="checkbox"]')) {
+        // toggleProjectIsComplete(item);
+        console.log(`and it is a checkbox`)
+
+        // show delete option //
+        return;
+    } if (document.getElementsByClassName('active').length !== 0) {
         console.log('active project available');
         const projectName = document.querySelectorAll('.active')[0].children[1]
         console.log(projectName);
@@ -58,9 +62,12 @@ function clickedOnTaskSection(subItem) {
         const textArea = document.querySelectorAll('.task-textarea')
         const isReadOnly = myProjectTasks.lastElementChild.children[1].children[0]
         console.log(isReadOnly.readOnly)
-        if (isReadOnly.readOnly = 'true') {
+        if (isReadOnly.readOnly == false) {
+            console.log(`The last textarea in tasks section is empty.`)
+            return;
+        } if (isReadOnly.readOnly == true) {
             generateTasks(projectName)
-        } else {
+            console.log(`The last textarea in tasks section is not empty.`)
             return;
         }
         console.log(textArea)
