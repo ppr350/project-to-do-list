@@ -50,8 +50,15 @@ function clickedOnTaskSection(item) {
     if (item.matches('[type="checkbox"]')) {
         // toggleProjectIsComplete(item);
         console.log(`and it is a checkbox`)
+        if (item.nextElementSibling.children[0].value == '') {
+            console.log('no value')
+            item.checked = false
+        } else {
+            // show delete option //
+            console.log('check/unchecked task')
+        }
 
-        // show delete option //
+        
         return;
     } if (document.getElementsByClassName('active').length !== 0) {
         console.log('active project available');

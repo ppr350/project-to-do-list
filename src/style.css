@@ -66,6 +66,9 @@ textarea {
     overflow: auto;
 }
 
-input[type='checkbox']:checked {
-    border: 11px solid violet;
+input[type=checkbox]:checked + label,
+input[type=checkbox]:checked + label > * {
+    /* border: 1px solid violet; */
+    text-decoration: line-through;
+    color: gray;
 }
