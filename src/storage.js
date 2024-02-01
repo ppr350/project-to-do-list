@@ -96,7 +96,7 @@ function clickedOnTaskSection(item) {
                     console.log('last element')
                     return
                 } else if (item.parentNode != parent.lastElementChild) {
-                    item.removeAttribute('readonly');
+                    // item.removeAttribute('readonly');
                     console.log(item)
                     lastTaskIsReadOnly.parentNode.parentNode.remove();
                     // textArea.addEventListener('keydown', function(e) {
