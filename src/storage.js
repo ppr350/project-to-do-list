@@ -47,6 +47,7 @@ function clickedOnProjectSection(item) {
 }
 
 function clickedOnTaskSection(item) {
+    console.log(`User clicked on a '${(item.tagName.toLowerCase())}' that has '${item.className || item.id}' class name / id.`)
     if (item.matches('[type="checkbox"]')) {
         // toggleProjectIsComplete(item);
         console.log(`and it is a checkbox`)
@@ -63,21 +64,56 @@ function clickedOnTaskSection(item) {
     } if (document.getElementsByClassName('active').length !== 0) {
         console.log('active project available');
         const projectName = document.querySelectorAll('.active')[0].children[1]
-        console.log(projectName);
-        
-        // const projectTask = document.querySelectorAll('.my-project-tasks')
+        console.log(`Project name is '${projectName.innerText}'.`);
+
         const textArea = document.querySelectorAll('.task-textarea')
-        const isReadOnly = myProjectTasks.lastElementChild.children[1].children[0]
-        console.log(isReadOnly.readOnly)
-        if (isReadOnly.readOnly == false) {
-            console.log(`The last textarea in tasks section is empty.`)
-            return;
-        } if (isReadOnly.readOnly == true) {
-            generateTasks(projectName)
-            console.log(`The last textarea in tasks section is not empty.`)
+        const lastTaskIsReadOnly = myProjectTasks.lastElementChild.children[1].children[0]
+
+        console.log(projectName) // currently active project
+        console.log(lastTaskIsReadOnly.parentElement.lastElementChild) // last textarea
+        console.log(textArea) // full task textarea
+        console.log(item) // clicked item
+        if (item.nodeName != 'TEXTAREA') {
+            if (lastTaskIsReadOnly.readOnly == false) {
+                console.log(`The last textarea in tasks section is empty.`)
+                return;
+            } else if (lastTaskIsReadOnly.readOnly == true) {
+                console.log(`The last textearea readonly staus is ${lastTaskIsReadOnly.readOnly}, which means it has value in it. Therefore a new textarea is populated.`)
+                generateTasks(projectName)
+                console.log(`The last textarea in tasks section is not empty.`)
+                return;
+            }
+            console.log(textArea)
+            
+        } else if (item.nodeName == 'TEXTAREA') {
+            if (lastTaskIsReadOnly.readOnly == false) {
+                console.log('item is a textarea and readonly is false')
+                console.log(item.parent)
+
+                const taskParent = item.parentNode.parentNode.parentNode
+                console.log(taskParent)
+                if (item.parentNode == parent.lastElementChild) {
+                    console.log('last element')
+                    return
+                } else if (item.parentNode != parent.lastElementChild) {
+                    item.removeAttribute('readonly');
+                    console.log(item)
+                    lastTaskIsReadOnly.parentNode.parentNode.remove();
+                    // textArea.addEventListener('keydown', function(e) {
+                    //     if (e.keyCode == 13 && textArea.value != '') {
+                    //         e.preventDefault();
+                    //         console.log(`sub task is ${textArea.value}`);
+                    //         saveTask(projectName, textArea.value);
+                    //         textArea.setAttribute('readonly', 'true');
+                    //         // console.log(projectName)
+                    //     }
+                    // })
+                }
+
+            }
             return;
         }
-        console.log(textArea)
+        
         // code here to add new textarea
     } else {
         console.log('no active project')
@@ -171,6 +207,7 @@ function generateTasks(projectName) {
 
     const taskSection = document.importNode(taskTemplate.content, true);
     const textArea = taskSection.querySelector('textarea');
+    console.log(textArea)
 
 
     myProjectTasks.appendChild(taskSection);
@@ -193,11 +230,11 @@ function loadTask(activeProject) {
     items.forEach(item => {
         if (item.id === parseInt(activeProject.htmlFor)) {
             item.subItem.forEach(task => {
-                console.log(task);
+                // console.log(task);
                 const taskItem = document.importNode(taskTemplate.content, true);
                 const textArea = taskItem.querySelector('textarea');
                 textArea.value = task.name;
-                console.log(textArea)
+                // console.log(textArea)
                 textArea.setAttribute('readonly', 'true');
                 myProjectTasks.appendChild(taskItem);
             })

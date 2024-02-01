@@ -34,10 +34,6 @@ function startUp() {
     taskSection.addEventListener('click', function(e) {
         clickedOnTaskSection(e.target);
     })
-    // myProjectTasks.addEventListener('click', function(e) {
-    //     console.log(e.target)
-    //     clickedOnTaskSection(e.target)
-    // })
     chooseGaeilge.addEventListener('click', function(e) {
         changeLanguage('gaeilge');
     })
