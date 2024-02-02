@@ -70,7 +70,7 @@ function clickedOnTaskSection(item) {
         const lastTaskIsReadOnly = myProjectTasks.lastElementChild.children[1].children[0]
 
         console.log(projectName) // currently active project
-        console.log(lastTaskIsReadOnly.parentElement.lastElementChild) // last textarea
+        // console.log(lastTaskIsReadOnly.parentElement.lastElementChild) // last textarea
         console.log(textArea) // full task textarea
         console.log(item) // clicked item
         if (item.nodeName != 'TEXTAREA') {
@@ -78,9 +78,8 @@ function clickedOnTaskSection(item) {
                 console.log(`The last textarea in tasks section is empty.`)
                 return;
             } else if (lastTaskIsReadOnly.readOnly == true) {
-                console.log(`The last textearea readonly staus is ${lastTaskIsReadOnly.readOnly}, which means it has value in it. Therefore a new textarea is populated.`)
+                console.log(`The last textearea readonly status is ${lastTaskIsReadOnly.readOnly}, which means it has value in it. Therefore a new textarea is generated.`)
                 generateTasks(projectName)
-                console.log(`The last textarea in tasks section is not empty.`)
                 return;
             }
             console.log(textArea)
@@ -88,17 +87,23 @@ function clickedOnTaskSection(item) {
         } else if (item.nodeName == 'TEXTAREA') {
             if (lastTaskIsReadOnly.readOnly == false) {
                 console.log('item is a textarea and readonly is false')
-                console.log(item.parent)
+                console.log(item.value)
+                const taskGrandParent = item.parentElement.parentElement.parentElement
+                console.log(taskGrandParent)
+                console.log(item.value, taskGrandParent.lastElementChild.children[1].children[0].value)
 
-                const taskParent = item.parentNode.parentNode.parentNode
-                console.log(taskParent)
-                if (item.parentNode == parent.lastElementChild) {
+                // const taskParent = item.parentElement.parentElement
+                console.log(taskGrandParent.lastElementChild)
+                if (item.value == taskGrandParent.lastElementChild.children[1].children[0].value) {
                     console.log('last element')
+                    
                     return
-                } else if (item.parentNode != parent.lastElementChild) {
-                    // item.removeAttribute('readonly');
-                    console.log(item)
+                } else if (item.value != taskGrandParent.lastElementChild.children[1].children[0].value) {
+                    item.removeAttribute('readonly');
+                    
+                    console.log('not the last element')
                     lastTaskIsReadOnly.parentNode.parentNode.remove();
+                    console.log(textArea)
                     // textArea.addEventListener('keydown', function(e) {
                     //     if (e.keyCode == 13 && textArea.value != '') {
                     //         e.preventDefault();
@@ -110,6 +115,9 @@ function clickedOnTaskSection(item) {
                     // })
                 }
 
+            } if (item.readOnly == true) {
+                console.log('User wants to edit task')
+                item.removeAttribute('readonly');
             }
             return;
         }
