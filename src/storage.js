@@ -118,6 +118,18 @@ function clickedOnTaskSection(item) {
             } if (item.readOnly == true) {
                 console.log('User wants to edit task')
                 item.removeAttribute('readonly');
+                console.log(item)
+                item.addEventListener('keydown', function(e) {
+                if (e.keyCode == 13 && item.value != '') {
+                    e.preventDefault();
+                    // console.log(`sub task is ${item.value}`);
+                    // saveTask(projectName, item.value);
+                    console.log(item.value)
+                    toLocalStorage()
+                    item.setAttribute('readonly', 'true');
+                    // console.log(projectName)
+                    }
+                })
             }
             return;
         }
@@ -128,6 +140,7 @@ function clickedOnTaskSection(item) {
         return;
     }
 }
+
 
 function toggleProjectIsComplete(checkBoxItem) {
     const parentElement = checkBoxItem.parentElement;
