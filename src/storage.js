@@ -1,4 +1,4 @@
-import { forEach, nth } from "lodash";
+import { forEach, indexOf, nth } from "lodash";
 import { projectTemplate, displayProjects, checkBox, taskTemplate, myProjectTasks } from "./index";
 
 let items = JSON.parse(localStorage.getItem('todolist')) || [];
@@ -124,8 +124,18 @@ function clickedOnTaskSection(item) {
                     e.preventDefault();
                     // console.log(`sub task is ${item.value}`);
                     // saveTask(projectName, item.value);
-                    console.log(item.value)
-                    toLocalStorage()
+                    // console.log(Array.prototype,indexOf.call(this, 'coding'))
+                    const grandParent = this.parentElement.parentElement.parentElement
+                    const parent = this.parentElement.parentElement
+                    for (let a of grandParent) {
+                        if (parent.previousElementSibling != null) {
+                            console.log(a)
+                        }
+                    }
+                    
+
+                    console.log(parent)
+                    // toLocalStorage()
                     item.setAttribute('readonly', 'true');
                     // console.log(projectName)
                     }
