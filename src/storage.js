@@ -118,23 +118,40 @@ function clickedOnTaskSection(item) {
             } if (item.readOnly == true) {
                 console.log('User wants to edit task')
                 item.removeAttribute('readonly');
-                console.log(item)
+                let thisItem = item.parentElement.parentElement
+                // let previousItem = thisItem.previousElementSibling
+                // let previousItem = thisItem.previousSibling.getElementsByClassName('.task-item')
+                let total = 0;
+                // console.log(previousItem)
+                while (thisItem.previousElementSibling) {
+                    total += 1
+                    thisItem = thisItem.previousElementSibling
+                    
+                }
+                console.log(`Previous total task is ${total}.`)
+                
+                // console.log(item)
                 item.addEventListener('keydown', function(e) {
                 if (e.keyCode == 13 && item.value != '') {
                     e.preventDefault();
                     // console.log(`sub task is ${item.value}`);
                     // saveTask(projectName, item.value);
                     // console.log(Array.prototype,indexOf.call(this, 'coding'))
-                    const grandParent = this.parentElement.parentElement.parentElement
-                    const parent = this.parentElement.parentElement
-                    for (let a of grandParent) {
-                        if (parent.previousElementSibling != null) {
-                            console.log(a)
-                        }
-                    }
+                    // const parent = document.getElementById('all-tasks')
+                    // let children = parent.children;
+                    console.log(item.parentElement.parentElement.parentElement.querySelectorAll('.task-item'))
+                    const allTasks = item.parentElement.parentElement.parentElement.querySelectorAll('.task-item')
+                    console.log(allTasks)
+                    console.log(item.parentElement.parentElement.previousElementSibling)
+
+                    
+                    // for (let task of allTasks) {
+                        
+                    // }
+                    // if (item.parentElement.parentElement.parentElement.parentElement.previousElementSibling)
                     
 
-                    console.log(parent)
+                    // console.log(grandParent)
                     // toLocalStorage()
                     item.setAttribute('readonly', 'true');
                     // console.log(projectName)
