@@ -67,13 +67,21 @@ function clickedOnTaskSection(item) {
         console.log(`Project name is '${projectName.innerText}'.`);
 
         const textArea = document.querySelectorAll('.task-textarea')
+
+        // const checkTask = myProjectTasks
+        // if (myProjectTasks.innerHTML === null) {
+        //     generateTasks(projectName)
+        //     console.log('no textarea')
+        // }
         const lastTaskIsReadOnly = myProjectTasks.lastElementChild.children[1].children[0]
+
 
         console.log(projectName) // currently active project
         // console.log(lastTaskIsReadOnly.parentElement.lastElementChild) // last textarea
         console.log(textArea) // full task textarea
         console.log(item) // clicked item
         if (item.nodeName != 'TEXTAREA') {
+            // const lastTaskIsReadOnly = myProjectTasks.lastElementChild.children[1].children[0]
             if (lastTaskIsReadOnly.readOnly == false) {
                 console.log(`The last textarea in tasks section is empty.`)
                 return;
@@ -85,6 +93,7 @@ function clickedOnTaskSection(item) {
             console.log(textArea)
             
         } else if (item.nodeName == 'TEXTAREA') {
+            const lastTaskIsReadOnly = myProjectTasks.lastElementChild.children[1].children[0]
             if (lastTaskIsReadOnly.readOnly == false) {
                 // console.log('item is a textarea and readonly is false')
                 // console.log(item.value)
@@ -192,7 +201,6 @@ function toggleProjectIsComplete(checkBoxItem) {
 }
 
 function activeProject(targetProject) {
-    console.log(targetProject)
     const projects = document.querySelectorAll('.project-item')
     for (let i = 0; i < projects.length; i++) {
         projects[i].classList.remove('active');
@@ -200,13 +208,13 @@ function activeProject(targetProject) {
         // code here to remove project's tasks content when removing 'active' class //
     }
     targetProject.parentElement.classList.add('active');
-    // code here to display project's task when adding 'active' class //
+    const projectName = document.querySelectorAll('.active')[0].children[1]
+    loadTask(targetProject)
+    if (myProjectTasks.innerHTML === '') {
+        generateTasks(projectName)
 
-    console.log(targetProject)
-    console.log(targetProject.parentElement)
-    loadTask(targetProject);
-    // generateTasks(targetProject);
 
+    }
 }
 
 function saveProject(newItemFromUser) {
@@ -250,22 +258,26 @@ function generateTasks(projectName) {
 
 function loadTask(activeProject) {
     
-    console.log(activeProject.htmlFor);
-    const myProjectTasks = document.querySelector('.my-project-tasks')
-    console.log(myProjectTasks)
-    items.forEach(item => {
-        if (item.id === parseInt(activeProject.htmlFor)) {
-            item.subItem.forEach(task => {
-                // console.log(task);
-                const taskItem = document.importNode(taskTemplate.content, true);
-                const textArea = taskItem.querySelector('textarea');
-                textArea.value = task.name;
-                // console.log(textArea)
-                textArea.setAttribute('readonly', 'true');
-                myProjectTasks.appendChild(taskItem);
-            })
-        }
-    })
+    if (myProjectTasks) {
+        console.log(activeProject.htmlFor);
+        const myProjectTasks = document.querySelector('.my-project-tasks')
+        console.log(myProjectTasks)
+        items.forEach(item => {
+            if (item.id === parseInt(activeProject.htmlFor)) {
+                item.subItem.forEach(task => {
+                    // console.log(task);
+                    const taskItem = document.importNode(taskTemplate.content, true);
+                    const textArea = taskItem.querySelector('textarea');
+                    textArea.value = task.name;
+                    // console.log(textArea)
+                    textArea.setAttribute('readonly', 'true');
+                    myProjectTasks.appendChild(taskItem);
+                })
+            }
+        })
+    } else {
+        generateTasks(activeProject.htmlFor)
+    }
 }
 
 function saveTask(projectName, newTaskName) {
