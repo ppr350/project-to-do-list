@@ -67,21 +67,13 @@ function clickedOnTaskSection(item) {
         console.log(`Project name is '${projectName.innerText}'.`);
 
         const textArea = document.querySelectorAll('.task-textarea')
-
-        // const checkTask = myProjectTasks
-        // if (myProjectTasks.innerHTML === null) {
-        //     generateTasks(projectName)
-        //     console.log('no textarea')
-        // }
         const lastTaskIsReadOnly = myProjectTasks.lastElementChild.children[1].children[0]
 
 
         console.log(projectName) // currently active project
-        // console.log(lastTaskIsReadOnly.parentElement.lastElementChild) // last textarea
         console.log(textArea) // full task textarea
         console.log(item) // clicked item
         if (item.nodeName != 'TEXTAREA') {
-            // const lastTaskIsReadOnly = myProjectTasks.lastElementChild.children[1].children[0]
             if (lastTaskIsReadOnly.readOnly == false) {
                 console.log(`The last textarea in tasks section is empty.`)
                 return;
@@ -104,8 +96,7 @@ function clickedOnTaskSection(item) {
                 // const taskParent = item.parentElement.parentElement
                 console.log(taskContainer.lastElementChild)
                 if (item.value == taskContainer.lastElementChild.children[1].children[0].value) {
-                    console.log('last element')
-                    
+                    console.log('last element')                  
                     return
                 } else if (item.value != taskContainer.lastElementChild.children[1].children[0].value) {
                     item.removeAttribute('readonly');
@@ -117,8 +108,7 @@ function clickedOnTaskSection(item) {
                     let index = 0;
                     while (thisItem.previousElementSibling) {
                         index += 1
-                        thisItem = thisItem.previousElementSibling
-                        
+                        thisItem = thisItem.previousElementSibling                       
                     }
                     console.log(`Previous total task is ${index}.`)
                     
@@ -212,8 +202,6 @@ function activeProject(targetProject) {
     loadTask(targetProject)
     if (myProjectTasks.innerHTML === '') {
         generateTasks(projectName)
-
-
     }
 }
 
@@ -226,9 +214,25 @@ function saveProject(newItemFromUser) {
         newItem.subItem = [];
             
         items.push(newItem);
-        console.log(newItem)
+
         toLocalStorage();
+        console.log(newItem.id.toString())
     }
+    const projects = document.querySelectorAll('.project-item')
+    for (let i = 0; i < projects.length; i++) {
+        projects[i].classList.remove('active');
+    }
+
+    projects.forEach(project => {
+        console.log(typeof(project.children[1].htmlFor))
+        if (project.children[1].htmlFor == newItem.id.toString) {
+            console.log(project)
+        }
+        // if (project.children[1].htmlFor === newItem.id) {
+        //     items.parentElement.classList.add('active');
+        // }
+        // console.log(itemOnLocalStorage)
+    })
 }
 
 function generateTasks(projectName) {
@@ -241,10 +245,12 @@ function generateTasks(projectName) {
 
     const taskSection = document.importNode(taskTemplate.content, true);
     const textArea = taskSection.querySelector('textarea');
+
     console.log(textArea)
 
 
     myProjectTasks.appendChild(taskSection);
+    textArea.focus();
     textArea.addEventListener('keydown', function(e) {
         if (e.keyCode == 13 && textArea.value != '') {
             e.preventDefault();
