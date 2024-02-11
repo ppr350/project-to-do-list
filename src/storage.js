@@ -19,8 +19,8 @@ function fromLocalStorage(itemsInLocalStorage) {
     }
 }
 
+console.log('save new data to localStorage')
 function toLocalStorage() {
-    console.log('save new data to localStorage')
     localStorage.setItem('todolist', JSON.stringify(items));
 }
 
@@ -120,6 +120,7 @@ function clickedOnTaskSection(item) {
                         items.forEach(itemOnLocalStorage => {
                             if (itemOnLocalStorage.id === parseInt(projectName.htmlFor)) {
                                 itemOnLocalStorage.subItem[index].name = item.value;
+                                
                                 toLocalStorage();
                             }
                             let projectEl = document.querySelector('.active');
@@ -134,7 +135,7 @@ function clickedOnTaskSection(item) {
 
                 }
 
-            } if (item.readOnly == true) {
+            } else if (item.readOnly == true) {
                 console.log('User wants to edit task')
                 item.removeAttribute('readonly');
                 let thisItem = item.parentElement.parentElement
@@ -156,6 +157,8 @@ function clickedOnTaskSection(item) {
                         if (itemOnLocalStorage.id === parseInt(projectName.htmlFor)) {
                             console.log(itemOnLocalStorage)
                             itemOnLocalStorage.subItem[index].name = item.value;
+                            console.log(itemOnLocalStorage.subItem[index].name)
+                            console.log(items)
                             toLocalStorage();
                         }
                         let projectEl = document.querySelector('.active');
@@ -200,7 +203,9 @@ function activeProject(targetProject) {
     targetProject.parentElement.classList.add('active');
     const projectName = document.querySelectorAll('.active')[0].children[1]
     loadTask(targetProject)
+    console.log(myProjectTasks.innerHTML)
     if (myProjectTasks.innerHTML === '') {
+        console.log('debugging a bug that produce duplacte task')
         generateTasks(projectName)
     }
 }
@@ -281,8 +286,9 @@ function loadTask(activeProject) {
                 })
             }
         })
-    } else {
-        generateTasks(activeProject.htmlFor)
+    } else if (!myProjectTasks) {
+        // generateTasks(activeProject.htmlFor)
+        console.log('debugging the bug that produce duplicate task')
     }
 }
 
