@@ -40,7 +40,6 @@ function clickedOnProjectSection(item) {
             activeProject(item);
             console.log(`and it is a project, it has an '${item.childNodes[1].classList}' class as well as an 'active' class`)
         }
-
     } else {
         console.log(`it is other items in this container`)
     }
@@ -136,47 +135,12 @@ function clickedOnTaskSection(item) {
                 }
 
             } else if (item.readOnly == true) {
-                // debugger
                 console.log('User wants to edit task')
-                // item.removeAttribute('readonly');
-                // let thisItem = item.parentElement.parentElement
-                // let index = 0;
-                // while (thisItem.previousElementSibling) {
-                //     index += 1
-                //     thisItem = thisItem.previousElementSibling                    
-                // }
-                // console.log(`Previous total task is ${index}.`)
                 console.log(`item is '${item.value}' and readonly status is ${item.readOnly}.`)
                 generateTasks(projectName, item)
-                
-                // console.log(item)
-                // item.addEventListener('keydown', function(e) {
-                // if (e.keyCode == 13 && item.value != '') {
-                //     e.preventDefault();
-                //     // const allTasks = item.parentElement.parentElement.parentElement.querySelectorAll('.task-item')
-
-                //     // console.log(allTasks[index])
-                //     items.forEach(itemOnLocalStorage => {
-                //         if (itemOnLocalStorage.id === parseInt(projectName.htmlFor)) {
-                //             console.log(itemOnLocalStorage)
-                //             itemOnLocalStorage.subItem[index].name = item.value;
-                //             console.log(itemOnLocalStorage.subItem[index].name)
-                //             console.log(items)
-                //             toLocalStorage();
-                //         }
-                //         let projectEl = document.querySelector('.active');
-                //         console.log(`'${projectEl.children[1].innerText}' has 'active' class`)
-                //     })
-                //     item.setAttribute('readonly', 'true');
-                //     return
-                //     }
-                // })
-
             }
             return;
         }
-        
-        // code here to add new textarea
     } else {
         console.log('no active project')
         return;
@@ -191,8 +155,6 @@ function toggleProjectIsComplete(checkBoxItem) {
         if (item.id == completedItem.htmlFor) {
             item.isComplete = !item.isComplete;
             console.log(`'isComplete' is now '${item.isComplete}'`)
-
-            // code here to line through all tasks in textarea and check all checbox inside that project //
         }
     })
     toLocalStorage();
@@ -202,23 +164,11 @@ function activeProject(targetProject) {
     const projects = document.querySelectorAll('.project-item')
     for (let i = 0; i < projects.length; i++) {
         projects[i].classList.remove('active');
-
-        // code here to remove project's tasks content when removing 'active' class //
     }
     targetProject.parentElement.classList.add('active');
     const projectName = document.querySelectorAll('.active')[0].children[1]
     loadTask(targetProject)
-    console.log(myProjectTasks.children.length < 1);
-    // console.log(myProjectTasks.innerHTML)
-    // console.log(myProjectTasks.innerHTML == undefined)
-    // console.log(myProjectTasks.innerHTML === undefined)
-    // console.log(myProjectTasks.innerHTML == null)
-    // console.log(myProjectTasks.innerHTML === null)
-    // console.log(myProjectTasks.innerHTML === "")
-    // console.log(myProjectTasks.length)
-    // console.log(myProjectTasks.innerHTML.length === undefined)
-    
-    
+    console.log(myProjectTasks.children.length < 1)    
     if (myProjectTasks.children.length < 1) {
         console.log('debugging a bug that produce duplacte task')
         generateTasks(projectName, '')
@@ -280,7 +230,6 @@ function generateTasks(projectName, item) {
                 e.preventDefault();
                 // const allTasks = item.parentElement.parentElement.parentElement.querySelectorAll('.task-item')
 
-                // console.log(allTasks[index])
                 items.forEach(itemOnLocalStorage => {
                     if (itemOnLocalStorage.id === parseInt(projectName.htmlFor)) {
                         console.log(itemOnLocalStorage)
