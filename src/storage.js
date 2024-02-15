@@ -218,13 +218,14 @@ function generateTasks(projectName, item) {
 
     if (item.readOnly == true) {
         console.log(projectName)
+        debugger
         item.removeAttribute('readonly');
         let thisItem = item.parentElement.parentElement
         let index = 0;
         while (thisItem.previousElementSibling) {
             index += 1
             thisItem = thisItem.previousElementSibling                    
-        }
+        };
         item.addEventListener('keydown', function(e) {
             if (e.keyCode == 13 && item.value != '') {
                 e.preventDefault();
