@@ -79,7 +79,7 @@ function clickedOnTaskSection(item) {
                 return;
             } else if (lastTaskIsReadOnly.readOnly == true) {
                 console.log(`The last textearea readonly status is ${lastTaskIsReadOnly.readOnly}, which means it has value in it. Therefore a new textarea is generated.`)
-                generateTasks(projectName)
+                generateTasks(projectName, '')
                 return;
             }
             console.log(textArea)
@@ -91,7 +91,7 @@ function clickedOnTaskSection(item) {
                 // console.log(item.value)
                 const taskContainer = item.parentElement.parentElement.parentElement
                 console.log(taskContainer)
-                console.log(item.value, taskContainer.lastElementChild.children[1].children[0].value)
+                console.log(item.value, taskContainer.lastElementChild.children[1].children[0])
 
                 // const taskParent = item.parentElement.parentElement
                 console.log(taskContainer.lastElementChild)
@@ -124,7 +124,7 @@ function clickedOnTaskSection(item) {
                                 toLocalStorage();
                             }
                             let projectEl = document.querySelector('.active');
-                            console.log(`'${projectEl.children[1].innerText}' has 'active' class`)
+                            console.log(`Project name '${projectEl.children[1].innerText}' has 'active' class`)
                         })
                         
                         // projectName.
@@ -136,37 +136,42 @@ function clickedOnTaskSection(item) {
                 }
 
             } else if (item.readOnly == true) {
+                // debugger
                 console.log('User wants to edit task')
-                item.removeAttribute('readonly');
-                let thisItem = item.parentElement.parentElement
-                let index = 0;
-                while (thisItem.previousElementSibling) {
-                    index += 1
-                    thisItem = thisItem.previousElementSibling                    
-                }
-                console.log(`Previous total task is ${index}.`)
+                // item.removeAttribute('readonly');
+                // let thisItem = item.parentElement.parentElement
+                // let index = 0;
+                // while (thisItem.previousElementSibling) {
+                //     index += 1
+                //     thisItem = thisItem.previousElementSibling                    
+                // }
+                // console.log(`Previous total task is ${index}.`)
+                console.log(`item is '${item.value}' and readonly status is ${item.readOnly}.`)
+                generateTasks(projectName, item)
                 
                 // console.log(item)
-                item.addEventListener('keydown', function(e) {
-                if (e.keyCode == 13 && item.value != '') {
-                    e.preventDefault();
-                    // const allTasks = item.parentElement.parentElement.parentElement.querySelectorAll('.task-item')
+                // item.addEventListener('keydown', function(e) {
+                // if (e.keyCode == 13 && item.value != '') {
+                //     e.preventDefault();
+                //     // const allTasks = item.parentElement.parentElement.parentElement.querySelectorAll('.task-item')
 
-                    // console.log(allTasks[index])
-                    items.forEach(itemOnLocalStorage => {
-                        if (itemOnLocalStorage.id === parseInt(projectName.htmlFor)) {
-                            console.log(itemOnLocalStorage)
-                            itemOnLocalStorage.subItem[index].name = item.value;
-                            console.log(itemOnLocalStorage.subItem[index].name)
-                            console.log(items)
-                            toLocalStorage();
-                        }
-                        let projectEl = document.querySelector('.active');
-                        console.log(`'${projectEl.children[1].innerText}' has 'active' class`)
-                    })
-                    item.setAttribute('readonly', 'true');
-                    }
-                })
+                //     // console.log(allTasks[index])
+                //     items.forEach(itemOnLocalStorage => {
+                //         if (itemOnLocalStorage.id === parseInt(projectName.htmlFor)) {
+                //             console.log(itemOnLocalStorage)
+                //             itemOnLocalStorage.subItem[index].name = item.value;
+                //             console.log(itemOnLocalStorage.subItem[index].name)
+                //             console.log(items)
+                //             toLocalStorage();
+                //         }
+                //         let projectEl = document.querySelector('.active');
+                //         console.log(`'${projectEl.children[1].innerText}' has 'active' class`)
+                //     })
+                //     item.setAttribute('readonly', 'true');
+                //     return
+                //     }
+                // })
+
             }
             return;
         }
@@ -203,10 +208,20 @@ function activeProject(targetProject) {
     targetProject.parentElement.classList.add('active');
     const projectName = document.querySelectorAll('.active')[0].children[1]
     loadTask(targetProject)
-    console.log(myProjectTasks.innerHTML)
-    if (myProjectTasks.innerHTML === '') {
+    console.log(myProjectTasks.children.length < 1);
+    // console.log(myProjectTasks.innerHTML)
+    // console.log(myProjectTasks.innerHTML == undefined)
+    // console.log(myProjectTasks.innerHTML === undefined)
+    // console.log(myProjectTasks.innerHTML == null)
+    // console.log(myProjectTasks.innerHTML === null)
+    // console.log(myProjectTasks.innerHTML === "")
+    // console.log(myProjectTasks.length)
+    // console.log(myProjectTasks.innerHTML.length === undefined)
+    
+    
+    if (myProjectTasks.children.length < 1) {
         console.log('debugging a bug that produce duplacte task')
-        generateTasks(projectName)
+        generateTasks(projectName, '')
     }
 }
 
@@ -240,31 +255,106 @@ function saveProject(newItemFromUser) {
     })
 }
 
-function generateTasks(projectName) {
+function generateTasks(projectName, item) {
     // remove other project's task(s) before populating the task area with active project's task
     console.log(projectName)
+    console.log(item)
+    console.log(item.readOnly)
+
+    // let saveItem
 
 
     console.log(document.querySelectorAll('.my-project-tasks')[0])
-    
 
-    const taskSection = document.importNode(taskTemplate.content, true);
-    const textArea = taskSection.querySelector('textarea');
-
-    console.log(textArea)
-
-
-    myProjectTasks.appendChild(taskSection);
-    textArea.focus();
-    textArea.addEventListener('keydown', function(e) {
-        if (e.keyCode == 13 && textArea.value != '') {
-            e.preventDefault();
-            console.log(`sub task is ${textArea.value}`);
-            saveTask(projectName, textArea.value);
-            textArea.setAttribute('readonly', 'true');
-            // console.log(projectName)
+    if (item.readOnly == true) {
+        console.log(projectName)
+        item.removeAttribute('readonly');
+        let thisItem = item.parentElement.parentElement
+        let index = 0;
+        while (thisItem.previousElementSibling) {
+            index += 1
+            thisItem = thisItem.previousElementSibling                    
         }
-    })
+        item.addEventListener('keydown', function(e) {
+            if (e.keyCode == 13 && item.value != '') {
+                e.preventDefault();
+                // const allTasks = item.parentElement.parentElement.parentElement.querySelectorAll('.task-item')
+
+                // console.log(allTasks[index])
+                items.forEach(itemOnLocalStorage => {
+                    if (itemOnLocalStorage.id === parseInt(projectName.htmlFor)) {
+                        console.log(itemOnLocalStorage)
+                        itemOnLocalStorage.subItem[index].name = item.value;
+                        console.log(itemOnLocalStorage.subItem[index].name)
+                        console.log(items)
+                        toLocalStorage()
+
+                    }
+                    // let projectEl = document.querySelector('.active');
+                    // console.log(`'${projectEl.children[1].innerText}' has 'active' class`)
+                })
+                // toLocalStorage()
+                item.setAttribute('readonly', 'true');
+                console.log(item)
+
+            }
+        // saveTask(projectName, item.value)
+        // saveItem = item.value
+
+        })
+        return
+    }
+
+    else if (item.readOnly === undefined && !item.value) {
+        const taskSection = document.importNode(taskTemplate.content, true);
+        const textArea = taskSection.querySelector('textarea');
+
+
+        console.log(textArea)
+        // let saveItem
+
+        myProjectTasks.appendChild(taskSection);
+        textArea.focus();
+        textArea.addEventListener('keydown', function(e) {
+            if (e.keyCode == 13 && textArea.value != '') {
+                e.preventDefault();
+                console.log(`sub task is ${textArea.value}`);
+                // saveTask(projectName, textArea.value);
+                textArea.setAttribute('readonly', 'true');
+                console.log(item = textArea.value)
+                // saveItem = textArea.value
+                // console.log(saveItem)
+                saveTask(projectName, item)
+
+            }
+
+        })
+        return
+        
+    } 
+    // else {
+    //     const taskSection = document.importNode(taskTemplate.content, true);
+    //     const textArea = taskSection.querySelector('textarea');
+
+    //     console.log(textArea)
+
+
+
+    //     myProjectTasks.appendChild(taskSection);
+    //     textArea.focus();
+    //     textArea.addEventListener('keydown', function(e) {
+    //         if (e.keyCode == 13 && textArea.value != '') {
+    //             e.preventDefault();
+    //             console.log(`sub task is ${textArea.value}`);
+    //             saveTask(projectName, textArea.value);
+    //             textArea.setAttribute('readonly', 'true');
+    //             // console.log(projectName)
+
+    //         }
+    //     })
+    // }
+
+    
 }
 
 function loadTask(activeProject) {
@@ -306,10 +396,10 @@ function saveTask(projectName, newTaskName) {
             // console.log(item.id, projectName.htmlFor)
             item.subItem.push(newSubTask);
             toLocalStorage();
-        }
-        let projectEl = document.querySelector('.active');
-        console.log(`'${projectEl.children[1].innerText}' has 'active' class`)
+        } 
     })
+    let projectEl = document.querySelector('.active');
+    console.log(`'${projectEl.children[1].innerText}' has 'active' class`)
 }
 
 function reloadPage() {
