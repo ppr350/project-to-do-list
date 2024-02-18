@@ -1,4 +1,4 @@
-import { forEach, indexOf, nth } from "lodash";
+import { forEach, indexOf, nth, templateSettings } from "lodash";
 import { projectTemplate, displayProjects, checkBox, taskTemplate, myProjectTasks } from "./index";
 
 let items = JSON.parse(localStorage.getItem('todolist')) || [];
@@ -59,8 +59,7 @@ function clickedOnTaskSection(item) {
         }
 
         
-        return;
-    } if (document.getElementsByClassName('active').length !== 0) {
+    } else if (document.getElementsByClassName('active').length !== 0) {
         console.log('active project available');
         const projectName = document.querySelectorAll('.active')[0].children[1]
         console.log(`Project name is '${projectName.innerText}'.`);
@@ -75,31 +74,26 @@ function clickedOnTaskSection(item) {
         if (item.nodeName != 'TEXTAREA') {
             if (lastTaskIsReadOnly.readOnly == false) {
                 console.log(`The last textarea in tasks section is empty.`)
-                return;
+
             } else if (lastTaskIsReadOnly.readOnly == true) {
                 console.log(`The last textearea readonly status is ${lastTaskIsReadOnly.readOnly}, which means it has value in it. Therefore a new textarea is generated.`)
+                // debugger
                 generateTasks(projectName, '')
-                return;
             }
             console.log(textArea)
             
         } else if (item.nodeName == 'TEXTAREA') {
             const lastTaskIsReadOnly = myProjectTasks.lastElementChild.children[1].children[0]
             if (lastTaskIsReadOnly.readOnly == false) {
-                // console.log('item is a textarea and readonly is false')
-                // console.log(item.value)
                 const taskContainer = item.parentElement.parentElement.parentElement
-                console.log(taskContainer)
                 console.log(item.value, taskContainer.lastElementChild.children[1].children[0])
+                console.log(`The last element on the task list is ${taskContainer.lastElementChild}.`)
 
-                // const taskParent = item.parentElement.parentElement
-                console.log(taskContainer.lastElementChild)
                 if (item.value == taskContainer.lastElementChild.children[1].children[0].value) {
-                    console.log('last element')                  
+                    console.log('clicked on the last element')                  
                     return
                 } else if (item.value != taskContainer.lastElementChild.children[1].children[0].value) {
                     item.removeAttribute('readonly');
-                    
                     console.log('not the last element')
                     lastTaskIsReadOnly.parentNode.parentNode.remove();
                     console.log(textArea)
@@ -109,25 +103,19 @@ function clickedOnTaskSection(item) {
                         index += 1
                         thisItem = thisItem.previousElementSibling                       
                     }
-                    console.log(`Previous total task is ${index}.`)
+                    console.log(`Previous total element is ${index}.`)
                     
                     item.addEventListener('keydown', function(e) {
                     if (e.keyCode == 13 && item.value != '') {
                         e.preventDefault();    
-                        // const allTasks = item.parentElement.parentElement.parentElement.querySelectorAll('.task-item')
-                        // console.log(allTasks[index])
                         items.forEach(itemOnLocalStorage => {
                             if (itemOnLocalStorage.id === parseInt(projectName.htmlFor)) {
-                                itemOnLocalStorage.subItem[index].name = item.value;
-                                
+                                itemOnLocalStorage.subItem[index].name = item.value;                             
                                 toLocalStorage();
                             }
                             let projectEl = document.querySelector('.active');
                             console.log(`Project name '${projectEl.children[1].innerText}' has 'active' class`)
                         })
-                        
-                        // projectName.
-    
                         item.setAttribute('readonly', 'true');
                         }
                     })
@@ -139,11 +127,10 @@ function clickedOnTaskSection(item) {
                 console.log(`item is '${item.value}' and readonly status is ${item.readOnly}.`)
                 generateTasks(projectName, item)
             }
-            return;
+
         }
     } else {
         console.log('no active project')
-        return;
     }
 }
 
@@ -170,7 +157,7 @@ function activeProject(targetProject) {
     loadTask(targetProject)
     console.log(myProjectTasks.children.length < 1)    
     if (myProjectTasks.children.length < 1) {
-        console.log('debugging a bug that produce duplacte task')
+        console.log('debugging a bug that produce duplicate task')
         generateTasks(projectName, '')
     }
 }
@@ -206,19 +193,12 @@ function saveProject(newItemFromUser) {
 }
 
 function generateTasks(projectName, item) {
-    // remove other project's task(s) before populating the task area with active project's task
     console.log(projectName)
     console.log(item)
     console.log(item.readOnly)
-
-    // let saveItem
-
-
     console.log(document.querySelectorAll('.my-project-tasks')[0])
 
-    if (item.readOnly == true) {
-        console.log(projectName)
-        debugger
+    if (item.readOnly === true) {
         item.removeAttribute('readonly');
         let thisItem = item.parentElement.parentElement
         let index = 0;
@@ -226,12 +206,12 @@ function generateTasks(projectName, item) {
             index += 1
             thisItem = thisItem.previousElementSibling                    
         };
+        console.log(index)
         item.addEventListener('keydown', function(e) {
             if (e.keyCode == 13 && item.value != '') {
                 e.preventDefault();
-                // const allTasks = item.parentElement.parentElement.parentElement.querySelectorAll('.task-item')
 
-                items.forEach(itemOnLocalStorage => {
+               items.forEach(itemOnLocalStorage => {
                     if (itemOnLocalStorage.id === parseInt(projectName.htmlFor)) {
                         console.log(itemOnLocalStorage)
                         itemOnLocalStorage.subItem[index].name = item.value;
@@ -240,28 +220,16 @@ function generateTasks(projectName, item) {
                         toLocalStorage()
 
                     }
-                    // let projectEl = document.querySelector('.active');
-                    // console.log(`'${projectEl.children[1].innerText}' has 'active' class`)
                 })
-                // toLocalStorage()
                 item.setAttribute('readonly', 'true');
                 console.log(item)
-
             }
-        // saveTask(projectName, item.value)
-        // saveItem = item.value
-
         })
-        return
-    }
 
-    else if (item.readOnly === undefined && !item.value) {
+    }
+    else if (item.readOnly === undefined && item === '') {
         const taskSection = document.importNode(taskTemplate.content, true);
         const textArea = taskSection.querySelector('textarea');
-
-
-        console.log(textArea)
-        // let saveItem
 
         myProjectTasks.appendChild(taskSection);
         textArea.focus();
@@ -269,26 +237,19 @@ function generateTasks(projectName, item) {
             if (e.keyCode == 13 && textArea.value != '') {
                 e.preventDefault();
                 console.log(`sub task is ${textArea.value}`);
-                // saveTask(projectName, textArea.value);
                 textArea.setAttribute('readonly', 'true');
-                console.log(item = textArea.value)
-                // saveItem = textArea.value
-                // console.log(saveItem)
-                saveTask(projectName, item)
 
+                saveTask(projectName, textArea.value)
             }
 
         })
         return
         
     } 
+
     // else {
     //     const taskSection = document.importNode(taskTemplate.content, true);
     //     const textArea = taskSection.querySelector('textarea');
-
-    //     console.log(textArea)
-
-
 
     //     myProjectTasks.appendChild(taskSection);
     //     textArea.focus();
@@ -304,7 +265,6 @@ function generateTasks(projectName, item) {
     //     })
     // }
 
-    
 }
 
 function loadTask(activeProject) {
@@ -316,11 +276,9 @@ function loadTask(activeProject) {
         items.forEach(item => {
             if (item.id === parseInt(activeProject.htmlFor)) {
                 item.subItem.forEach(task => {
-                    // console.log(task);
                     const taskItem = document.importNode(taskTemplate.content, true);
                     const textArea = taskItem.querySelector('textarea');
                     textArea.value = task.name;
-                    // console.log(textArea)
                     textArea.setAttribute('readonly', 'true');
                     myProjectTasks.appendChild(taskItem);
                 })
@@ -342,8 +300,6 @@ function saveTask(projectName, newTaskName) {
     items.forEach(item => {
         if (item.id === parseInt(projectName.htmlFor)) {
             console.log(item)
-            // console.log(projectName)
-            // console.log(item.id, projectName.htmlFor)
             item.subItem.push(newSubTask);
             toLocalStorage();
         } 
