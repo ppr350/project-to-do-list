@@ -1,11 +1,7 @@
 {
   "name": "project-to-do-list",
   "version": "1.0.0",
-<<<<<<< HEAD
-  "description": "Project To Do List",
-=======
   "description": "Project To do list beta 1",
->>>>>>> d8dc1b17f48550263a5d28a4d7bf086e1100e804
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
