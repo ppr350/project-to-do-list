@@ -17,7 +17,7 @@ I am sharing this project in beta to The Odin Project's Discord community in ord
 1. Tested it on FireFox and Chrome browsers
 2. Instead of calling the 'saveTask' function, I wrote the code inside 'generateTasks' function, to rule out calling 'saveTask' twice when editing task
 3. Used debugger to try to locate the line of code that cause the duplication
-4. Console.log out each step on ocassions that I know will produce the bug to tried catch the bug
+4. Console.log out each step on occasions that I know will produce the bug to tried catch the bug
 
 ### updates on beta 1.1 (20th February 2024)
 1. Following advice from Jonathan || saltypirate10 on The Odin Project's discord's Javascript-help-1, The project is now more modular.
@@ -44,19 +44,19 @@ I am sharing this project in beta to The Odin Project's Discord community in ord
 
 ### add eventListener to project container :
 >
-#### if
+if
     user clicks on project container
     >>
     trigger project container’s eventListener
     >>
     eventListener determines what part of project container is clicked
     >>
-####        if
+        if
         it’s a checkbox :
         >>>
         return Boolean value ‘true’ or false
 
-####        else if
+        else if
         If it’s a project name :
         >>>
         remove ‘active’ class on project in the same level if there is any,
@@ -69,7 +69,7 @@ I am sharing this project in beta to The Odin Project's Discord community in ord
 
         display the project’s task section 
         >>>>
-####            if
+            if
             the task section is empty :
             >>>>>
             display an empty textarea for user to enter new task,
@@ -98,17 +98,17 @@ I am sharing this project in beta to The Odin Project's Discord community in ord
 
             update the new value to localStorage,
 
-####            else if
+            else if
             the task section has existing task(s) :
             >>>>>>
-####                if
+                if
                 the existing task’s parent project is not the same project that the user has just clicked :
                 >>>>>>>
                 remove all existing tasks
 
                 populate the empty task section with task that belongs to the project that was just clicked 
 
-####                if
+                if
                 user clicks on an existing readonly textarea with value :
                 >>>>>>>
                 remove “readonly” attribute on that textarea to enable user edit the task,
@@ -121,10 +121,10 @@ I am sharing this project in beta to The Odin Project's Discord community in ord
 
                 update the new value to localStorage,
 
-####                if
+                if
                 user clicks on a task’s checkbox :
                 >>>>>>>
-####                    if
+                    if
                     check
                     >>>>>>>>
                     update the check status,
@@ -133,7 +133,7 @@ I am sharing this project in beta to The Odin Project's Discord community in ord
 
                     update the checked state to localStorage,
 
-####                    if
+                    if
                     uncheck
                     >>>>>>>>
                     update the checked status,
@@ -142,12 +142,12 @@ I am sharing this project in beta to The Odin Project's Discord community in ord
 
                     update the checked state to localStorage,
 
-####                if
+                if
                 user clicks on the priority radio button :
                 >>>>>>>
                 options are “none”, “low”, “medium” and “high”
 
-####                if
+                if
                 user clicks on the description textarea :
                 >>>>>>>
                 remove “readonly” attribute on that description textarea to enable user edit the description,
@@ -160,37 +160,37 @@ I am sharing this project in beta to The Odin Project's Discord community in ord
 
                 update the new value to localStorage,
 
-####                if
+                if
                 user clicks on due date:
                 >>>>>>>
                 let user modify due date
 
-####                if
+                if
                 user clicks on an empty space inside the task section :
                 >>>>>>>
-####                    if
+                    if
                     task section does not contains empty textarea :
                     >>>>>>>>
                     generate a new textarea for new task
 
-####                    else if
+                    else if
                     task section contains empty textarea :
                     >>>>>>>>
                     Do nothing 
 
-####    else
+    else
     >>
     do nothing
 
 
 ### add eventListener to project input button :
 >
-####    if
+    if
     user press the type=“submit” button without entering a value in the input box
     >>
     return
 
-####    else
+    else
     project name equals to entered value 
     >>
     create a new project id for this new project name using new Date().valueOf()
