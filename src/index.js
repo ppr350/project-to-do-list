@@ -1,6 +1,8 @@
 import './style.css';
-import { saveProject, fromLocalStorage, clickedOnProjectSection, clickedOnTaskSection, activeProject, generateTasks } from './storage';
+import { fromLocalStorage } from "./storage";
+import { clickedOnProjectSection, clickedOnTaskSection } from "./clickEvents";
 import { changeLanguage } from './language';
+import { saveProject } from './memory';
 import { closestIndexTo } from 'date-fns';
 
 const userInput = document.querySelector('#user-input-project');
@@ -43,4 +45,4 @@ function startUp() {
 }
 startUp();
 
-export { userInput, submitProjectButton, displayProjects, projectTemplate, taskTemplate, checkBox, sidebarContainer, chooseGaeilge, chooseEnglish, startUp, title, myProjects, myProjectTasks, myTasksTitle }
+export { userInput, submitProjectButton, displayProjects, projectTemplate, taskTemplate, checkBox, sidebarContainer, chooseGaeilge, chooseEnglish, title, myProjects, myProjectTasks, myTasksTitle }
