@@ -31,6 +31,8 @@ I am sharing this project in beta to The Odin Project's Discord community in ord
     - action.js generates, manipulate project and task
     - memory.js synchronises items between page and localStorage
 
+### Credit
+Thank you discord users Blu3, Jonathan || saltypirate10 on TOP's Javascript-help-1 for helping me
 
 ## App Logic
 
