@@ -32,7 +32,7 @@ function toggleProjectIsComplete(checkBoxItem) {
 
 function generateTask(projectName, item) {
     // debugger
-    console.log(projectName)
+    console.log(projectName.htmlFor)
     console.log(item.value)
     console.log(item.readOnly)
     // console.log(document.querySelectorAll('.my-project-tasks')[0])
@@ -68,7 +68,7 @@ function generateTask(projectName, item) {
 
     } else if (item.value == undefined) {
 
-        console.log(projectName)
+        console.log(projectName.htmlFor)
         console.log(item.value)
         console.log(item.readOnly)
         if (item.readOnly == undefined) {
@@ -81,8 +81,8 @@ function generateTask(projectName, item) {
             // console.log(document.activeElement)
             textArea.addEventListener('keydown', function(e) {
                 if (e.keyCode == 13 && textArea.value != '') {
-                    e.preventDefault();
-                    e.stopImmediatePropagation()
+                    // e.preventDefault();
+                    // e.stopImmediatePropagation()
                     console.log(`sub task is ${textArea.value}`);
                     textArea.setAttribute('readonly', 'true');
                     saveTask(projectName, textArea.value)

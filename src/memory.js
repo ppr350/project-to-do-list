@@ -59,7 +59,7 @@ function loadTask(activeProject) {
             }
         })
     } if (myProjectTasks.children.length < 1) {
-        console.log('debugging a bug that produce duplicate task')
+        console.log('the task area is empty so a new textarea is created')
         const projectName = document.querySelectorAll('.active')[0].children[1]
         generateTask(projectName, '')
     }

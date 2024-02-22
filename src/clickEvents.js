@@ -50,7 +50,7 @@ function clickedOnTaskSection(item) {
 
         console.log(projectName) // currently active project
         // console.log(textArea) // full task textarea
-        console.log(item.value) // clicked item
+        console.log(`Clicked task is ${item.value}.`) // clicked item
         if (item.nodeName != 'TEXTAREA') {
             if (lastTaskIsReadOnly.readOnly == false && lastTaskIsReadOnly.value == '') {
                 console.log(`The last textarea in tasks section is empty.`)
@@ -64,7 +64,7 @@ function clickedOnTaskSection(item) {
         } else if (item.nodeName == 'TEXTAREA') {
             // if (document.activeElement != item) document.activeElement.blur();
             // const lastTaskIsReadOnly = myProjectTasks.lastElementChild.children[1].children[0]
-            console.log(lastTaskIsReadOnly.value)
+            console.log(`The last task is ${lastTaskIsReadOnly.value}.`)
             const allTextArea = document.querySelectorAll('.task-textarea')
             allTextArea.forEach(textArea => {
                 if (textArea.value != '') {
@@ -76,10 +76,11 @@ function clickedOnTaskSection(item) {
                 console.log(item.value, taskContainer.lastElementChild.children[1].children[0])
                 console.log(taskContainer.lastElementChild)
 
-                if (item.value == taskContainer.lastElementChild.children[1].children[0].value) {
-                    console.log('clicked on the last element')                  
-                    return
-                } else if (item.value != taskContainer.lastElementChild.children[1].children[0].value) {
+                // if (item.value == taskContainer.lastElementChild.children[1].children[0].value) {
+                //     console.log('clicked on the last element')                  
+                //     return
+                // } else 
+                if (item.value != taskContainer.lastElementChild.children[1].children[0].value) {
                     item.removeAttribute('readonly');
                     console.log('not the last element')
                     if (lastTaskIsReadOnly.value == '') {

@@ -35,9 +35,9 @@ function startUp() {
         clickedOnProjectSection(e.target);
     })
     taskSection.addEventListener('click', function(e) {
-        e.stopImmediatePropagation()
-        e.preventDefault();
-        console.log(e)
+        // e.stopImmediatePropagation()
+        // e.preventDefault();
+        // console.log(e)
         // console.log(document.activeElement)
         clickedOnTaskSection(e.target)
     })
