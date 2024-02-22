@@ -4,6 +4,7 @@ import { clickedOnProjectSection, clickedOnTaskSection } from "./clickEvents";
 import { changeLanguage } from './language';
 import { saveProject } from './memory';
 import { closestIndexTo } from 'date-fns';
+import { generateTask } from './actions';
 
 const userInput = document.querySelector('#user-input-project');
 const submitProjectButton = document.querySelector('#submit-project-btn');
@@ -34,7 +35,11 @@ function startUp() {
         clickedOnProjectSection(e.target);
     })
     taskSection.addEventListener('click', function(e) {
-        clickedOnTaskSection(e.target);
+        e.stopImmediatePropagation()
+        e.preventDefault();
+        console.log(e)
+        // console.log(document.activeElement)
+        clickedOnTaskSection(e.target)
     })
     chooseGaeilge.addEventListener('click', function(e) {
         changeLanguage('gaeilge');
@@ -42,6 +47,8 @@ function startUp() {
     chooseEnglish.addEventListener('click', function(e) {
         changeLanguage('english')
     })
+
+
 }
 startUp();
 

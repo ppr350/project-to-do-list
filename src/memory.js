@@ -1,5 +1,6 @@
 import { toLocalStorage, items } from "./storage";
 import { taskTemplate, myProjectTasks } from "./index";
+import { generateTask } from "./actions"
 
 function saveProject(newItemFromUser) {
     let newItem = {};
@@ -40,7 +41,7 @@ function saveTask(projectName, newTaskName) {
         } 
     })
     let projectEl = document.querySelector('.active');
-    console.log(`'${projectEl.children[1].innerText}' has 'active' class`)
+    // console.log(`'${projectEl.children[1].innerText}' has 'active' class`)
 }
 
 function loadTask(activeProject) {
@@ -57,8 +58,10 @@ function loadTask(activeProject) {
                 })
             }
         })
-    } else if (!myProjectTasks) {
-        console.log('debugging the bug that produce duplicate task')
+    } if (myProjectTasks.children.length < 1) {
+        console.log('debugging a bug that produce duplicate task')
+        const projectName = document.querySelectorAll('.active')[0].children[1]
+        generateTask(projectName, '')
     }
 }
 

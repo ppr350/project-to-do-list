@@ -1,5 +1,5 @@
 # project-to-do-list
-# beta 1.1
+# beta 1.1.1
 I am looking for help:
 
 I am sharing this project in beta to The Odin Project's Discord community in order to help locate and fix a bug:
@@ -18,14 +18,19 @@ I am sharing this project in beta to The Odin Project's Discord community in ord
 2. Instead of calling the 'saveTask' function, I wrote the code inside 'generateTasks' function, to rule out calling 'saveTask' twice when editing task
 3. Used debugger to try to locate the line of code that cause the duplication
 4. Console.log out each step on occasions that I know will produce the bug to tried catch the bug
+5. Use stopPropagation() method to prevent further propagation of the current event
+6. Use stopImmediatePropagation() method to prevent other listeners of the same event from being called. However, It was undesirable statement inside "else if" preventing the desirable statement inside "if" from running
+7. Making sure "readonly = true" are in place for all textarea that have value inside
 
-### updates on beta 1.1 (20th February 2024)
+
+### updates on beta 1.1.1 (22th February 2024)
 1. Following advice from Jonathan || saltypirate10 on The Odin Project's discord's Javascript-help-1, The project is now more modular.
     - index.js handles most HTML DOM variable objects on startUp
     - clickEvents.js listens to inputs and process them accordingly
     - storage.js handles localStorage
     - action.js generates, manipulate project and task
     - memory.js synchronises items between page and localStorage
+
 
 ## App Logic
 

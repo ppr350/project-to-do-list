@@ -1,6 +1,7 @@
 import { toLocalStorage, items } from "./storage"
 import { activateProject, toggleProjectIsComplete, generateTask } from "./actions"
 import { myProjectTasks } from "./index"
+import { last } from "lodash";
 
 function clickedOnProjectSection(item) {
     console.log(`the clicked item is a project element inside the 'projects' div`)
@@ -24,6 +25,8 @@ function clickedOnProjectSection(item) {
 
 function clickedOnTaskSection(item) {
     console.log(`User clicked on a '${(item.tagName.toLowerCase())}' that has '${item.className || item.id}' class name / id.`)
+    // if (document.activeElement != item) document.activeElement.blur();
+
     if (item.matches('[type="checkbox"]')) {
         // toggleProjectIsComplete(item);
         console.log(`and it is a checkbox`)
@@ -46,22 +49,32 @@ function clickedOnTaskSection(item) {
 
 
         console.log(projectName) // currently active project
-        console.log(textArea) // full task textarea
-        console.log(item) // clicked item
+        // console.log(textArea) // full task textarea
+        console.log(item.value) // clicked item
         if (item.nodeName != 'TEXTAREA') {
-            if (lastTaskIsReadOnly.readOnly == false) {
+            if (lastTaskIsReadOnly.readOnly == false && lastTaskIsReadOnly.value == '') {
                 console.log(`The last textarea in tasks section is empty.`)
             } else if (lastTaskIsReadOnly.readOnly == true) {
                 console.log(`The last textearea readonly status is ${lastTaskIsReadOnly.readOnly}, which means it has value in it. Therefore a new textarea is generated.`)
                 generateTask(projectName, '')
+            } else if (lastTaskIsReadOnly.value != '') {
+                generateTask(projectName, '')
             }
 
         } else if (item.nodeName == 'TEXTAREA') {
-            const lastTaskIsReadOnly = myProjectTasks.lastElementChild.children[1].children[0]
+            // if (document.activeElement != item) document.activeElement.blur();
+            // const lastTaskIsReadOnly = myProjectTasks.lastElementChild.children[1].children[0]
+            console.log(lastTaskIsReadOnly.value)
+            const allTextArea = document.querySelectorAll('.task-textarea')
+            allTextArea.forEach(textArea => {
+                if (textArea.value != '') {
+                    textArea.setAttribute('readonly', 'true')
+                }
+            })
             if (lastTaskIsReadOnly.readOnly == false) {
                 const taskContainer = item.parentElement.parentElement.parentElement
                 console.log(item.value, taskContainer.lastElementChild.children[1].children[0])
-                console.log(`The last element on the task list is ${taskContainer.lastElementChild}.`)
+                console.log(taskContainer.lastElementChild)
 
                 if (item.value == taskContainer.lastElementChild.children[1].children[0].value) {
                     console.log('clicked on the last element')                  
@@ -69,7 +82,13 @@ function clickedOnTaskSection(item) {
                 } else if (item.value != taskContainer.lastElementChild.children[1].children[0].value) {
                     item.removeAttribute('readonly');
                     console.log('not the last element')
-                    lastTaskIsReadOnly.parentNode.parentNode.remove();
+                    if (lastTaskIsReadOnly.value == '') {
+                        lastTaskIsReadOnly.parentNode.parentNode.remove();
+                    }
+                    if (lastTaskIsReadOnly.value != '') {
+                        lastTaskIsReadOnly.setAttribute('readonly', 'true')
+                    }
+
                     console.log(textArea)
                     let thisItem = item.parentElement.parentElement
                     let index = 0;
@@ -96,7 +115,8 @@ function clickedOnTaskSection(item) {
 
                 }
 
-            } else if (item.readOnly == true) {
+            } else if (lastTaskIsReadOnly.readOnly == true) {
+
                 console.log('User wants to edit task')
                 console.log(`item is '${item.value}' and readonly status is ${item.readOnly}.`)
                 generateTask(projectName, item)

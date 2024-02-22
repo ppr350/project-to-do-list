@@ -11,11 +11,11 @@ function activateProject(targetProject) {
     targetProject.parentElement.classList.add('active');
     const projectName = document.querySelectorAll('.active')[0].children[1]
     loadTask(targetProject)
-    console.log(myProjectTasks.children.length < 1)    
-    if (myProjectTasks.children.length < 1) {
-        console.log('debugging a bug that produce duplicate task')
-        generateTask(projectName, '')
-    }
+    // console.log(myProjectTasks.children.length < 1)
+    // if (myProjectTasks.children.length < 1) {
+    //     console.log('debugging a bug that produce duplicate task')
+    //     generateTask(projectName, '')
+    // }
 }
 
 function toggleProjectIsComplete(checkBoxItem) {
@@ -31,23 +31,25 @@ function toggleProjectIsComplete(checkBoxItem) {
 }
 
 function generateTask(projectName, item) {
+    // debugger
     console.log(projectName)
-    console.log(item)
+    console.log(item.value)
     console.log(item.readOnly)
-    console.log(document.querySelectorAll('.my-project-tasks')[0])
+    // console.log(document.querySelectorAll('.my-project-tasks')[0])
 
-    if (item.readOnly === true) {
+    if (item.readOnly == true) {
         item.removeAttribute('readonly');
         let thisItem = item.parentElement.parentElement
         let index = 0;
         while (thisItem.previousElementSibling) {
             index += 1
             thisItem = thisItem.previousElementSibling                    
-        };
+        }
         console.log(index)
-        item.addEventListener('keydown', function(e) {
-            if (e.keyCode == 13 && item.value != '') {
-                e.preventDefault();
+        item.addEventListener('keydown', function(event) {
+            if (event.keyCode == 13 && item.value != '') {
+                event.preventDefault();
+                event.stopImmediatePropagation()
 
                items.forEach(itemInLocalStorage => {
                     if (itemInLocalStorage.id === parseInt(projectName.htmlFor)) {
@@ -55,6 +57,7 @@ function generateTask(projectName, item) {
                         itemInLocalStorage.subItem[index].name = item.value;
                         console.log(itemInLocalStorage.subItem[index].name)
                         console.log(items)
+                        console.log('first level')
                         toLocalStorage()
                     }
                 })
@@ -63,24 +66,33 @@ function generateTask(projectName, item) {
             }
         })
 
-    }
-    else if (item.readOnly === undefined && item === '') {
-        const taskSection = document.importNode(taskTemplate.content, true);
-        const textArea = taskSection.querySelector('textarea');
+    } else if (item.value == undefined) {
 
-        myProjectTasks.appendChild(taskSection);
-        textArea.focus();
-        textArea.addEventListener('keydown', function(e) {
-            if (e.keyCode == 13 && textArea.value != '') {
-                e.preventDefault();
-                console.log(`sub task is ${textArea.value}`);
-                textArea.setAttribute('readonly', 'true');
-                saveTask(projectName, textArea.value)
-            }
+        console.log(projectName)
+        console.log(item.value)
+        console.log(item.readOnly)
+        if (item.readOnly == undefined) {
 
-        })
-        return
-        
+            const taskSection = document.importNode(taskTemplate.content, true);
+            const textArea = taskSection.querySelector('textarea');
+
+            myProjectTasks.appendChild(taskSection);
+            textArea.focus();
+            // console.log(document.activeElement)
+            textArea.addEventListener('keydown', function(e) {
+                if (e.keyCode == 13 && textArea.value != '') {
+                    e.preventDefault();
+                    e.stopImmediatePropagation()
+                    console.log(`sub task is ${textArea.value}`);
+                    textArea.setAttribute('readonly', 'true');
+                    saveTask(projectName, textArea.value)
+                }
+            })
+        } else if (item.readOnly == true) {
+            console.log('diagnose problem')
+        }
+    } else {
+        console.log('the end of code')
     }
 }
 
