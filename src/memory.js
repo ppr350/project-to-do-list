@@ -40,8 +40,6 @@ function saveTask(projectName, newTaskName) {
             toLocalStorage();
         } 
     })
-    let projectEl = document.querySelector('.active');
-    // console.log(`'${projectEl.children[1].innerText}' has 'active' class`)
 }
 
 function loadTask(activeProject) {

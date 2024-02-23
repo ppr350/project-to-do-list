@@ -1,29 +1,17 @@
 # project-to-do-list
-# beta 1.1.1
+# beta 1.1.2
 I am looking for help:
 
-I am sharing this project in beta to The Odin Project's Discord community in order to help locate and fix a bug:
+### Bug fixed
+- The bug creates a duplicated task if the user writes a task and edits it immediately.
 
-### To reproduce the bug:
-1. Write a project name in the textarea above 'MY PROJECTS  / MO THIONSCADAIL', and click 'TIONSCADAL NUA / NEW PROJECT' button
-2. Your project name should appear under 'MY PROJECTS  / MO THIONSCADAIL', click on the project name and the project is now active
-3. An empty textarea should appear under 'TASCANNA TIONSCADAIL / MY PROJECT TASKS'
-4. Click on the textarea and write something, and press Enter
-5. Click on the same textarea again to edit it, and press Enter
-6. Now refresh your browser
-7. Click the project name, you should see the task has been duplicated
-
-### What solutions I have tried:
-1. Tested it on FireFox and Chrome browsers
-2. Instead of calling the 'saveTask' function, I wrote the code inside 'generateTasks' function, to rule out calling 'saveTask' twice when editing task
-3. Used debugger to try to locate the line of code that cause the duplication
-4. Console.log out each step on occasions that I know will produce the bug to tried catch the bug
-5. Use stopPropagation() method to prevent further propagation of the current event
-6. Use stopImmediatePropagation() method to prevent other listeners of the same event from being called. However, It was undesirable statement inside "else if" preventing the desirable statement inside "if" from running
-7. Making sure "readonly = true" are in place for all textarea that have value inside
+### Solution
+- There are two eventListeners inside 'generateTask' function, the first one is inside the 'if' statement that is designed for editing task. The second one is an 'if' statement nested inside the 'else if' statement is for creating new task, although the nested 'if' statement should not be running because the 'else if' statement is false, it runs.
+- The combination of eventListener's event capturing and event.stopImmediatePropagation() solves it.
+- Event capturing makes the desirable eventListener inside the first 'if' statement (designed to edit task) run first, then event.stopImmediatePropagation() stops the second eventListener from running.
 
 
-### updates on beta 1.1.1 (22th February 2024)
+### updates on beta 1.1.2 (23th February 2024)
 1. Following advice from Jonathan || saltypirate10 on The Odin Project's discord's Javascript-help-1, The project is now more modular.
     - index.js handles most HTML DOM variable objects on startUp
     - clickEvents.js listens to inputs and process them accordingly
@@ -32,7 +20,7 @@ I am sharing this project in beta to The Odin Project's Discord community in ord
     - memory.js synchronises items between page and localStorage
 
 ### Credit
-Thank you discord users Blu3, Jonathan || saltypirate10 on TOP's Javascript-help-1 for helping me
+Thank you discord users Blu3, Jonathan || saltypirate10 on TOP's Javascript-help-1 for advice
 
 ## App Logic
 

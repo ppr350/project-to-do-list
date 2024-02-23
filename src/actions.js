@@ -9,13 +9,8 @@ function activateProject(targetProject) {
         projects[i].classList.remove('active');
     }
     targetProject.parentElement.classList.add('active');
-    const projectName = document.querySelectorAll('.active')[0].children[1]
+    // const projectName = document.querySelectorAll('.active')[0].children[1]
     loadTask(targetProject)
-    // console.log(myProjectTasks.children.length < 1)
-    // if (myProjectTasks.children.length < 1) {
-    //     console.log('debugging a bug that produce duplicate task')
-    //     generateTask(projectName, '')
-    // }
 }
 
 function toggleProjectIsComplete(checkBoxItem) {
@@ -31,12 +26,6 @@ function toggleProjectIsComplete(checkBoxItem) {
 }
 
 function generateTask(projectName, item) {
-    // debugger
-    console.log(projectName.htmlFor)
-    console.log(item.value)
-    console.log(item.readOnly)
-    // console.log(document.querySelectorAll('.my-project-tasks')[0])
-
     if (item.readOnly == true) {
         item.removeAttribute('readonly');
         let thisItem = item.parentElement.parentElement
@@ -64,13 +53,10 @@ function generateTask(projectName, item) {
                 item.setAttribute('readonly', 'true');
                 console.log(item)
             }
-        })
+        }, true)
 
     } else if (item.value == undefined) {
 
-        console.log(projectName.htmlFor)
-        console.log(item.value)
-        console.log(item.readOnly)
         if (item.readOnly == undefined) {
 
             const taskSection = document.importNode(taskTemplate.content, true);

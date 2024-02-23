@@ -13,6 +13,8 @@ const projectTemplate = document.querySelector('#project-template');
 const taskTemplate = document.querySelector('#task-template');
 const checkBox = document.querySelectorAll('.checkbox');
 const sidebarContainer = document.querySelector('.sidebar-section');
+const myProjectTasks = document.querySelector('.my-project-tasks');
+const taskSection = document.querySelector('#task-section');
 
 // display language related //
 const chooseGaeilge = document.querySelector('#gaeilge');
@@ -20,8 +22,7 @@ const chooseEnglish = document.querySelector('#english');
 const title = document.querySelector('.title');
 const myProjects = document.querySelector('.my-projects');
 const myTasksTitle = document.querySelector('.my-tasks-title');
-const myProjectTasks = document.querySelector('.my-project-tasks');
-const taskSection = document.querySelector('#task-section');
+
 
 function startUp() {
     fromLocalStorage();
@@ -35,10 +36,6 @@ function startUp() {
         clickedOnProjectSection(e.target);
     })
     taskSection.addEventListener('click', function(e) {
-        // e.stopImmediatePropagation()
-        // e.preventDefault();
-        // console.log(e)
-        // console.log(document.activeElement)
         clickedOnTaskSection(e.target)
     })
     chooseGaeilge.addEventListener('click', function(e) {
