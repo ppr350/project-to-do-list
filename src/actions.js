@@ -35,10 +35,25 @@ function generateTask(projectName, item) {
             thisItem = thisItem.previousElementSibling                    
         }
         console.log(index)
-        item.addEventListener('keydown', function(event) {
-            if (event.keyCode == 13 && item.value != '') {
-                event.preventDefault();
-                event.stopImmediatePropagation()
+        item.addEventListener('keydown', function(e) {
+            let previousKey
+            let thisKey = e.keyCode
+
+
+            console.log(previousKey, thisKey)
+
+
+            if (e.keyCode == 13 && item.value != '') {
+                e.preventDefault();
+                e.stopImmediatePropagation()
+                // previousKey = thisKey
+                // thisKey = e.keyCode
+                // console.log(previousKey)
+                // console.log(thisKey)
+                // if(previousKey != thisKey)
+
+
+                
 
                items.forEach(itemInLocalStorage => {
                     if (itemInLocalStorage.id === parseInt(projectName.htmlFor)) {
@@ -66,9 +81,7 @@ function generateTask(projectName, item) {
             textArea.focus();
             // console.log(document.activeElement)
             textArea.addEventListener('keydown', function(e) {
-                if (e.keyCode == 13 && textArea.value != '') {
-                    // e.preventDefault();
-                    // e.stopImmediatePropagation()
+                if (e.keyCode == 13 && textArea.value != '' && item.readOnly !== true) {
                     console.log(`sub task is ${textArea.value}`);
                     textArea.setAttribute('readonly', 'true');
                     saveTask(projectName, textArea.value)
