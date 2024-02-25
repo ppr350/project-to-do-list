@@ -36,7 +36,7 @@ Thank you discord users Blu3, Jonathan || saltypirate10 on TOP's Javascript-help
     >
     create a new empty array to store data
 
-
+[text](message:%3Cb025e29226ba4fd7accb698c3e650f16%40garda.ie%3E)
 ### add eventListener to project container :
 >
 if
