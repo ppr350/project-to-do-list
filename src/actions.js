@@ -36,37 +36,26 @@ function generateTask(projectName, item) {
         }
         console.log(index)
         item.addEventListener('keydown', function(e) {
-            let previousKey
-            let thisKey = e.keyCode
 
-
-            console.log(previousKey, thisKey)
-
+        // let enterPressed = false
 
             if (e.keyCode == 13 && item.value != '') {
                 e.preventDefault();
                 e.stopImmediatePropagation()
-                // previousKey = thisKey
-                // thisKey = e.keyCode
-                // console.log(previousKey)
-                // console.log(thisKey)
-                // if(previousKey != thisKey)
 
-
-                
-
-               items.forEach(itemInLocalStorage => {
-                    if (itemInLocalStorage.id === parseInt(projectName.htmlFor)) {
-                        console.log(itemInLocalStorage)
-                        itemInLocalStorage.subItem[index].name = item.value;
-                        console.log(itemInLocalStorage.subItem[index].name)
-                        console.log(items)
-                        console.log('first level')
-                        toLocalStorage()
-                    }
-                })
-                item.setAttribute('readonly', 'true');
-                console.log(item)
+                items.forEach(itemInLocalStorage => {
+                        if (itemInLocalStorage.id === parseInt(projectName.htmlFor)) {
+                            console.log(itemInLocalStorage)
+                            itemInLocalStorage.subItem[index].name = item.value;
+                            console.log(itemInLocalStorage.subItem[index].name)
+                            console.log(items)
+                            console.log('first level')
+                            toLocalStorage()
+                        }
+                    })
+                    item.setAttribute('readonly', 'true');
+                    item.blur()
+                    console.log(item)
             }
         }, true)
 
@@ -79,12 +68,13 @@ function generateTask(projectName, item) {
 
             myProjectTasks.appendChild(taskSection);
             textArea.focus();
-            // console.log(document.activeElement)
+
             textArea.addEventListener('keydown', function(e) {
                 if (e.keyCode == 13 && textArea.value != '' && item.readOnly !== true) {
                     console.log(`sub task is ${textArea.value}`);
                     textArea.setAttribute('readonly', 'true');
                     saveTask(projectName, textArea.value)
+                    textArea.blur()
                 }
             })
         } else if (item.readOnly == true) {

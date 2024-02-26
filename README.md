@@ -1,26 +1,16 @@
 # project-to-do-list
-# beta 1.1.2
-I am looking for help:
+# beta 1.1.3
 
 ### Bug fixed
-- The bug creates a duplicated task if the user writes a task and edits it immediately.
+- Added blur() method on 2 instance of eventListeners. Otherwise if a second 'Enter' was detected task will be duplicated
 
-### Solution
-- There are two eventListeners inside 'generateTask' function, the first one is inside the 'if' statement that is designed for editing task. The second one is an 'if' statement nested inside the 'else if' statement is for creating new task, although the nested 'if' statement should not be running because the 'else if' statement is false, it runs.
-- The combination of eventListener's event capturing and event.stopImmediatePropagation() solves it.
-- Event capturing makes the desirable eventListener inside the first 'if' statement (designed to edit task) run first, then event.stopImmediatePropagation() stops the second eventListener from running.
-
-
-### updates on beta 1.1.2 (23th February 2024)
+### updates on beta 1.1.3 (26th February 2024)
 1. Following advice from Jonathan || saltypirate10 on The Odin Project's discord's Javascript-help-1, The project is now more modular.
     - index.js handles most HTML DOM variable objects on startUp
     - clickEvents.js listens to inputs and process them accordingly
     - storage.js handles localStorage
     - action.js generates, manipulate project and task
     - memory.js synchronises items between page and localStorage
-
-### Credit
-Thank you discord users Blu3, Jonathan || saltypirate10 on TOP's Javascript-help-1 for advice
 
 ## App Logic
 
@@ -36,7 +26,6 @@ Thank you discord users Blu3, Jonathan || saltypirate10 on TOP's Javascript-help
     >
     create a new empty array to store data
 
-[text](message:%3Cb025e29226ba4fd7accb698c3e650f16%40garda.ie%3E)
 ### add eventListener to project container :
 >
 if
@@ -192,3 +181,7 @@ if
     >>
     set isComplete Boolean value to “false”
 
+
+
+### Special Thanks
+Discord users Blu3, Jonathan || saltypirate10 on TOP's Javascript-help-1 for advice
