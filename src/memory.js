@@ -32,6 +32,7 @@ function saveTask(projectName, newTaskName) {
 
     newSubTask.name = newTaskName;
     newSubTask.className = projectName.htmlFor;
+    newSubTask.isComplete = false;
     console.log(items)
 
     items.forEach(item => {

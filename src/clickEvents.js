@@ -8,6 +8,17 @@ function clickedOnProjectSection(item) {
     if (item.matches('[type="checkbox"]')) {
         toggleProjectIsComplete(item);
         console.log(`and it is a checkbox`)
+        console.log(item.nextElementSibling)
+        // const checkedProject = item.nextElementSibling.htmlFor
+
+        // if (myProjectTasks) {
+            
+        //     // const myProjectTasks = document.querySelector('.my-project-tasks')
+        //     const textArea = document.querySelectorAll('.task-textarea')
+        //     console.log(textArea)
+        //     // clickedOnTaskSection()
+        // }
+
         // show delete option //
         return;
     } if (item.parentElement.classList.contains('project-item')) {

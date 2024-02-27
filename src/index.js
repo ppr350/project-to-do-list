@@ -6,22 +6,23 @@ import { saveProject } from './memory';
 import { closestIndexTo } from 'date-fns';
 import { generateTask } from './actions';
 
-const userInput = document.querySelector('#user-input-project');
-const submitProjectButton = document.querySelector('#submit-project-btn');
-const displayProjects = document.querySelector('#projects');
-const projectTemplate = document.querySelector('#project-template');
-const taskTemplate = document.querySelector('#task-template');
-const checkBox = document.querySelectorAll('.checkbox');
-const sidebarContainer = document.querySelector('.sidebar-section');
-const myProjectTasks = document.querySelector('.my-project-tasks');
-const taskSection = document.querySelector('#task-section');
+const userInput = document.querySelector('#user-input-project')
+const submitProjectButton = document.querySelector('#submit-project-btn')
+const displayProjects = document.querySelector('#projects')
+const projectTemplate = document.querySelector('#project-template')
+const taskTemplate = document.querySelector('#task-template')
+const checkBox = document.querySelectorAll('.checkbox')
+const sidebarContainer = document.querySelector('.sidebar-section')
+const myProjectTasks = document.querySelector('.my-project-tasks')
+const taskSection = document.querySelector('#task-section')
+const deleleProjectButton = document.getElementsByClassName('.project-delete-btn')
 
 // display language related //
-const chooseGaeilge = document.querySelector('#gaeilge');
-const chooseEnglish = document.querySelector('#english');
-const title = document.querySelector('.title');
-const myProjects = document.querySelector('.my-projects');
-const myTasksTitle = document.querySelector('.my-tasks-title');
+const chooseGaeilge = document.querySelector('#gaeilge')
+const chooseEnglish = document.querySelector('#english')
+const title = document.querySelector('.title')
+const myProjects = document.querySelector('.my-projects')
+const myTasksTitle = document.querySelector('.my-tasks-title')
 
 
 function startUp() {
