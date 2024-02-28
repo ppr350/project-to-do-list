@@ -18,7 +18,14 @@ function toggleProjectIsComplete(checkBoxItem) {
     const completedItem = parentElement.querySelector(':nth-child(2)')
     items.forEach(item => {
         if (item.id == completedItem.htmlFor) {
+            
             item.isComplete = !item.isComplete;
+            if (item.isComplete) {
+                completedItem.classList.add('completed')
+            } else if (!item.isComplete) {
+                completedItem.classList.remove('completed')
+            }
+            
             console.log(`'isComplete' is now '${item.isComplete}'`)
         }
     })
