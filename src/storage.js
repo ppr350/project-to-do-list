@@ -9,7 +9,7 @@ function fromLocalStorage(itemsInLocalStorage) {
         console.log('pull data from localStorage')
         itemsInLocalStorage = JSON.parse(localStorage.getItem('todolist'))
         for (let i = 0; i < itemsInLocalStorage.length; i++) {
-            const projectElement = document.importNode(projectTemplate.content, true);
+            const projectElement = document.importNode(projectTemplate.content, true)
             const projectCheckBox = projectElement.querySelector('input')
             const projectLabel = projectElement.querySelector('label')
             projectLabel.htmlFor = itemsInLocalStorage[i].id

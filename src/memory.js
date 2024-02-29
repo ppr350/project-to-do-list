@@ -52,6 +52,7 @@ function loadTask(activeProject) {
                     const taskItem = document.importNode(taskTemplate.content, true);
                     const textArea = taskItem.querySelector('textarea');
                     textArea.value = task.name;
+                    textArea.classList = task.className;
                     textArea.setAttribute('readonly', 'true');
                     myProjectTasks.appendChild(taskItem);
                 })

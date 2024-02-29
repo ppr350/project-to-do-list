@@ -9,15 +9,6 @@ function clickedOnProjectSection(item) {
         toggleProjectIsComplete(item);
         console.log(`and it is a checkbox`)
         console.log(item.nextElementSibling)
-        // const checkedProject = item.nextElementSibling.htmlFor
-
-        // if (myProjectTasks) {
-            
-        //     // const myProjectTasks = document.querySelector('.my-project-tasks')
-        //     const textArea = document.querySelectorAll('.task-textarea')
-        //     console.log(textArea)
-        //     // clickedOnTaskSection()
-        // }
 
         // show delete option //
         return;
@@ -36,10 +27,8 @@ function clickedOnProjectSection(item) {
 
 function clickedOnTaskSection(item) {
     console.log(`User clicked on a '${(item.tagName.toLowerCase())}' that has '${item.className || item.id}' class name / id.`)
-    // if (document.activeElement != item) document.activeElement.blur();
 
     if (item.matches('[type="checkbox"]')) {
-        // toggleProjectIsComplete(item);
         console.log(`and it is a checkbox`)
         if (item.nextElementSibling.children[0].value == '') {
             console.log('no value')
@@ -47,6 +36,7 @@ function clickedOnTaskSection(item) {
         } else {
             // show delete option //
             console.log('check/unchecked task')
+            console.log(item.nextElementSibling)
         }
 
         

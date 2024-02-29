@@ -9,7 +9,6 @@ function activateProject(targetProject) {
         projects[i].classList.remove('active');
     }
     targetProject.parentElement.classList.add('active');
-    // const projectName = document.querySelectorAll('.active')[0].children[1]
     loadTask(targetProject)
 }
 
@@ -18,12 +17,37 @@ function toggleProjectIsComplete(checkBoxItem) {
     const completedItem = parentElement.querySelector(':nth-child(2)')
     items.forEach(item => {
         if (item.id == completedItem.htmlFor) {
+
+            
             
             item.isComplete = !item.isComplete;
             if (item.isComplete) {
                 completedItem.classList.add('completed')
+
+                const subTasks = item.subItem
+                subTasks.forEach(task => {
+                    task.isComplete = true
+                    
+                })
             } else if (!item.isComplete) {
                 completedItem.classList.remove('completed')
+
+                const subTasks = item.subItem
+                subTasks.forEach(task => {
+                    task.isComplete = false
+                })
+
+            }
+            const subTask = document.getElementsByClassName(item.id)
+            const subTaskCheckBoxes = subTask.parentElement
+            console.log(subTask)
+            for (let i = 0; i < subTask.length; i++) {
+                const check = subTask.parentElement.previousElementSibling
+                if (item.isComplete) {
+                    check = true
+                } else {
+                    check = false
+                }
             }
             
             console.log(`'isComplete' is now '${item.isComplete}'`)
