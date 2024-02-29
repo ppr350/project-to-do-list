@@ -29,6 +29,10 @@ function toggleProjectIsComplete(checkBoxItem) {
                     task.isComplete = true
                     
                 })
+
+                const subTask = document.getElementsByClassName(item.id)
+                const subTaskCheckBoxes = subTask[0].parentElement.previousElementSibling
+                console.log(subTaskCheckBoxes.checked = true)
             } else if (!item.isComplete) {
                 completedItem.classList.remove('completed')
 
@@ -37,18 +41,25 @@ function toggleProjectIsComplete(checkBoxItem) {
                     task.isComplete = false
                 })
 
+                const subTask = document.getElementsByClassName(item.id)
+                const subTaskCheckBoxes = subTask[0].parentElement.previousElementSibling
+                console.log(subTaskCheckBoxes.checked = false)
+
             }
-            const subTask = document.getElementsByClassName(item.id)
-            const subTaskCheckBoxes = subTask.parentElement
-            console.log(subTask)
-            for (let i = 0; i < subTask.length; i++) {
-                const check = subTask.parentElement.previousElementSibling
-                if (item.isComplete) {
-                    check = true
-                } else {
-                    check = false
-                }
-            }
+            // const subTask = document.getElementsByClassName(item.id)
+            // const subTaskCheckBoxes = subTask[0].parentElement.previousElementSibling
+            // console.log(subTaskCheckBoxes)
+            
+            // for (let i = 0; i < subTask.length; i++) {
+            //     const check = subTask.parentElement.previousElementSibling
+            //     if (item.isComplete) {
+            //         console.log('true')
+            //         check = true
+            //     } else {
+            //         console.log('false')
+            //         check = false
+            //     }
+            // }
             
             console.log(`'isComplete' is now '${item.isComplete}'`)
         }
