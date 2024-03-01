@@ -6,13 +6,16 @@ import { last } from "lodash";
 function clickedOnProjectSection(item) {
     console.log(`the clicked item is a project element inside the 'projects' div`)
     if (item.matches('[type="checkbox"]')) {
+
+        myProjectTasks.innerHTML = '';
+        activateProject(item.nextElementSibling)
         toggleProjectIsComplete(item);
         console.log(`and it is a checkbox`)
-        console.log(item.nextElementSibling)
 
         // show delete option //
         return;
-    } if (item.parentElement.classList.contains('project-item')) {
+
+    } else if (item.parentElement.classList.contains('project-item')) {
         if (item.parentElement.classList.contains('active')) {
             console.log('this project is already active')
         } else {
@@ -30,9 +33,13 @@ function clickedOnTaskSection(item) {
 
     if (item.matches('[type="checkbox"]')) {
         console.log(`and it is a checkbox`)
-        if (item.nextElementSibling.children[0].value == '') {
-            console.log('no value')
+        const projectName = document.querySelectorAll('.active')[0].children[1]
+        if (item.nextElementSibling.children[0].value == '' || projectName.previousElementSibling.checked == true) {
+            // console.log('no value')
+
             item.checked = false
+
+
         } else {
             // show delete option //
             console.log('check/unchecked task')
@@ -43,7 +50,7 @@ function clickedOnTaskSection(item) {
     } else if (document.getElementsByClassName('active').length !== 0) {
         console.log('active project available');
         const projectName = document.querySelectorAll('.active')[0].children[1]
-        console.log(`Project name is '${projectName.innerText}'.`);
+        // console.log(projectName.innerHTML);
 
         const textArea = document.querySelectorAll('.task-textarea')
         const lastTaskIsReadOnly = myProjectTasks.lastElementChild.children[1].children[0]
@@ -55,10 +62,10 @@ function clickedOnTaskSection(item) {
         if (item.nodeName != 'TEXTAREA') {
             if (lastTaskIsReadOnly.readOnly == false && lastTaskIsReadOnly.value == '') {
                 console.log(`The last textarea in tasks section is empty.`)
-            } else if (lastTaskIsReadOnly.readOnly == true) {
+            } else if (lastTaskIsReadOnly.readOnly == true && projectName.previousElementSibling.checked != true) {
                 console.log(`The last textearea readonly status is ${lastTaskIsReadOnly.readOnly}, which means it has value in it. Therefore a new textarea is generated.`)
                 generateTask(projectName, '')
-            } else if (lastTaskIsReadOnly.value != '') {
+            } else if (lastTaskIsReadOnly.value != '' && projectName.previousElementSibling.checked != true) {
                 generateTask(projectName, '')
             }
 

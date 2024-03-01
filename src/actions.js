@@ -17,49 +17,39 @@ function toggleProjectIsComplete(checkBoxItem) {
     const completedItem = parentElement.querySelector(':nth-child(2)')
     items.forEach(item => {
         if (item.id == completedItem.htmlFor) {
-
-            
-            
+      
             item.isComplete = !item.isComplete;
-            if (item.isComplete) {
+            if (item.isComplete && item.subItem != '') {
                 completedItem.classList.add('completed')
 
-                const subTasks = item.subItem
-                subTasks.forEach(task => {
-                    task.isComplete = true
-                    
+                const subItem = item.subItem
+                subItem.forEach(task => {
+                    task.isComplete = true                        
                 })
 
-                const subTask = document.getElementsByClassName(item.id)
-                const subTaskCheckBoxes = subTask[0].parentElement.previousElementSibling
-                console.log(subTaskCheckBoxes.checked = true)
+                const subTasks = document.getElementsByClassName(item.id)
+                console.log(subTasks)
+                for (let i = 0; i < subTasks.length; i++) {
+                    const subTaskCheckBoxes = subTasks[i].parentElement.previousElementSibling
+                    subTaskCheckBoxes.checked = true
+                }
+                
             } else if (!item.isComplete) {
                 completedItem.classList.remove('completed')
 
-                const subTasks = item.subItem
-                subTasks.forEach(task => {
+                const subItem = item.subItem
+                subItem.forEach(task => {
                     task.isComplete = false
                 })
 
-                const subTask = document.getElementsByClassName(item.id)
-                const subTaskCheckBoxes = subTask[0].parentElement.previousElementSibling
-                console.log(subTaskCheckBoxes.checked = false)
+                const subTasks = document.getElementsByClassName(item.id)
+                console.log(subTasks)
+                for (let i = 0; i < subTasks.length; i++) {
+                    const subTaskCheckBoxes = subTasks[i].parentElement.previousElementSibling
+                    subTaskCheckBoxes.checked = false
+                }
 
             }
-            // const subTask = document.getElementsByClassName(item.id)
-            // const subTaskCheckBoxes = subTask[0].parentElement.previousElementSibling
-            // console.log(subTaskCheckBoxes)
-            
-            // for (let i = 0; i < subTask.length; i++) {
-            //     const check = subTask.parentElement.previousElementSibling
-            //     if (item.isComplete) {
-            //         console.log('true')
-            //         check = true
-            //     } else {
-            //         console.log('false')
-            //         check = false
-            //     }
-            // }
             
             console.log(`'isComplete' is now '${item.isComplete}'`)
         }

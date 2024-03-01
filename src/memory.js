@@ -54,6 +54,11 @@ function loadTask(activeProject) {
                     textArea.value = task.name;
                     textArea.classList = task.className;
                     textArea.setAttribute('readonly', 'true');
+
+                    const taskCheckbox = taskItem.querySelector('.checkbox')
+                    console.log(taskCheckbox)
+                    textArea.isComplete = true ? taskCheckbox.checked = true : taskCheckbox.checked = false
+
                     myProjectTasks.appendChild(taskItem);
                 })
             }
