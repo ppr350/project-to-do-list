@@ -37,7 +37,7 @@ function startUp() {
         clickedOnProjectSection(e.target);
     })
     taskSection.addEventListener('click', function(e) {
-        clickedOnTaskSection(e.target)
+        clickedOnTaskSection(e)
     })
     chooseGaeilge.addEventListener('click', function(e) {
         changeLanguage('gaeilge');

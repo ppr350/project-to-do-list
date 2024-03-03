@@ -28,22 +28,22 @@ function clickedOnProjectSection(item) {
     }
 }
 
-function clickedOnTaskSection(item) {
+function clickedOnTaskSection(e) {
+    const item = e.target
     console.log(`User clicked on a '${(item.tagName.toLowerCase())}' that has '${item.className || item.id}' class name / id.`)
 
     if (item.matches('[type="checkbox"]')) {
         console.log(`and it is a checkbox`)
+        console.log(item)
         const projectName = document.querySelectorAll('.active')[0].children[1]
         if (item.nextElementSibling.children[0].value == '' || projectName.previousElementSibling.checked == true) {
-            // console.log('no value')
-
-            item.checked = false
-
+            e.preventDefault()
 
         } else {
             // show delete option //
             console.log('check/unchecked task')
             console.log(item.nextElementSibling)
+            
         }
 
         
