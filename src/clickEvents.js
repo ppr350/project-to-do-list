@@ -42,7 +42,21 @@ function clickedOnTaskSection(e) {
         } else {
             // show delete option //
             console.log('check/unchecked task')
-            console.log(item.nextElementSibling)
+            // console.log(item.nextElementSibling.childNodes[1].classList)
+            const itemClass = item.nextElementSibling.childNodes[1].classList
+            items.forEach(item => {
+                if (item.id == itemClass) {
+                    console.log(item)
+                    for (let i = 0; i < item.subItem.length; i++) {
+                        if (item.subItem[i].name = itemClass.value) {
+                            console.log(item.subItem[i])
+                            // item.subItem[i].isComplete = true
+                            item.subItem[i].isComplete = !item.subItem[i].isComplete
+                            toLocalStorage()
+                        }
+                    }
+                }
+            })
             
         }
 
