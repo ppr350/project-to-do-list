@@ -45,6 +45,7 @@ function clickedOnTaskSection(e) {
             // console.log(item.nextElementSibling.childNodes[1].classList)
             const itemClass = item.nextElementSibling.childNodes[1].classList
             items.forEach(item => {
+                // console.log(item)
                 if (item.id == itemClass) {
                     console.log(item)
                     for (let i = 0; i < item.subItem.length; i++) {
