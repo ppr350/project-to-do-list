@@ -51,13 +51,13 @@ function loadTask(activeProject) {
                 item.subItem.forEach(task => {
                     const taskItem = document.importNode(taskTemplate.content, true);
                     const textArea = taskItem.querySelector('textarea');
+                    const taskCheckbox = taskItem.querySelector('.checkbox')
+
                     textArea.value = task.name;
                     textArea.classList = task.className;
                     textArea.setAttribute('readonly', 'true');
-
-                    const taskCheckbox = taskItem.querySelector('.checkbox')
-                    console.log(taskCheckbox)
-                    textArea.isComplete = true ? taskCheckbox.checked = true : taskCheckbox.checked = false
+                    task.isComplete == true ? taskCheckbox.checked = true : taskCheckbox.checked = false
+                    
 
                     myProjectTasks.appendChild(taskItem);
                 })

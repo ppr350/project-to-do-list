@@ -2,6 +2,7 @@ import { forEach, indexOf, nth, templateSettings } from "lodash";
 import { toLocalStorage, items } from "./storage";
 import { taskTemplate, myProjectTasks, } from "./index";
 import { saveTask, loadTask } from "./memory";
+import { generateProjectDeleteButton } from "./delete"
 
 function activateProject(targetProject) {
     const projects = document.querySelectorAll('.project-item')
@@ -9,6 +10,7 @@ function activateProject(targetProject) {
         projects[i].classList.remove('active');
     }
     targetProject.parentElement.classList.add('active');
+    // generateProjectDeleteButton(targetProject)
     loadTask(targetProject)
 }
 

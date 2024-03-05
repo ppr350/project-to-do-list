@@ -43,14 +43,17 @@ function clickedOnTaskSection(e) {
             // show delete option //
             console.log('check/unchecked task')
             // console.log(item.nextElementSibling.childNodes[1].classList)
-            const itemClass = item.nextElementSibling.childNodes[1].classList
+            const itemClass = item.nextElementSibling.childNodes[1]
+            console.log(itemClass.value)
             items.forEach(item => {
                 // console.log(item)
-                if (item.id == itemClass) {
-                    console.log(item)
+                if (item.id == itemClass.classList) {
+
                     for (let i = 0; i < item.subItem.length; i++) {
-                        if (item.subItem[i].name = itemClass.value) {
+                        // console.log(typeof(item.id))
+                        if (item.subItem[i].name == itemClass.value) {
                             console.log(item.subItem[i])
+                            // console.log(item.id)
                             // item.subItem[i].isComplete = true
                             item.subItem[i].isComplete = !item.subItem[i].isComplete
                             toLocalStorage()
