@@ -15,13 +15,15 @@ function clickedOnProjectSection(item) {
         // show delete option //
         return;
 
+    } else if (item.classList.contains('delete-project')) {
+        console.log('delete project button')
     } else if (item.parentElement.classList.contains('project-item')) {
         if (item.parentElement.classList.contains('active')) {
             console.log('this project is already active')
         } else {
             myProjectTasks.innerHTML = '';
             activateProject(item);
-            console.log(`and it is a project, it has an '${item.childNodes[1].classList}' class as well as an 'active' class`)
+            // console.log(`and it is a project, it has an '${item.childNodes[1].classList}' class as well as an 'active' class`)
         }
     } else {
         console.log(`it is other items in this container`)

@@ -16,6 +16,7 @@ const checkBox = document.querySelectorAll('.checkbox')
 const sidebarContainer = document.querySelector('.sidebar-section')
 const myProjectTasks = document.querySelector('.my-project-tasks')
 const taskSection = document.querySelector('#task-section')
+const deleteProjectButton = document.getElementsByClassName('.delete-project')
 
 // display language related //
 const chooseGaeilge = document.querySelector('#gaeilge')
@@ -45,16 +46,6 @@ function startUp() {
     chooseEnglish.addEventListener('click', function(e) {
         changeLanguage('english')
     })
-    generateProjectDeleteButton.addEventListener('click', function(e) {
-        e.preventDefault()
-        deleteProject(e)
-    })
-    generateTaskDeleteButton.addEventListener('click', function(e) {
-        e.preventDefault()
-        deleteTask(e)
-    })
-
-
 }
 startUp();
 
