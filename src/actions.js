@@ -116,7 +116,6 @@ function generateTask(projectName, item) {
                     textArea.setAttribute('readonly', 'true');
                     saveTask(projectName, textArea.value)
                     textArea.blur()
-                    // loadTask(projectName)
                 }
             })
         } else if (item.readOnly == true) {

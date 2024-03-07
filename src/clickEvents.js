@@ -31,34 +31,30 @@ function clickedOnProjectSection(item) {
 }
 
 function clickedOnTaskSection(e) {
-    const item = e.target
-    console.log(`User clicked on a '${(item.tagName.toLowerCase())}' that has '${item.className || item.id}' class name / id.`)
+    const task = e.target
+    console.log(`User clicked on a '${(task.tagName.toLowerCase())}' that has '${task.className || task.id}' class name / id.`)
 
-    if (item.matches('[type="checkbox"]')) {
+    if (task.matches('[type="checkbox"]')) {
         console.log(`and it is a checkbox`)
-        console.log(item)
+        console.log(task)
         const projectName = document.querySelectorAll('.active')[0].children[1]
-        if (item.nextElementSibling.children[0].value == '' || projectName.previousElementSibling.checked == true) {
+        if (task.nextElementSibling.children[0].value == '' || projectName.previousElementSibling.checked == true) {
             e.preventDefault()
 
         } else {
             // show delete option //
             console.log('check/unchecked task')
             // console.log(item.nextElementSibling.childNodes[1].classList)
-            const itemClass = item.nextElementSibling.childNodes[1]
+            const itemClass = task.nextElementSibling.childNodes[1]
             console.log(itemClass.value)
             if (myProjectTasks.lastElementChild.children[1].children[0].readOnly == false) {
                 myProjectTasks.lastElementChild.remove()
             }
             items.forEach(item => {
-                // console.log(item)
                 if (item.id == itemClass.classList) {
-
                     for (let i = 0; i < item.subItem.length; i++) {
-
                         if (item.subItem[i].name == itemClass.value) {
                             console.log(item.subItem[i])
-
                             item.subItem[i].isComplete = !item.subItem[i].isComplete
                             toLocalStorage()
                         }
@@ -67,7 +63,6 @@ function clickedOnTaskSection(e) {
             })
             
         }
-
         
     } else if (document.getElementsByClassName('active').length !== 0) {
         console.log('active project available');
@@ -76,8 +71,8 @@ function clickedOnTaskSection(e) {
         const textArea = document.querySelectorAll('.task-textarea')
         const lastTaskIsReadOnly = myProjectTasks.lastElementChild.children[1].children[0]
 
-        console.log(`Clicked task is ${item.value}.`)
-        if (item.nodeName != 'TEXTAREA' && !item.matches('[type="checkbox"]')) {
+        console.log(`Clicked task is ${task.value}.`)
+        if (task.nodeName != 'TEXTAREA' && !task.matches('[type="checkbox"]')) {
             if (lastTaskIsReadOnly.readOnly == false && lastTaskIsReadOnly.value == '') {
                 console.log(`The last textarea in tasks section is empty.`)
                 const firstTaskIsReadOnly = myProjectTasks.firstElementChild.children[1].children[0]
@@ -92,7 +87,7 @@ function clickedOnTaskSection(e) {
                 generateTask(projectName, '')
             }
 
-        } else if (item.nodeName == 'TEXTAREA') {
+        } else if (task.nodeName == 'TEXTAREA') {
             console.log(`The last task is ${lastTaskIsReadOnly.value}.`)
             const allTextArea = document.querySelectorAll('.task-textarea')
             allTextArea.forEach(textArea => {
@@ -101,12 +96,12 @@ function clickedOnTaskSection(e) {
                 }
             })
             if (lastTaskIsReadOnly.readOnly == false) {
-                const taskContainer = item.parentElement.parentElement.parentElement
-                console.log(item.value, taskContainer.lastElementChild.children[1].children[0])
+                const taskContainer = task.parentElement.parentElement.parentElement
+                console.log(task.value, taskContainer.lastElementChild.children[1].children[0])
                 console.log(taskContainer.lastElementChild)
 
-                if (item.value != taskContainer.lastElementChild.children[1].children[0].value) {
-                    item.removeAttribute('readonly');
+                if (task.value != taskContainer.lastElementChild.children[1].children[0].value) {
+                    task.removeAttribute('readonly');
                     console.log('not the last element')
                     if (lastTaskIsReadOnly.value == '') {
                         lastTaskIsReadOnly.parentNode.parentNode.remove();
@@ -116,7 +111,7 @@ function clickedOnTaskSection(e) {
                     }
 
                     console.log(textArea)
-                    let thisItem = item.parentElement.parentElement
+                    let thisItem = task.parentElement.parentElement
                     let index = 0;
                     while (thisItem.previousElementSibling) {
                         index += 1
@@ -124,18 +119,18 @@ function clickedOnTaskSection(e) {
                     }
                     console.log(`Previous total element is ${index}.`)
                     
-                    item.addEventListener('keydown', function(e) {
-                    if (e.keyCode == 13 && item.value != '') {
+                    task.addEventListener('keydown', function(e) {
+                    if (e.keyCode == 13 && task.value != '') {
                         e.preventDefault();    
                         items.forEach(itemOnLocalStorage => {
                             if (itemOnLocalStorage.id === parseInt(projectName.htmlFor)) {
-                                itemOnLocalStorage.subItem[index].name = item.value;                             
+                                itemOnLocalStorage.subItem[index].name = task.value;                             
                                 toLocalStorage();
                             }
                             let projectEl = document.querySelector('.active');
                             console.log(`Project name '${projectEl.children[1].innerText}' has 'active' class`)
                         })
-                        item.setAttribute('readonly', 'true');
+                        task.setAttribute('readonly', 'true');
                         }
                     })
 
@@ -144,8 +139,8 @@ function clickedOnTaskSection(e) {
             } else if (lastTaskIsReadOnly.readOnly == true) {
 
                 console.log('User wants to edit task')
-                console.log(`item is '${item.value}' and readonly status is ${item.readOnly}.`)
-                generateTask(projectName, item)
+                console.log(`item is '${task.value}' and readonly status is ${task.readOnly}.`)
+                generateTask(projectName, task)
             }
 
         }
