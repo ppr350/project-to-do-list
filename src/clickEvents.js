@@ -47,16 +47,18 @@ function clickedOnTaskSection(e) {
             // console.log(item.nextElementSibling.childNodes[1].classList)
             const itemClass = item.nextElementSibling.childNodes[1]
             console.log(itemClass.value)
+            if (myProjectTasks.lastElementChild.children[1].children[0].readOnly == false) {
+                myProjectTasks.lastElementChild.remove()
+            }
             items.forEach(item => {
                 // console.log(item)
                 if (item.id == itemClass.classList) {
 
                     for (let i = 0; i < item.subItem.length; i++) {
-                        // console.log(typeof(item.id))
+
                         if (item.subItem[i].name == itemClass.value) {
                             console.log(item.subItem[i])
-                            // console.log(item.id)
-                            // item.subItem[i].isComplete = true
+
                             item.subItem[i].isComplete = !item.subItem[i].isComplete
                             toLocalStorage()
                         }
@@ -70,28 +72,27 @@ function clickedOnTaskSection(e) {
     } else if (document.getElementsByClassName('active').length !== 0) {
         console.log('active project available');
         const projectName = document.querySelectorAll('.active')[0].children[1]
-        // console.log(projectName.innerHTML);
 
         const textArea = document.querySelectorAll('.task-textarea')
         const lastTaskIsReadOnly = myProjectTasks.lastElementChild.children[1].children[0]
 
-
-        console.log(projectName) // currently active project
-        // console.log(textArea) // full task textarea
-        console.log(`Clicked task is ${item.value}.`) // clicked item
-        if (item.nodeName != 'TEXTAREA') {
+        console.log(`Clicked task is ${item.value}.`)
+        if (item.nodeName != 'TEXTAREA' && !item.matches('[type="checkbox"]')) {
             if (lastTaskIsReadOnly.readOnly == false && lastTaskIsReadOnly.value == '') {
                 console.log(`The last textarea in tasks section is empty.`)
+                const firstTaskIsReadOnly = myProjectTasks.firstElementChild.children[1].children[0]
+                if (firstTaskIsReadOnly.readOnly == true) {
+                    lastTaskIsReadOnly.parentElement.parentElement.remove()
+                }
             } else if (lastTaskIsReadOnly.readOnly == true && projectName.previousElementSibling.checked != true) {
                 console.log(`The last textearea readonly status is ${lastTaskIsReadOnly.readOnly}, which means it has value in it. Therefore a new textarea is generated.`)
                 generateTask(projectName, '')
+                console.log(projectName)
             } else if (lastTaskIsReadOnly.value != '' && projectName.previousElementSibling.checked != true) {
                 generateTask(projectName, '')
             }
 
         } else if (item.nodeName == 'TEXTAREA') {
-            // if (document.activeElement != item) document.activeElement.blur();
-            // const lastTaskIsReadOnly = myProjectTasks.lastElementChild.children[1].children[0]
             console.log(`The last task is ${lastTaskIsReadOnly.value}.`)
             const allTextArea = document.querySelectorAll('.task-textarea')
             allTextArea.forEach(textArea => {
@@ -104,10 +105,6 @@ function clickedOnTaskSection(e) {
                 console.log(item.value, taskContainer.lastElementChild.children[1].children[0])
                 console.log(taskContainer.lastElementChild)
 
-                // if (item.value == taskContainer.lastElementChild.children[1].children[0].value) {
-                //     console.log('clicked on the last element')                  
-                //     return
-                // } else 
                 if (item.value != taskContainer.lastElementChild.children[1].children[0].value) {
                     item.removeAttribute('readonly');
                     console.log('not the last element')
@@ -154,6 +151,7 @@ function clickedOnTaskSection(e) {
         }
     } else {
         console.log('no active project')
+        console.log(e)
     }
 }
 

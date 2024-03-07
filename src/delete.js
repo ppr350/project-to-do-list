@@ -1,5 +1,5 @@
 import { saveTask, loadTask } from "./memory";
-import { toLocalStorage, items } from "./storage";
+import { toLocalStorage, items, reloadPage } from "./storage";
 
 function generateProjectDeleteButton(project) {
     const btn = document.createElement('BUTTON')
@@ -14,15 +14,28 @@ function generateProjectDeleteButton(project) {
 }
 
 function generateTaskDeleteButton(task) {
-
+    const btn = document.createElement('BUTTON')
+    btn.classList.add('delete-task')
+    const btnText = document.createTextNode('X')
+    btn.appendChild(btnText)
+    task.prepend(btn)
+    btn.addEventListener('click', function(e) {
+        e.preventDefault()
+        deleteTask(btn.parentElement)
+    })
 }
 
 function deleteProject(project) {
-    console.log(project)
-    console.log(`delete ${project}.`)
+    items.forEach(item => {
+        console.log(item)
+        if (item.name == project.children[1].innerText) {
 
-    project.remove()
-    toLocalStorage()
+            const index = items.indexOf(item)
+            items.splice(index,1)
+            toLocalStorage()
+            reloadPage()
+        }
+    })
 }
 
 function deleteTask(task) {

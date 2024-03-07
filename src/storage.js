@@ -1,6 +1,6 @@
 import { forEach, indexOf, nth, templateSettings } from "lodash";
 import { projectTemplate, displayProjects, myProjectTasks } from "./index";
-import { generateProjectDeleteButton } from "./delete"
+import { generateProjectDeleteButton, generateTaskDeleteButton } from "./delete"
 
 let items = JSON.parse(localStorage.getItem('todolist')) || [];
 

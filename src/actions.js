@@ -1,8 +1,8 @@
 import { forEach, indexOf, nth, templateSettings } from "lodash";
-import { toLocalStorage, items } from "./storage";
+import { toLocalStorage, items, reloadPage, fromLocalStorage } from "./storage";
 import { taskTemplate, myProjectTasks, } from "./index";
 import { saveTask, loadTask } from "./memory";
-import { generateProjectDeleteButton } from "./delete"
+import { generateProjectDeleteButton, generateTaskDeleteButton } from "./delete"
 
 function activateProject(targetProject) {
     const projects = document.querySelectorAll('.project-item')
@@ -70,10 +70,16 @@ function generateTask(projectName, item) {
         }
         console.log(index)
         item.addEventListener('keydown', function(e) {
+            console.log(item.value)
+            if (e.keyCode == 13 && item.value.length == 1) {
+                e.preventDefault();
+                e.stopImmediatePropagation()
+                console.log(item.parentElement.parentElement)
+                item.parentElement.parentElement.remove()
+                toLocalStorage()
+            }
 
-        // let enterPressed = false
-
-            if (e.keyCode == 13 && item.value != '') {
+            else if (e.keyCode == 13 && item.value != '') {
                 e.preventDefault();
                 e.stopImmediatePropagation()
 
@@ -90,6 +96,7 @@ function generateTask(projectName, item) {
                     item.setAttribute('readonly', 'true');
                     item.blur()
                     console.log(item)
+                    
             }
         }, true)
 
@@ -109,6 +116,7 @@ function generateTask(projectName, item) {
                     textArea.setAttribute('readonly', 'true');
                     saveTask(projectName, textArea.value)
                     textArea.blur()
+                    // loadTask(projectName)
                 }
             })
         } else if (item.readOnly == true) {

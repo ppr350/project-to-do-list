@@ -1,6 +1,7 @@
 import { toLocalStorage, items } from "./storage";
 import { taskTemplate, myProjectTasks } from "./index";
 import { generateTask } from "./actions"
+import { generateProjectDeleteButton, generateTaskDeleteButton } from "./delete";
 
 function saveProject(newItemFromUser) {
     let newItem = {};
@@ -57,6 +58,8 @@ function loadTask(activeProject) {
                     textArea.classList = task.className;
                     textArea.setAttribute('readonly', 'true');
                     task.isComplete == true ? taskCheckbox.checked = true : taskCheckbox.checked = false
+
+                    // generateTaskDeleteButton(taskItem)
                     
 
                     myProjectTasks.appendChild(taskItem);
