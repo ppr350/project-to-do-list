@@ -1,6 +1,7 @@
 import { forEach, indexOf, nth, templateSettings } from "lodash";
 import { projectTemplate, displayProjects, myProjectTasks } from "./index";
 import { generateProjectDeleteButton, generateTaskDeleteButton } from "./delete"
+import { generateInfoButton } from "./moreInfo";
 
 let items = JSON.parse(localStorage.getItem('todolist')) || [];
 
@@ -17,6 +18,8 @@ function fromLocalStorage(itemsInLocalStorage) {
             projectCheckBox.checked = itemsInLocalStorage[i].isComplete == false ? false : true
 
             generateProjectDeleteButton(projectLabel.parentElement)
+            generateInfoButton(projectLabel.parentElement)
+            
             
             projectLabel.append(itemsInLocalStorage[i].name);
             displayProjects.appendChild(projectElement);

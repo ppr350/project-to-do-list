@@ -3,9 +3,17 @@ import { fromLocalStorage } from "./storage";
 import { clickedOnProjectSection, clickedOnTaskSection } from "./clickEvents";
 import { changeLanguage } from './language';
 import { saveProject } from './memory';
-import { deleteProject, deleteTask, generateProjectDeleteButton, generateTaskDeleteButton } from './delete';
-import { closestIndexTo } from 'date-fns';
-import { generateTask } from './actions';
+// import { deleteProject, deleteTask, generateProjectDeleteButton, generateTaskDeleteButton } from './delete';
+// import { closestIndexTo } from 'date-fns';
+// import { generateTask } from './actions';
+
+// DIALOG
+const
+    infoDialog = document.querySelector('#get-info-dialog'),
+    projectDescription = document.querySelector('#description'),
+    projectDueDate = document.querySelector('#due-date'),
+    priorityButtons = document.querySelectorAll('input[name="priority"]'),
+    doneButton = document.querySelector('#done-button')
 
 const userInput = document.querySelector('#user-input-project')
 const submitProjectButton = document.querySelector('#submit-project-btn')
@@ -16,7 +24,6 @@ const checkBox = document.querySelectorAll('.checkbox')
 const sidebarContainer = document.querySelector('.sidebar-section')
 const myProjectTasks = document.querySelector('.my-project-tasks')
 const taskSection = document.querySelector('#task-section')
-const deleteProjectButton = document.getElementsByClassName('.delete-project')
 
 // display language related //
 const chooseGaeilge = document.querySelector('#gaeilge')
@@ -49,4 +56,4 @@ function startUp() {
 }
 startUp();
 
-export { userInput, submitProjectButton, displayProjects, projectTemplate, taskTemplate, checkBox, sidebarContainer, chooseGaeilge, chooseEnglish, title, myProjects, myProjectTasks, myTasksTitle }
+export { userInput, submitProjectButton, displayProjects, projectTemplate, taskTemplate, checkBox, sidebarContainer, chooseGaeilge, chooseEnglish, title, myProjects, myProjectTasks, myTasksTitle, infoDialog, projectDescription, projectDueDate, priorityButtons, doneButton }

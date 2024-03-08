@@ -61,6 +61,49 @@
         <div id=""></div>
     </template>
 
+    <div id="dialog-container">
+        <dialog id="get-info-dialog" class="dialog">
+            <form action="" method="dialog" id="form" name="get-info">
+                <fieldset>
+                    <p id="info-title">PROJECT INFO</p>
+                    <p id="description-section">
+                        <label for="description">DESCRIPTION</label>
+                        <input
+                            type="text"
+                            id="description"
+                            name="description"
+                            >
+                    </p>
+                    <p id="due-date-section">
+                        <label for="due-date">DUE DATE</label>
+                        <input
+                            type="date"
+                            id="due-date"
+                            name="due-date"
+                            >
+                    </p>
+                    <p id="priority-section">
+                        <p id="priority">PRIORITY</p>
+                        <input type="radio" id="low-priority" name="priority" value="low">
+                        <label for="low-priority">LOW</label>
+                        <input type="radio" id="medium-priority" name="priority" value="medium">
+                        <label for="medium-priority">MEDIUM</label>
+                        <input type="radio" id="high-priority" name="priority" value="high">
+                        <label for="high-priority">HIGH</label>
+                    </p>
+                    <div id="add-info">
+                        <button
+                            class="button"
+                            id="done-button"
+                            type="submit">DONE</button>
+                    </div>
+
+                </fieldset>
+            </form>
+        </dialog>
+    </div>
+
+
 
 </body>
 </html>
