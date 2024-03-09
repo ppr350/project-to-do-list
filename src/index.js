@@ -15,22 +15,34 @@ const
     priorityButtons = document.querySelectorAll('input[name="priority"]'),
     doneButton = document.querySelector('#done-button')
 
-const userInput = document.querySelector('#user-input-project')
-const submitProjectButton = document.querySelector('#submit-project-btn')
-const displayProjects = document.querySelector('#projects')
-const projectTemplate = document.querySelector('#project-template')
-const taskTemplate = document.querySelector('#task-template')
-const checkBox = document.querySelectorAll('.checkbox')
-const sidebarContainer = document.querySelector('.sidebar-section')
-const myProjectTasks = document.querySelector('.my-project-tasks')
-const taskSection = document.querySelector('#task-section')
+const
+    userInput = document.querySelector('#user-input-project'),
+    submitProjectButton = document.querySelector('#submit-project-btn'),
+    displayProjects = document.querySelector('#projects'),
+    projectTemplate = document.querySelector('#project-template'),
+    taskTemplate = document.querySelector('#task-template'),
+    infoTemplate = document.querySelector('#info-template'),
+    checkBox = document.querySelectorAll('.checkbox'),
+    sidebarContainer = document.querySelector('.sidebar-section'),
+    myProjectTasks = document.querySelector('.my-project-tasks'),
+    taskSection = document.querySelector('#task-section')
 
 // display language related //
-const chooseGaeilge = document.querySelector('#gaeilge')
-const chooseEnglish = document.querySelector('#english')
-const title = document.querySelector('.title')
-const myProjects = document.querySelector('.my-projects')
-const myTasksTitle = document.querySelector('.my-tasks-title')
+const
+    chooseGaeilge = document.querySelector('#gaeilge'),
+    chooseEnglish = document.querySelector('#english'),
+    title = document.querySelector('.title'),
+    myProjects = document.querySelector('.my-projects'),
+    myTasksTitle = document.querySelector('.my-tasks-title'),
+    projectInfo = document.querySelector('#info-title'),
+    description = document.querySelector('#description-section').firstElementChild,
+    dueDate = document.querySelector('#due-date-section').firstElementChild,
+    priority = document.querySelector('#priority'),
+    lowPriority = document.querySelector('#low-priority').nextElementSibling,
+    mediumPriority = document.querySelector('#medium-priority').nextElementSibling,
+    highPriority = document.querySelector('#high-priority').nextElementSibling,
+    infoDoneButton = document.querySelector('#done-button')
+
 
 
 function startUp() {
@@ -56,4 +68,4 @@ function startUp() {
 }
 startUp();
 
-export { userInput, submitProjectButton, displayProjects, projectTemplate, taskTemplate, checkBox, sidebarContainer, chooseGaeilge, chooseEnglish, title, myProjects, myProjectTasks, myTasksTitle, infoDialog, projectDescription, projectDueDate, priorityButtons, doneButton }
+export { userInput, submitProjectButton, displayProjects, projectTemplate, taskTemplate, infoTemplate, checkBox, sidebarContainer, chooseGaeilge, chooseEnglish, title, myProjects, myProjectTasks, myTasksTitle, infoDialog, projectDescription, projectDueDate, priorityButtons, doneButton, projectInfo, description, dueDate, priority, lowPriority, mediumPriority, highPriority, infoDoneButton }

@@ -1,6 +1,6 @@
 import { fromLocalStorage, toLocalStorage } from "./storage";
 import { clickedOnProjectSection, clickedOnTaskSection } from "./clickEvents";
-import { infoDialog, projectDescription, projectDueDate, priorityButtons, doneButton } from "./index";
+import { infoTemplate, infoDialog, projectDescription, projectDueDate, priorityButtons, doneButton } from "./index";
 
 function generateInfoButton(project) {
     const btn = document.createElement('BUTTON')
@@ -14,17 +14,17 @@ function generateInfoButton(project) {
     })
 }
 
-function getInfo() {
+function getInfo(project) {
     infoDialog.showModal();
     doneButton.addEventListener('click', function() {
 
         let getDescription
         console.log(projectDescription.value)
         getDescription = projectDescription.value
-        projectDescription.value = ''
 
         let getDate
-        console.log(projectDueDate)
+        console.log(projectDueDate.value)
+        getDate = projectDueDate.value
 
         let getPriority
         for (const priorityButton of priorityButtons) {
@@ -34,9 +34,26 @@ function getInfo() {
                 break
             }
         }
-        
     })
+    displayInfo(project, getDescription, getDate, getPriority)
 
 }
+
+function displayInfo(getDescription, getDate, getPriority, project) {
+    const infoElement = document.importNode(infoTemplate.content, true)
+    const infoArray = ['description', 'dueDate', 'priority']
+    const projectInfo = infoElement.firstElementChild
+    const inputArray = [getDescription, getDate, getPriority]
+    console.log(projectInfo)
+
+    for (let i = 0; i < infoArray.length; i++) {
+        projectInfo.children[i].innerText = infoArray[i]
+        console.log(projectInfo[i])
+    }
+    
+    
+
+}
+
 
 export { generateInfoButton }

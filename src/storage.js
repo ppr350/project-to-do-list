@@ -17,13 +17,12 @@ function fromLocalStorage(itemsInLocalStorage) {
             projectLabel.htmlFor = itemsInLocalStorage[i].id
             projectCheckBox.checked = itemsInLocalStorage[i].isComplete == false ? false : true
 
-            generateProjectDeleteButton(projectLabel.parentElement)
             generateInfoButton(projectLabel.parentElement)
-            
-            
+            generateProjectDeleteButton(projectLabel.parentElement)
+                     
             projectLabel.append(itemsInLocalStorage[i].name);
             displayProjects.appendChild(projectElement);
-            items = itemsInLocalStorage;     
+            items = itemsInLocalStorage;
         }
     }
 }

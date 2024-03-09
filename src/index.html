@@ -38,13 +38,20 @@
 
     </div>
 
-
     <template id="project-template">
         <div class="project-item">
             <input type="checkbox" class="checkbox">
             <label>
                 <span class="project-name"></span>
             </label>
+        </div>
+    </template>
+
+    <template id="info-template">
+        <div class="project-info">
+            <p class="project-description"></p>
+            <p class="project-due-date"></p>
+            <p class="project-priority"></p>
         </div>
     </template>
 
@@ -65,9 +72,9 @@
         <dialog id="get-info-dialog" class="dialog">
             <form action="" method="dialog" id="form" name="get-info">
                 <fieldset>
-                    <p id="info-title">PROJECT INFO</p>
+                    <p id="info-title">EOLAS TIONSCADAIL</p>
                     <p id="description-section">
-                        <label for="description">DESCRIPTION</label>
+                        <label for="description">CUNTAS</label>
                         <input
                             type="text"
                             id="description"
@@ -75,7 +82,7 @@
                             >
                     </p>
                     <p id="due-date-section">
-                        <label for="due-date">DUE DATE</label>
+                        <label for="due-date">DÁTA DLITE</label>
                         <input
                             type="date"
                             id="due-date"
@@ -83,19 +90,19 @@
                             >
                     </p>
                     <p id="priority-section">
-                        <p id="priority">PRIORITY</p>
+                        <p id="priority">TOSAÍOCHT</p>
                         <input type="radio" id="low-priority" name="priority" value="low">
-                        <label for="low-priority">LOW</label>
+                        <label for="low-priority">ÍSEAL</label>
                         <input type="radio" id="medium-priority" name="priority" value="medium">
-                        <label for="medium-priority">MEDIUM</label>
+                        <label for="medium-priority">MEÁNACH</label>
                         <input type="radio" id="high-priority" name="priority" value="high">
-                        <label for="high-priority">HIGH</label>
+                        <label for="high-priority">ARD</label>
                     </p>
                     <div id="add-info">
                         <button
                             class="button"
                             id="done-button"
-                            type="submit">DONE</button>
+                            type="submit">DÉANTA</button>
                     </div>
 
                 </fieldset>
