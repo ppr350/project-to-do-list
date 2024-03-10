@@ -1,6 +1,8 @@
 import { fromLocalStorage, toLocalStorage } from "./storage";
 import { clickedOnProjectSection, clickedOnTaskSection } from "./clickEvents";
 import { infoTemplate, infoDialog, projectDescription, projectDueDate, priorityButtons, doneButton } from "./index";
+import { saveTask, saveInfo } from "./memory";
+import { getDate } from "date-fns";
 
 function generateInfoButton(project) {
     const btn = document.createElement('BUTTON')
@@ -15,6 +17,9 @@ function generateInfoButton(project) {
 }
 
 function getInfo(project) {
+
+    let info = []
+
     infoDialog.showModal();
     doneButton.addEventListener('click', function() {
 
@@ -22,9 +27,9 @@ function getInfo(project) {
         console.log(projectDescription.value)
         getDescription = projectDescription.value
 
-        let getDate
+        let getDueDate
         console.log(projectDueDate.value)
-        getDate = projectDueDate.value
+        getDueDate = projectDueDate.value
 
         let getPriority
         for (const priorityButton of priorityButtons) {
@@ -34,23 +39,30 @@ function getInfo(project) {
                 break
             }
         }
+        info = [getDescription, getDueDate, getPriority]
+        console.log(info)
+        // processInfo(info, project)
+        saveInfo(project, info)
     })
-    displayInfo(project, getDescription, getDate, getPriority)
+
+
+
 
 }
 
-function displayInfo(getDescription, getDate, getPriority, project) {
+function processInfo(info, project) {
     const infoElement = document.importNode(infoTemplate.content, true)
-    const infoArray = ['description', 'dueDate', 'priority']
     const projectInfo = infoElement.firstElementChild
-    const inputArray = [getDescription, getDate, getPriority]
+    console.log(info)
     console.log(projectInfo)
 
-    for (let i = 0; i < infoArray.length; i++) {
-        projectInfo.children[i].innerText = infoArray[i]
-        console.log(projectInfo[i])
+
+    for (let i = 0; i < info.length; i++) {
+        projectInfo.children[i].innerText = info[i]
+        console.log(projectInfo.children[i])
     }
-    
+    project.appendChild(infoElement)
+    saveInfo(info, project)
     
 
 }

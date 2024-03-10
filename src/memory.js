@@ -10,6 +10,7 @@ function saveProject(newItemFromUser) {
         newItem.id = new Date().valueOf();
         newItem.isComplete = false;
         newItem.subItem = [];
+        newItem.info = [];
             
         items.push(newItem);
 
@@ -24,6 +25,22 @@ function saveProject(newItemFromUser) {
         console.log(typeof(project.children[1].htmlFor))
         if (project.children[1].htmlFor == newItem.id.toString) {
             console.log(project)
+        }
+    })
+}
+
+function saveInfo(project, info) {
+    let newInfo = {}
+    newInfo.description = info[0]
+    newInfo.dueDate = info[1]
+    newInfo.priority = info[2]
+    console.log(newInfo)
+    console.log(project.children[1])
+
+    items.forEach(item => {
+        if (item.id === parseInt(project.children[1].htmlFor)) {
+            console.log(item)
+            item.info.push(newInfo)
         }
     })
 }
@@ -73,4 +90,4 @@ function loadTask(activeProject) {
     }
 }
 
-export { saveProject, saveTask, loadTask }
+export { saveProject, saveTask, saveInfo, loadTask }
