@@ -1,7 +1,7 @@
 import { forEach, indexOf, nth, templateSettings } from "lodash";
 import { toLocalStorage, items, reloadPage, fromLocalStorage } from "./storage";
 import { taskTemplate, myProjectTasks, } from "./index";
-import { saveTask, loadTask } from "./memory";
+import { saveTask, loadTask, loadInfo } from "./memory";
 import { generateProjectDeleteButton, generateTaskDeleteButton } from "./delete"
 
 function activateProject(targetProject) {
@@ -12,6 +12,8 @@ function activateProject(targetProject) {
     targetProject.parentElement.classList.add('active');
     // generateProjectDeleteButton(targetProject)
     loadTask(targetProject)
+    loadInfo(targetProject)
+    console.log(targetProject)
 }
 
 function toggleProjectIsComplete(checkBoxItem) {

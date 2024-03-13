@@ -1,6 +1,6 @@
 import { toLocalStorage, items } from "./storage";
-import { taskTemplate, myProjectTasks } from "./index";
-import { generateTask } from "./actions"
+import { taskTemplate, myProjectTasks, infoTemplate } from "./index";
+import { activateProject, generateTask } from "./actions"
 import { generateProjectDeleteButton, generateTaskDeleteButton } from "./delete";
 
 function saveProject(newItemFromUser) {
@@ -39,9 +39,42 @@ function saveInfo(project, info) {
 
     items.forEach(item => {
         if (item.id === parseInt(project.children[1].htmlFor)) {
+            // item.info.push(newInfo)
             console.log(item)
-            item.info.push(newInfo)
+            item.info = (newInfo)
+            toLocalStorage()
         }
+    })
+
+    
+}
+
+function loadInfo(activeProject) {
+
+    const infoElement = document.importNode(infoTemplate.content, true)
+    const projectInfo = infoElement.firstElementChild
+    console.log(activeProject)
+    console.log(items)
+
+    console.log(projectInfo)
+
+    items.forEach(item => {
+        console.log(item.id)
+
+        if (item.id === parseInt(activeProject.htmlFor)) {
+            let itemInfoArray = new Array()
+            itemInfoArray[0] = item.info.description
+            itemInfoArray[1] = item.info.dueDate
+            itemInfoArray[2] = item.info.priority
+            console.log(itemInfoArray)
+            for (let i = 0; i < itemInfoArray.length; i++) {
+                if (itemInfoArray[i] !== undefined) {
+                    projectInfo.children[i].innerText = itemInfoArray[i]
+                }
+            }
+            activeProject.appendChild(infoElement)
+        }
+
     })
 }
 
@@ -90,4 +123,4 @@ function loadTask(activeProject) {
     }
 }
 
-export { saveProject, saveTask, saveInfo, loadTask }
+export { saveProject, saveInfo, loadInfo, saveTask, loadTask }

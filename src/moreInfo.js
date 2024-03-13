@@ -1,7 +1,7 @@
 import { fromLocalStorage, toLocalStorage } from "./storage";
 import { clickedOnProjectSection, clickedOnTaskSection } from "./clickEvents";
 import { infoTemplate, infoDialog, projectDescription, projectDueDate, priorityButtons, doneButton } from "./index";
-import { saveTask, saveInfo } from "./memory";
+import { saveTask, saveInfo, loadInfo } from "./memory";
 import { getDate } from "date-fns";
 
 function generateInfoButton(project) {
@@ -26,11 +26,11 @@ function getInfo(project) {
         let getDescription
         console.log(projectDescription.value)
         getDescription = projectDescription.value
-
+        
         let getDueDate
         console.log(projectDueDate.value)
         getDueDate = projectDueDate.value
-
+        
         let getPriority
         for (const priorityButton of priorityButtons) {
             if (priorityButton.checked) {
@@ -40,32 +40,13 @@ function getInfo(project) {
             }
         }
         info = [getDescription, getDueDate, getPriority]
-        console.log(info)
-        // processInfo(info, project)
         saveInfo(project, info)
+        projectDescription.value = ''
+        projectDueDate.value = ''
+        for (let i = 0; i < priorityButtons.length; i++) {
+            priorityButtons[i].checked = false
+        }
     })
-
-
-
-
 }
 
-function processInfo(info, project) {
-    const infoElement = document.importNode(infoTemplate.content, true)
-    const projectInfo = infoElement.firstElementChild
-    console.log(info)
-    console.log(projectInfo)
-
-
-    for (let i = 0; i < info.length; i++) {
-        projectInfo.children[i].innerText = info[i]
-        console.log(projectInfo.children[i])
-    }
-    project.appendChild(infoElement)
-    saveInfo(info, project)
-    
-
-}
-
-
-export { generateInfoButton }
+export { generateInfoButton, getInfo }

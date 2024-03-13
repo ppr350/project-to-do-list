@@ -27,6 +27,7 @@ const
     myProjectTasks = document.querySelector('.my-project-tasks'),
     taskSection = document.querySelector('#task-section')
 
+
 // display language related //
 const
     chooseGaeilge = document.querySelector('#gaeilge'),
