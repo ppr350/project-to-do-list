@@ -2,7 +2,8 @@ import './style.css';
 import { fromLocalStorage } from "./storage";
 import { clickedOnProjectSection, clickedOnTaskSection } from "./clickEvents";
 import { changeLanguage } from './language';
-import { saveProject } from './memory';
+import { saveProject } from './memory'
+
 // import { deleteProject, deleteTask, generateProjectDeleteButton, generateTaskDeleteButton } from './delete';
 // import { closestIndexTo } from 'date-fns';
 // import { generateTask } from './actions';

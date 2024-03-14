@@ -1,5 +1,5 @@
 import { toLocalStorage, items } from "./storage";
-import { taskTemplate, myProjectTasks, infoTemplate } from "./index";
+import { taskTemplate, myProjectTasks, infoTemplate, displayProjects, myProjects } from "./index";
 import { activateProject, generateTask } from "./actions"
 import { generateProjectDeleteButton, generateTaskDeleteButton } from "./delete";
 
@@ -45,23 +45,52 @@ function saveInfo(project, info) {
             toLocalStorage()
         }
     })
-
-    
 }
 
 function loadInfo(activeProject) {
 
-    const infoElement = document.importNode(infoTemplate.content, true)
-    const projectInfo = infoElement.firstElementChild
-    console.log(activeProject)
-    console.log(items)
+    // DOM
+    // const projectItems = document.querySelectorAll('.project-item')
+    // console.log(projectItems)
+    // for (let i = 0; i < projectItems.length; i++) {
+    //     // if (projectContainer.children[i].contains('.project-info')) {
+    //     //     console.log('found existing info')
+    //     // }
+    //     console.log(projectItems[i].children[1])
+    //     const project = projectItems[i].children[1]
+    //     if (project.children.length > 2) {
+    //         console.log('found existing info')
+            
+    //         // let projectInfo = projectItems[i].getElementsByClassName('project-info')
+    //         // console.log(projectInfo.parentElement)
+    //         // console.log(projectItems[i].getElementsByClassName('project-info'))
+    //         // projectItems[i].querySelectorAll('.project-info').remove()
+    //         project.removeChild(children[1])
+    //     }
+    // }
+    const projects = document.querySelectorAll('.project-name')
+    Array.from(projects).forEach(project => {
+        if (project.nextElementSibling) {
+            let sibling = project.nextElementSibling
+            let parent = project.parentElement
 
-    console.log(projectInfo)
+            project.nextElementSibling.remove()
+        }
+    })
+    
 
+    // localStorage
     items.forEach(item => {
         console.log(item.id)
 
+
         if (item.id === parseInt(activeProject.htmlFor)) {
+
+            const infoElement = document.importNode(infoTemplate.content, true)
+            const projectInfo = infoElement.firstElementChild
+            console.log(activeProject)
+
+            console.log(projectInfo)
             let itemInfoArray = new Array()
             itemInfoArray[0] = item.info.description
             itemInfoArray[1] = item.info.dueDate

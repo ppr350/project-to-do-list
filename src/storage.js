@@ -2,6 +2,7 @@ import { forEach, indexOf, nth, templateSettings } from "lodash";
 import { projectTemplate, displayProjects, myProjectTasks } from "./index";
 import { generateProjectDeleteButton, generateTaskDeleteButton } from "./delete"
 import { generateInfoButton } from "./moreInfo";
+import { loadInfo } from "./memory";
 
 let items = JSON.parse(localStorage.getItem('todolist')) || [];
 
@@ -17,11 +18,18 @@ function fromLocalStorage(itemsInLocalStorage) {
             projectLabel.htmlFor = itemsInLocalStorage[i].id
             projectCheckBox.checked = itemsInLocalStorage[i].isComplete == false ? false : true
 
+            // loadInfo(projectLabel.htmlFor)
+            
+
             generateInfoButton(projectLabel.parentElement)
             generateProjectDeleteButton(projectLabel.parentElement)
                      
             projectLabel.append(itemsInLocalStorage[i].name);
             displayProjects.appendChild(projectElement);
+
+            // loadInfo(parseInt(projectLabel.htmlFor))
+            // console.log(parseInt(projectLabel.htmlFor))
+
             items = itemsInLocalStorage;
         }
     }

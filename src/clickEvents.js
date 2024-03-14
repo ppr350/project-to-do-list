@@ -2,12 +2,14 @@ import { toLocalStorage, items } from "./storage"
 import { activateProject, toggleProjectIsComplete, generateTask } from "./actions"
 import { myProjectTasks } from "./index"
 import { last } from "lodash";
+import { loadInfo } from "./memory";
 
 function clickedOnProjectSection(item) {
     console.log(`the clicked item is a project element inside the 'projects' div`)
     if (item.matches('[type="checkbox"]')) {
 
         myProjectTasks.innerHTML = '';
+
         activateProject(item.nextElementSibling)
         toggleProjectIsComplete(item);
         console.log(`and it is a checkbox`)
@@ -20,10 +22,21 @@ function clickedOnProjectSection(item) {
     } else if (item.parentElement.classList.contains('project-item')) {
         if (item.parentElement.classList.contains('active')) {
             console.log('this project is already active')
+            console.log(item.children.length > 1)
+            if (item.children.length > 1) {
+                let firstChild = item.querySelector('.project-name')
+                firstChild.nextElementSibling.remove()
+            } else if (item.children.length == 1) {
+                loadInfo(item)
+            }
         } else {
             myProjectTasks.innerHTML = '';
+            console.log(document.querySelectorAll('.project-name'))
+            if (document.querySelectorAll('.project-name').nextElementSibling) {
+                console.log(document.querySelectorAll('.project-name').nextElementSibling)
+                document.querySelectorAll('.project-name').nextElementSibling.remove()
+            }
             activateProject(item);
-            // console.log(`and it is a project, it has an '${item.childNodes[1].classList}' class as well as an 'active' class`)
         }
     } else {
         console.log(`it is other items in this container`)
