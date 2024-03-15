@@ -13,8 +13,6 @@ function clickedOnProjectSection(item) {
         activateProject(item.nextElementSibling)
         toggleProjectIsComplete(item);
         console.log(`and it is a checkbox`)
-
-        // show delete option //
         return;
 
     } else if (item.classList.contains('delete-project')) {
@@ -27,6 +25,7 @@ function clickedOnProjectSection(item) {
                 let firstChild = item.querySelector('.project-name')
                 firstChild.nextElementSibling.remove()
             } else if (item.children.length == 1) {
+                console.log(item.children.length)
                 loadInfo(item)
             }
         } else {
@@ -37,6 +36,7 @@ function clickedOnProjectSection(item) {
                 document.querySelectorAll('.project-name').nextElementSibling.remove()
             }
             activateProject(item);
+            loadInfo(item)
         }
     } else {
         console.log(`it is other items in this container`)

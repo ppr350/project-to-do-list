@@ -1,5 +1,5 @@
 import { saveTask, loadTask } from "./memory";
-import { toLocalStorage, items, reloadPage } from "./storage";
+import { fromLocalStorage, toLocalStorage, items, reloadPage } from "./storage";
 
 function generateProjectDeleteButton(project) {
     const btn = document.createElement('BUTTON')
@@ -33,7 +33,7 @@ function deleteProject(project) {
             const index = items.indexOf(item)
             items.splice(index,1)
             toLocalStorage()
-            reloadPage()
+            fromLocalStorage()
         }
     })
 }

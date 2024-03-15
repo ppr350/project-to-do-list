@@ -30,6 +30,7 @@ function saveProject(newItemFromUser) {
 }
 
 function saveInfo(project, info) {
+    console.log(project)
     let newInfo = {}
     newInfo.description = info[0]
     newInfo.dueDate = info[1]
@@ -39,35 +40,17 @@ function saveInfo(project, info) {
 
     items.forEach(item => {
         if (item.id === parseInt(project.children[1].htmlFor)) {
-            // item.info.push(newInfo)
             console.log(item)
             item.info = (newInfo)
             toLocalStorage()
         }
     })
+
 }
 
 function loadInfo(activeProject) {
 
     // DOM
-    // const projectItems = document.querySelectorAll('.project-item')
-    // console.log(projectItems)
-    // for (let i = 0; i < projectItems.length; i++) {
-    //     // if (projectContainer.children[i].contains('.project-info')) {
-    //     //     console.log('found existing info')
-    //     // }
-    //     console.log(projectItems[i].children[1])
-    //     const project = projectItems[i].children[1]
-    //     if (project.children.length > 2) {
-    //         console.log('found existing info')
-            
-    //         // let projectInfo = projectItems[i].getElementsByClassName('project-info')
-    //         // console.log(projectInfo.parentElement)
-    //         // console.log(projectItems[i].getElementsByClassName('project-info'))
-    //         // projectItems[i].querySelectorAll('.project-info').remove()
-    //         project.removeChild(children[1])
-    //     }
-    // }
     const projects = document.querySelectorAll('.project-name')
     Array.from(projects).forEach(project => {
         if (project.nextElementSibling) {
@@ -78,7 +61,6 @@ function loadInfo(activeProject) {
         }
     })
     
-
     // localStorage
     items.forEach(item => {
         console.log(item.id)
@@ -97,13 +79,15 @@ function loadInfo(activeProject) {
             itemInfoArray[2] = item.info.priority
             console.log(itemInfoArray)
             for (let i = 0; i < itemInfoArray.length; i++) {
-                if (itemInfoArray[i] !== undefined) {
+                if (itemInfoArray[i] !== undefined || itemInfoArray[i] != null) {
                     projectInfo.children[i].innerText = itemInfoArray[i]
+                    
                 }
+                
             }
             activeProject.appendChild(infoElement)
+            
         }
-
     })
 }
 

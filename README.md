@@ -1,16 +1,12 @@
-# project-to-do-list
-# beta 1.1.3
+# Project To Do List
+# Beta 1.2
 
-### Bug fixed
-- Added blur() method on 2 instance of eventListeners. Otherwise if a second 'Enter' was detected task will be duplicated
+### Updates on beta 14 (15th March 2024)
+- Added Project Info function
+- Ironed out known bugs
 
-### updates on beta 1.1.3 (26th February 2024)
-1. Following advice from Jonathan || saltypirate10 on The Odin Project's discord's Javascript-help-1, The project is now more modular.
-    - index.js handles most HTML DOM variable objects on startUp
-    - clickEvents.js listens to inputs and process them accordingly
-    - storage.js handles localStorage
-    - action.js generates, manipulate project and task
-    - memory.js synchronises items between page and localStorage
+### Future update(s):
+- time related functions (days remaining, clock, etc...)
 
 ## App Logic
 
@@ -26,22 +22,33 @@
     >
     create a new empty array to store data
 
-### add eventListener to project container :
+### Add eventListener to display language :
 >
 if
+    user clicks "Gaeilge" :
+    >>
+    display Irish languge on page,
+
+else if
+    user clicks "English" :
+    >>
+    display English language on page,
+
+### Add eventListener to project container :
+>
+    if
     user clicks on project container
     >>
     trigger project container’s eventListener
-    >>
+    
     eventListener determines what part of project container is clicked
-    >>
         if
         it’s a checkbox :
         >>>
         return Boolean value ‘true’ or false
 
         else if
-        If it’s a project name :
+        it’s a project name :
         >>>
         remove ‘active’ class on project in the same level if there is any,
 
@@ -49,9 +56,22 @@ if
 
         add an “active” class on that project name,
 
+        display project info
+            if
+            the project has info displayed at the time (description, date, priority) :
+            >>>>
+            hide the project info,
+
+            else if
+            the project does not have info at the time:
+            >>>>
+            show the project info,
+        
+        remove project info on previously active project,
+
         highlight the project name with CSS,
 
-        display the project’s task section 
+        display the project’s task section,
         >>>>
             if
             the task section is empty :
@@ -88,9 +108,9 @@ if
                 if
                 the existing task’s parent project is not the same project that the user has just clicked :
                 >>>>>>>
-                remove all existing tasks
+                remove all existing tasks,
 
-                populate the empty task section with task that belongs to the project that was just clicked 
+                populate the empty task section with task that belongs to the project that was just clicked,
 
                 if
                 user clicks on an existing readonly textarea with value :
@@ -127,44 +147,100 @@ if
                     update the checked state to localStorage,
 
                 if
-                user clicks on the priority radio button :
-                >>>>>>>
-                options are “none”, “low”, “medium” and “high”
-
-                if
-                user clicks on the description textarea :
-                >>>>>>>
-                remove “readonly” attribute on that description textarea to enable user edit the description,
-
-                listen to user’s new value,
-
-                update that description textarea with the new value,
-
-                add “readonly” attribute to the description textarea,
-
-                update the new value to localStorage,
-
-                if
-                user clicks on due date:
-                >>>>>>>
-                let user modify due date
-
-                if
                 user clicks on an empty space inside the task section :
                 >>>>>>>
                     if
                     task section does not contains empty textarea :
                     >>>>>>>>
-                    generate a new textarea for new task
+                    generate a new textarea for new task,
 
                     else if
                     task section contains empty textarea :
                     >>>>>>>>
                     Do nothing 
 
+        if
+        user press the "x" button :
+        
+        it deletes the project and all its tasks and info,
+
+        if
+        user press the "i" button :
+
+        A modal shows up :
+        >>>>>>
+            if
+            user clicks on the priority radio button :
+            >>>>>>>
+            options are “low”, “medium” and “high”,
+
+            if
+            user clicks on the description :
+            >>>>>>>
+            update the new value to localStorage,
+
+            if
+            user clicks on due date:
+            >>>>>>>
+            let user modify due date,
+
+            after submission, the project info should displays below the active project item,
+
     else
     >>
     do nothing
+
+### Add eventListener to task container :
+
+>
+    if 
+    user clicks on task container :
+    >
+        if
+        there is no active project
+        >>
+        Do nothing
+        
+        else if
+        there is an active project
+        >>
+            if
+            there is no task yet :
+            >>>
+            add a new taskarea,
+
+            else if
+            there is an empty taskarea :
+            >>>
+            remove the empty taskarea,
+
+            else if
+            there is existing task(s)
+            >>>
+                if
+                user clicks on the empty area :
+                >>>>
+                Genereate a new taskarea
+
+                else if
+                user clicks on an existing task :
+                >>>>
+                remove new empty taskarea if there is any,
+
+                remove "readonly" attribute on that taskarea and let user edit the task,
+
+                else if
+                user clicks on a checkbox :
+                >>>>
+                    if
+                    checked :
+                    >>>>>
+                    add linethrough on the textarea nbext to it,
+
+                    else if
+                    unchecked :
+                    >>>>>
+                    remove linethrough on the textarea next to it,
 
 
 ### add eventListener to project input button :
