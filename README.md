@@ -1,7 +1,7 @@
 # Project To Do List
 # Beta 1.2
 
-### Updates on beta 14 (15th March 2024)
+### Updates on beta 1.2 (15th March 2024)
 - Added Project Info function
 - Ironed out known bugs
 
@@ -24,12 +24,12 @@
 
 ### Add eventListener to display language :
 >
-if
+    if
     user clicks "Gaeilge" :
     >>
     display Irish languge on page,
 
-else if
+    else if
     user clicks "English" :
     >>
     display English language on page,
@@ -45,7 +45,18 @@ else if
         if
         it’s a checkbox :
         >>>
-        return Boolean value ‘true’ or false
+            if
+            checked
+            >>>>
+            add "isComplete" class to the project and its tasks,
+
+            add linethrough to the project and its tasks,
+            if
+            unchecked
+            >>>>
+            remove "isComplete" class to the project and its tasks,
+
+            remove linethrough to the project and its tasks,
 
         else if
         it’s a project name :
@@ -66,6 +77,11 @@ else if
             the project does not have info at the time:
             >>>>
             show the project info,
+
+                if
+                there is info on display at the time from another project,
+                >>>>>
+                collapse info on another project
         
         remove project info on previously active project,
 
@@ -161,27 +177,27 @@ else if
 
         if
         user press the "x" button :
-        
+        >>>>
         it deletes the project and all its tasks and info,
 
         if
         user press the "i" button :
-
+        >>>>
         A modal shows up :
-        >>>>>>
+            >>>>>
             if
-            user clicks on the priority radio button :
-            >>>>>>>
+            user clicks on one of the priority radio buttons :
+            >>>>>>
             options are “low”, “medium” and “high”,
 
             if
             user clicks on the description :
-            >>>>>>>
-            update the new value to localStorage,
+            >>>>>>
+            let user write description on a text type input,
 
             if
             user clicks on due date:
-            >>>>>>>
+            >>>>>>
             let user modify due date,
 
             after submission, the project info should displays below the active project item,
@@ -220,7 +236,7 @@ else if
                 if
                 user clicks on the empty area :
                 >>>>
-                Genereate a new taskarea
+                Generate a new taskarea
 
                 else if
                 user clicks on an existing task :
