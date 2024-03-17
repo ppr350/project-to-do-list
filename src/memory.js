@@ -1,9 +1,9 @@
 import { toLocalStorage, items } from "./storage";
-import { taskTemplate, myProjectTasks, infoTemplate, displayProjects, myProjects } from "./index";
-import { activateProject, generateTask } from "./actions"
-import { generateProjectDeleteButton, generateTaskDeleteButton } from "./delete";
+import { taskTemplate, myProjectTasks, infoTemplate, } from "./index";
+import { generateTask } from "./actions"
 
 function saveProject(newItemFromUser) {
+
     let newItem = {};
     if (newItemFromUser != '') {
         newItem.name = newItemFromUser;
@@ -22,15 +22,14 @@ function saveProject(newItemFromUser) {
     }
 
     projects.forEach(project => {
-        console.log(typeof(project.children[1].htmlFor))
         if (project.children[1].htmlFor == newItem.id.toString) {
-            console.log(project)
+            return
         }
     })
 }
 
 function saveInfo(project, info) {
-    console.log(project)
+
     let newInfo = {}
     newInfo.description = info[0]
     newInfo.dueDate = info[1]
@@ -54,8 +53,6 @@ function loadInfo(activeProject) {
     const projects = document.querySelectorAll('.project-name')
     Array.from(projects).forEach(project => {
         if (project.nextElementSibling) {
-            let sibling = project.nextElementSibling
-            let parent = project.parentElement
 
             project.nextElementSibling.remove()
         }
@@ -63,25 +60,22 @@ function loadInfo(activeProject) {
     
     // localStorage
     items.forEach(item => {
-        console.log(item.id)
-
 
         if (item.id === parseInt(activeProject.htmlFor)) {
 
-            const infoElement = document.importNode(infoTemplate.content, true)
-            const projectInfo = infoElement.firstElementChild
-            console.log(activeProject)
+            const
+                infoElement = document.importNode(infoTemplate.content, true),
+                projectInfo = infoElement.firstElementChild
 
-            console.log(projectInfo)
             let itemInfoArray = new Array()
+
             itemInfoArray[0] = item.info.description
             itemInfoArray[1] = item.info.dueDate
             itemInfoArray[2] = item.info.priority
-            console.log(itemInfoArray)
+
             for (let i = 0; i < itemInfoArray.length; i++) {
                 if (itemInfoArray[i] !== undefined || itemInfoArray[i] != null) {
                     projectInfo.children[i].innerText = itemInfoArray[i]
-                    
                 }
                 
             }
@@ -97,7 +91,6 @@ function saveTask(projectName, newTaskName) {
     newSubTask.name = newTaskName;
     newSubTask.className = projectName.htmlFor;
     newSubTask.isComplete = false;
-    console.log(items)
 
     items.forEach(item => {
         if (item.id === parseInt(projectName.htmlFor)) {
@@ -113,24 +106,22 @@ function loadTask(activeProject) {
         items.forEach(item => {
             if (item.id === parseInt(activeProject.htmlFor)) {
                 item.subItem.forEach(task => {
-                    const taskItem = document.importNode(taskTemplate.content, true);
-                    const textArea = taskItem.querySelector('textarea');
-                    const taskCheckbox = taskItem.querySelector('.checkbox')
+                    const
+                        taskItem = document.importNode(taskTemplate.content, true),
+                        textArea = taskItem.querySelector('textarea'),
+                        taskCheckbox = taskItem.querySelector('.checkbox')
 
                     textArea.value = task.name;
                     textArea.classList = task.className;
                     textArea.setAttribute('readonly', 'true');
                     task.isComplete == true ? taskCheckbox.checked = true : taskCheckbox.checked = false
 
-                    // generateTaskDeleteButton(taskItem)
-                    
-
                     myProjectTasks.appendChild(taskItem);
                 })
             }
         })
     } if (myProjectTasks.children.length < 1) {
-        console.log('the task area is empty so a new textarea is created')
+        
         const projectName = document.querySelectorAll('.active')[0].children[1]
         generateTask(projectName, '')
     }

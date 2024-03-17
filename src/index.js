@@ -4,10 +4,6 @@ import { clickedOnProjectSection, clickedOnTaskSection } from "./clickEvents";
 import { changeLanguage } from './language';
 import { saveProject } from './memory'
 
-// import { deleteProject, deleteTask, generateProjectDeleteButton, generateTaskDeleteButton } from './delete';
-// import { closestIndexTo } from 'date-fns';
-// import { generateTask } from './actions';
-
 // DIALOG
 const
     infoDialog = document.querySelector('#get-info-dialog'),
@@ -16,6 +12,7 @@ const
     priorityButtons = document.querySelectorAll('input[name="priority"]'),
     doneButton = document.querySelector('#done-button')
 
+// PROJECTS AND TASKS
 const
     userInput = document.querySelector('#user-input-project'),
     submitProjectButton = document.querySelector('#submit-project-btn'),
@@ -29,7 +26,7 @@ const
     taskSection = document.querySelector('#task-section')
 
 
-// display language related //
+// LANGUAGE //
 const
     chooseGaeilge = document.querySelector('#gaeilge'),
     chooseEnglish = document.querySelector('#english'),
@@ -45,15 +42,13 @@ const
     highPriority = document.querySelector('#high-priority').nextElementSibling,
     infoDoneButton = document.querySelector('#done-button')
 
-
-
 function startUp() {
     fromLocalStorage();
     submitProjectButton.addEventListener('click', function(e) {
         e.preventDefault();
-        saveProject(userInput.value);
+        saveProject(userInput.value)
         fromLocalStorage();
-        userInput.value = '';
+        userInput.value = ''
     })
     displayProjects.addEventListener('click', function(e) {
         clickedOnProjectSection(e.target);

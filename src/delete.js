@@ -27,7 +27,6 @@ function generateTaskDeleteButton(task) {
 
 function deleteProject(project) {
     items.forEach(item => {
-        console.log(item)
         if (item.name == project.children[1].innerText) {
 
             const index = items.indexOf(item)

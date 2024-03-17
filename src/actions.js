@@ -1,38 +1,38 @@
 import { forEach, indexOf, nth, templateSettings } from "lodash";
-import { toLocalStorage, items, reloadPage, fromLocalStorage } from "./storage";
+import { toLocalStorage, items } from "./storage";
 import { taskTemplate, myProjectTasks, } from "./index";
 import { saveTask, loadTask, loadInfo } from "./memory";
-import { generateProjectDeleteButton, generateTaskDeleteButton } from "./delete"
+
 
 function activateProject(targetProject) {
     const projects = document.querySelectorAll('.project-item')
     for (let i = 0; i < projects.length; i++) {
         projects[i].classList.remove('active');
     }
+
     targetProject.parentElement.classList.add('active');
-    // generateProjectDeleteButton(targetProject)
+
     loadTask(targetProject)
     loadInfo(targetProject)
-    console.log(targetProject)
 }
 
 function toggleProjectIsComplete(checkBoxItem) {
-    const parentElement = checkBoxItem.parentElement;
-    const completedItem = parentElement.querySelector(':nth-child(2)')
+    const
+        parentElement = checkBoxItem.parentElement,
+        completedItem = parentElement.querySelector(':nth-child(2)')
+
     items.forEach(item => {
         if (item.id == completedItem.htmlFor) {
       
             item.isComplete = !item.isComplete;
             if (item.isComplete && item.subItem != '') {
                 completedItem.classList.add('completed')
-
                 const subItem = item.subItem
                 subItem.forEach(task => {
                     task.isComplete = true                        
                 })
-
+                
                 const subTasks = document.getElementsByClassName(item.id)
-                console.log(subTasks)
                 for (let i = 0; i < subTasks.length; i++) {
                     const subTaskCheckBoxes = subTasks[i].parentElement.previousElementSibling
                     subTaskCheckBoxes.checked = true
@@ -40,22 +40,18 @@ function toggleProjectIsComplete(checkBoxItem) {
                 
             } else if (!item.isComplete) {
                 completedItem.classList.remove('completed')
-
                 const subItem = item.subItem
                 subItem.forEach(task => {
                     task.isComplete = false
                 })
 
                 const subTasks = document.getElementsByClassName(item.id)
-                console.log(subTasks)
                 for (let i = 0; i < subTasks.length; i++) {
                     const subTaskCheckBoxes = subTasks[i].parentElement.previousElementSibling
                     subTaskCheckBoxes.checked = false
                 }
 
             }
-            
-            console.log(`'isComplete' is now '${item.isComplete}'`)
         }
     })
     toLocalStorage();
@@ -64,19 +60,20 @@ function toggleProjectIsComplete(checkBoxItem) {
 function generateTask(projectName, item) {
     if (item.readOnly == true) {
         item.removeAttribute('readonly');
-        let thisItem = item.parentElement.parentElement
-        let index = 0;
+        let
+            thisItem = item.parentElement.parentElement,
+            index = 0
         while (thisItem.previousElementSibling) {
             index += 1
             thisItem = thisItem.previousElementSibling                    
         }
-        console.log(index)
+
         item.addEventListener('keydown', function(e) {
-            console.log(item.value)
+
             if (e.keyCode == 13 && item.value.length == 1) {
                 e.preventDefault();
                 e.stopImmediatePropagation()
-                console.log(item.parentElement.parentElement)
+
                 item.parentElement.parentElement.remove()
                 toLocalStorage()
             }
@@ -87,18 +84,13 @@ function generateTask(projectName, item) {
 
                 items.forEach(itemInLocalStorage => {
                         if (itemInLocalStorage.id === parseInt(projectName.htmlFor)) {
-                            console.log(itemInLocalStorage)
                             itemInLocalStorage.subItem[index].name = item.value;
-                            console.log(itemInLocalStorage.subItem[index].name)
-                            console.log(items)
-                            console.log('first level')
+
                             toLocalStorage()
                         }
                     })
                     item.setAttribute('readonly', 'true');
-                    item.blur()
-                    console.log(item)
-                    
+                    item.blur()                   
             }
         }, true)
 
@@ -106,25 +98,25 @@ function generateTask(projectName, item) {
 
         if (item.readOnly == undefined) {
 
-            const taskSection = document.importNode(taskTemplate.content, true);
-            const textArea = taskSection.querySelector('textarea');
+            const
+                taskSection = document.importNode(taskTemplate.content, true),
+                textArea = taskSection.querySelector('textarea')
 
             myProjectTasks.appendChild(taskSection);
             textArea.focus();
 
             textArea.addEventListener('keydown', function(e) {
                 if (e.keyCode == 13 && textArea.value != '' && item.readOnly !== true) {
-                    console.log(`sub task is ${textArea.value}`);
                     textArea.setAttribute('readonly', 'true');
                     saveTask(projectName, textArea.value)
                     textArea.blur()
                 }
             })
         } else if (item.readOnly == true) {
-            console.log('diagnose problem')
+            return
         }
     } else {
-        console.log('the end of code')
+            return
     }
 }
 

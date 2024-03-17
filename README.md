@@ -1,11 +1,10 @@
 # Project To Do List
-# Beta 1.2
+# Beta 1.2.1
 
-### Updates on beta 1.2 (15th March 2024)
-- Added Project Info function
-- Ironed out known bugs
+### Updates on beta 1.2.1 (17th March 2024) (Happy St. Patrick's Day!)
+- Added 'Default' project when there is no project yet
 
-### Future update(s):
+### Possible future update(s):
 - time related functions (days remaining, clock, etc...)
 
 ## App Logic
@@ -21,6 +20,8 @@
     data doesn’t exist in localStorage 
     >
     create a new empty array to store data
+    
+    create a default project called 'TO DO'
 
 ### Add eventListener to display language :
 >

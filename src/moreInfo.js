@@ -1,10 +1,9 @@
-import { fromLocalStorage, toLocalStorage } from "./storage";
-import { clickedOnProjectSection, clickedOnTaskSection } from "./clickEvents";
-import { infoTemplate, infoDialog, projectDescription, projectDueDate, priorityButtons, doneButton } from "./index";
-import { saveTask, saveInfo, loadInfo } from "./memory";
+import { infoDialog, projectDescription, projectDueDate, priorityButtons, doneButton } from "./index";
+import { saveInfo } from "./memory";
 import { getDate } from "date-fns";
 
 function generateInfoButton(project) {
+    
     const btn = document.createElement('BUTTON')
     btn.classList.add('add-info')
     const btnText = document.createTextNode('i')
