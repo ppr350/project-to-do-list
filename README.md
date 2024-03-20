@@ -1,8 +1,8 @@
 # Project To Do List
-# Beta 1.2.1
+# Ver. 1.0
 
-### Updates on beta 1.2.1 (17th March 2024) (Happy St. Patrick's Day!)
-- Added 'Default' project when there is no project yet
+### Stable version
+- Added basic CSS, which targeted to provide a contrasty layout with miminal colours
 
 ### Possible future update(s):
 - time related functions (days remaining, clock, etc...)
