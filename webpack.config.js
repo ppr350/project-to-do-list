@@ -8,19 +8,19 @@ module.exports = {
     // devServer: {
     //     static: './dist',
     // },
-    // plugins: [
-    //     new HtmlWebpackPlugin({
-    //         title: 'Project To Do List',
-    //         template: './src/index.html',
-    //         filename: 'index.html',
-    //     })
-    // ],
-    output: {
-        filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist'),
-        // assetModuleFilename: '[name][ext]',
-        clean: true,
-    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: 'Project To Do List',
+            template: './src/index.html',
+            filename: 'index.html',
+        })
+    ],
+    // output: {
+    //     filename: '[name].bundle.js',
+    //     path: path.resolve(__dirname, 'dist'),
+    //     // assetModuleFilename: '[name][ext]',
+    //     clean: true,
+    // },
     optimization: {
         runtimeChunk: 'single',
     },
