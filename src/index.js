@@ -1,4 +1,4 @@
-import "./style.css";
+// import "./style.css";
 import { fromLocalStorage } from "./storage";
 import { clickedOnProjectSection, clickedOnTaskSection } from "./clickEvents";
 import { changeLanguage } from './language';
