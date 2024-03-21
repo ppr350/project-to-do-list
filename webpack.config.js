@@ -5,9 +5,9 @@ module.exports = {
     mode: 'development',
     entry: './src/index.js',
     devtool: 'inline-source-map',
-    // devServer: {
-    //     static: './dist',
-    // },
+    devServer: {
+        static: './dist',
+    },
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Project To Do List',
@@ -15,12 +15,12 @@ module.exports = {
             filename: 'index.html',
         })
     ],
-    // output: {
-    //     filename: '[name].bundle.js',
-    //     path: path.resolve(__dirname, 'dist'),
-    //     // assetModuleFilename: '[name][ext]',
-    //     clean: true,
-    // },
+    output: {
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+        assetModuleFilename: '[name][ext]',
+        clean: true,
+    },
     optimization: {
         runtimeChunk: 'single',
     },
